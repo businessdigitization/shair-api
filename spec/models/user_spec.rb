@@ -9,9 +9,9 @@ RSpec.describe User do
       expect(user.valid?).to eq(false )
     end
 
-     it "is not valid without email" do
+     it "is not valid without email" do 
       user.email = nil
-      expect(user.valid?).to eq(false)
+      expect(user.valid?).to eq(false )
     end
   end
 end
