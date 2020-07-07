@@ -1,6 +1,6 @@
 name: Rubocop Linter Action
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   greeting:
