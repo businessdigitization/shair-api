@@ -1,5 +1,6 @@
 *.rbc
 .rspec
+spec/examples.txt
 /public/system
 /coverage/
 /spec/tmp
