@@ -1,0 +1,5 @@
+- name: Rubocop Linter Action
+  uses: andrewmcodes/rubocop-linter-action@v3.2.0
+  with:
+    # Define a path to your optional action config file.
+    action_config_path: # optional, default is .github/config/rubocop_linter_action.yml
