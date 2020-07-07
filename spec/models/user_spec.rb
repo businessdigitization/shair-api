@@ -5,8 +5,8 @@ RSpec.describe User do
     let(:user) { FactoryBot.build(:user, name: 'Faruk', email: 'faruk@gmail.com') }
 
     it 'is not valid without name' do
-      user.name = nil
-      expect(user.valid?).to eq(false)
+      user.name =nil
+      expect(user.valid?).to eq(false )
     end
 
      it "is not valid without email" do
