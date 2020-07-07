@@ -1,13 +1,15 @@
-name: Linters
+name: Rubocop
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
-  greeting:
+  build:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v1
+    - name: Rubocop Linter
     - uses: andrewmcodes/rubocop-linter-action@v3.2.0
       with:
-        action_config_path: '.github/config/rubocop_linter_action.yml'
+        action_config_path: '.github/config/rubocop_linter_config.yml'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
