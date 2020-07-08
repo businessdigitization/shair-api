@@ -18,7 +18,7 @@ rubocop_extensions:
 # Rubocop configuration file path relative to the workspace
 # Valid options: a path like 'config/.rubocop.yml'
 # Default: none, Rubocop will automatically look at '.rubocop.yml' or use it's defaults
-# rubocop_config_path: '.rubocop.yml'
+rubocop_config_path: '.rubocop.yml'
 # List of cops you would like to exclude if they are not specified in '.rubocop.yml'
 # Valid options: list of valid cops (see Rubocop documentation for cop names)
 # Default: none
