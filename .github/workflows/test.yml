@@ -9,11 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: 'Inputs: None'
-        uses: andrewmcodes/rubocop-linter-action@00583250806f1e38340b53ca6a906cacc9850472
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: 'Inputs: Version'
         uses: andrewmcodes/rubocop-linter-action@00583250806f1e38340b53ca6a906cacc9850472
         with:
