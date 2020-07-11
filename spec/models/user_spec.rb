@@ -10,7 +10,7 @@ describe 'validations' do
     end
 
         it "is not valid without email" do
-      user.email=nil
+      user.email= nil
       expect(user.valid?).to eq(false )
     end
   end
