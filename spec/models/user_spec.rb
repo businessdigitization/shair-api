@@ -15,12 +15,12 @@ RSpec.describe User do
     end
 
     describe 'email validation' do
-      it { is_expected.to allow_value('test@test.com').for(:email).on(:create) }
-      it { is_expected.not_to allow_value('invalidemailcom').for(:email).on(:create) }
-      it { is_expected.not_to allow_value('test @test.com').for(:email).on(:create) }
-      it { is_expected.not_to allow_value('tést@test.com').for(:email).on(:create) }
-      it { is_expected.not_to allow_value('däni@test.com').for(:email).on(:create) }
-      it { is_expected.not_to allow_value('test@test').for(:email).on(:create) }
+      it { is_expected.to allow_value('test@test.com').for(:email) }
+      it { is_expected.not_to allow_value('invalidemailcom').for(:email) }
+      it { is_expected.not_to allow_value('test @test.com').for(:email) }
+      it { is_expected.not_to allow_value('tést@test.com').for(:email) }
+      it { is_expected.not_to allow_value('däni@test.com').for(:email) }
+      it { is_expected.not_to allow_value('test@test').for(:email) }
     end
   end
 end
