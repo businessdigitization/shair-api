@@ -2,9 +2,11 @@ require:
   - rubocop-minitest
   - rubocop-performance
   - rubocop-rails
+Documentation:
+  Enabled: false
 
 Style/StringLiterals:
-  EnforcedStyle: single_quotes
+  EnforcedStyle: double_quotes
 
 Style/FrozenStringLiteralComment:
   Enabled: false
