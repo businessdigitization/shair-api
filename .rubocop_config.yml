@@ -49,3 +49,9 @@ Style/HashTransformValues:
 
 Style/RegexpLiteral:
   Enabled: false
+
+Style/MutableConstant:
+  Severity: warning
+
+Style/LineLength:
+  Severity: warning
