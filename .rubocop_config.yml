@@ -7,7 +7,7 @@ Style/Documentation:
   Enabled: false
 
 Style/StringLiterals:
-  EnforcedStyle: double_quotes
+  EnforcedStyle: single_quotes
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -22,4 +22,4 @@ Style/HashTransformValues:
   Enabled: true
 
 Style/RegexpLiteral:
-  EnforcedStyle: percent_r
+  EnforcedStyle: mixed
