@@ -2,7 +2,8 @@ require:
   - rubocop-minitest
   - rubocop-performance
   - rubocop-rails
-Documentation:
+
+Style/Documentation:
   Enabled: false
 
 Style/StringLiterals:
