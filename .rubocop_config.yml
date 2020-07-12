@@ -12,22 +12,22 @@ AllCops:
     - Gemfile
     - !ruby/regexp /old_and_unused\.rb$/
 
- Layout/ClassStructure:
-   ExpectedOrder:
-     - module_inclusion
-     - constants
-     - association
-     - public_attribute_macros
-     - public_delegate
-     - macros
-     - public_class_methods
-     - initializer
-     - public_methods
-     - protected_attribute_macros
-     - protected_methods
-     - private_attribute_macros
-     - private_delegate
-     - private_methods
+Layout/ClassStructure:
+  ExpectedOrder:
+    - module_inclusion
+    - constants
+    - association
+    - public_attribute_macros
+    - public_delegate
+    - macros
+    - public_class_methods
+    - initializer
+    - public_methods
+    - protected_attribute_macros
+    - protected_methods
+    - private_attribute_macros
+    - private_delegate
+    - private_methods
 
 Style/Documentation:
   Enabled: false
