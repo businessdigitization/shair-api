@@ -23,4 +23,9 @@ RSpec.describe User do
       it { is_expected.not_to allow_value('test@test').for(:email) }
     end
   end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:trips) }
+  end
+
 end

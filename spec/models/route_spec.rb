@@ -7,6 +7,10 @@ RSpec.describe Route, type: :model do
     it { is_expected.to validate_presence_of(:route_type) }
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:trips) }
+  end
+
   describe '#route_type' do
     it 'defines enum' do
       is_expected.to define_enum_for(:route_type)
