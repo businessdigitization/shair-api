@@ -7,4 +7,5 @@ class User < ApplicationRecord
 
   validates :email, format: { with: EMAIL_REGEXP }
 
+  has_many :trips
 end

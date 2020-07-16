@@ -1,10 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe Route, type: :model do
+RSpec.describe Route do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:from) }
     it { is_expected.to validate_presence_of(:to) }
     it { is_expected.to validate_presence_of(:route_type) }
+  end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:trips) }
   end
 
   describe '#route_type' do

@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_230632) do
+ActiveRecord::Schema.define(version: 2020_07_15_144628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "date_ranges", force: :cascade do |t|
+    t.date "starts_at", null: false
+    t.date "ends_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "routes", force: :cascade do |t|
     t.string "from", null: false
@@ -21,6 +28,28 @@ ActiveRecord::Schema.define(version: 2020_07_14_230632) do
     t.integer "route_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "time_ranges", force: :cascade do |t|
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "trips", force: :cascade do |t|
+    t.date "journey_date"
+    t.bigint "date_range_id"
+    t.bigint "time_range_id"
+    t.integer "status", null: false
+    t.bigint "user_id", null: false
+    t.bigint "route_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["date_range_id"], name: "index_trips_on_date_range_id"
+    t.index ["route_id"], name: "index_trips_on_route_id"
+    t.index ["time_range_id"], name: "index_trips_on_time_range_id"
+    t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
