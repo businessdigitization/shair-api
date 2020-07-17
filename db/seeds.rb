@@ -1,5 +1,2 @@
-date_range = DateRange.create(starts_at: Time.zone.today, ends_at: 1.day.after)
-time_range = TimeRange.create(starts_at: DateTime.current.change({ hour: 5 }), ends_at: DateTime.current.change({ hour: 10 }))
 user = User.create(name: 'Faruk', email: 'faruk@gmail.com')
-route = Route.create(from: 'Kuala Lumpur', to: 'Dhaka', route_type: :flight )
-trip = Trip.create(user: user, route: route, journey_time_range: time_range, status: :planning)
+trip = Trip.create(user: user,  date: Time.zone.today, departure: 'KL', destination: 'Dhaka', status: :draft)
