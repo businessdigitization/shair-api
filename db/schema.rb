@@ -15,9 +15,15 @@ ActiveRecord::Schema.define(version: 2020_07_15_144628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "places", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "trips", force: :cascade do |t|
-    t.text "departure"
-    t.text "destination"
+    t.bigint "departure_id", null: false
+    t.bigint "destination_id", null: false
     t.date "date"
     t.datetime "departure_time"
     t.datetime "arrival_time"
@@ -26,6 +32,10 @@ ActiveRecord::Schema.define(version: 2020_07_15_144628) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["date"], name: "index_trips_on_date"
+    t.index ["departure_id"], name: "index_trips_on_departure_id"
+    t.index ["destination_id"], name: "index_trips_on_destination_id"
+    t.index ["status"], name: "index_trips_on_status"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
@@ -36,4 +46,6 @@ ActiveRecord::Schema.define(version: 2020_07_15_144628) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "trips", "places", column: "departure_id"
+  add_foreign_key "trips", "places", column: "destination_id"
 end
