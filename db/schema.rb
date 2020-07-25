@@ -15,40 +15,27 @@ ActiveRecord::Schema.define(version: 2020_07_15_144628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "date_ranges", force: :cascade do |t|
-    t.date "starts_at", null: false
-    t.date "ends_at", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "routes", force: :cascade do |t|
-    t.string "from", null: false
-    t.string "to", null: false
-    t.integer "route_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "time_ranges", force: :cascade do |t|
-    t.datetime "starts_at", null: false
-    t.datetime "ends_at", null: false
+  create_table "places", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "trips", force: :cascade do |t|
-    t.date "journey_date"
-    t.bigint "date_range_id"
-    t.bigint "time_range_id"
+    t.bigint "departure_id", null: false
+    t.bigint "destination_id", null: false
+    t.date "date"
+    t.datetime "departure_time"
+    t.datetime "arrival_time"
     t.integer "status", null: false
+    t.integer "trip_type"
     t.bigint "user_id", null: false
-    t.bigint "route_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["date_range_id"], name: "index_trips_on_date_range_id"
-    t.index ["route_id"], name: "index_trips_on_route_id"
-    t.index ["time_range_id"], name: "index_trips_on_time_range_id"
+    t.index ["date"], name: "index_trips_on_date"
+    t.index ["departure_id"], name: "index_trips_on_departure_id"
+    t.index ["destination_id"], name: "index_trips_on_destination_id"
+    t.index ["status"], name: "index_trips_on_status"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
@@ -59,4 +46,6 @@ ActiveRecord::Schema.define(version: 2020_07_15_144628) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "trips", "places", column: "departure_id"
+  add_foreign_key "trips", "places", column: "destination_id"
 end
