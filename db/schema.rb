@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_15_144628) do
+ActiveRecord::Schema.define(version: 2020_07_25_132505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "packages", force: :cascade do |t|
+    t.text "description"
+    t.bigint "departure_id", null: false
+    t.bigint "destination_id", null: false
+    t.decimal "weight", precision: 10, scale: 2
+    t.integer "status", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["departure_id"], name: "index_packages_on_departure_id"
+    t.index ["destination_id"], name: "index_packages_on_destination_id"
+    t.index ["user_id"], name: "index_packages_on_user_id"
+  end
 
   create_table "places", force: :cascade do |t|
     t.string "name"
@@ -46,6 +60,8 @@ ActiveRecord::Schema.define(version: 2020_07_15_144628) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "packages", "places", column: "departure_id"
+  add_foreign_key "packages", "places", column: "destination_id"
   add_foreign_key "trips", "places", column: "departure_id"
   add_foreign_key "trips", "places", column: "destination_id"
 end

@@ -1,9 +1,9 @@
 FactoryBot.define do
-  factory :trip do
+  factory :package do
+    description { 'My Precious' }
     association :departure, factory: :place_kl
     association :destination, factory: :place_dhaka
-    date { 7.days.since }
-    status { :draft }
-    association :user, factory: :user
+    weight { 5 }
+    status { 'draft' }
   end
 end
