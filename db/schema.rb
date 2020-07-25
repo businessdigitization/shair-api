@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_25_132505) do
+ActiveRecord::Schema.define(version: 2020_07_25_173400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "package_items", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "count"
+    t.bigint "package_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["package_id"], name: "index_package_items_on_package_id"
+  end
 
   create_table "packages", force: :cascade do |t|
     t.text "description"

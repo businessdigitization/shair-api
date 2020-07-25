@@ -9,6 +9,7 @@ RSpec.describe Package do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:departure) }
     it { is_expected.to belong_to(:destination) }
+    it { is_expected.to have_many(:items) }
   end
 
   describe '#status' do

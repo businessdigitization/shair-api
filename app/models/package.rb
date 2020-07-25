@@ -6,4 +6,6 @@ class Package < ApplicationRecord
   belongs_to :user
   belongs_to :departure, class_name: 'Place', foreign_key: :departure_id
   belongs_to :destination, class_name: 'Place', foreign_key: :destination_id
+
+  has_many :items, class_name: 'PackageItem'
 end

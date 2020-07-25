@@ -12,21 +12,14 @@ end
 # * Package
 #   description
 #   weight
-#   route
-#   preferred_delivery_dates
 #   package_items
-# *PreferredDeliveryDate
-#   package_id
-#   date
+
 # *PackageItem
 #   package_id
 #   name
 #   weight
 #   height
 #   count
-# *Route
-#   departure
-#   destination
 
 # *BookingProposal
 #   trip_id
