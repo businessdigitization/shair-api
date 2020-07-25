@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_07_25_132505) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "citext"
   enable_extension "plpgsql"
 
   create_table "packages", force: :cascade do |t|
@@ -22,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_07_25_132505) do
     t.decimal "weight", precision: 10, scale: 2
     t.integer "status", null: false
     t.bigint "user_id", null: false
+    t.daterange "delivery_daterange"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["departure_id"], name: "index_packages_on_departure_id"
@@ -30,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_07_25_132505) do
   end
 
   create_table "places", force: :cascade do |t|
-    t.string "name"
+    t.citext "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -54,8 +56,8 @@ ActiveRecord::Schema.define(version: 2020_07_25_132505) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.citext "name"
+    t.citext "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
