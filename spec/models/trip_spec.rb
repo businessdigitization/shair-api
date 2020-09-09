@@ -10,11 +10,4 @@ RSpec.describe Trip do
     it { is_expected.to belong_to(:departure) }
     it { is_expected.to belong_to(:destination) }
   end
-
-  describe '#status' do
-    it 'defines enum' do
-      is_expected.to define_enum_for(:status)
-        .with_values({ draft: 0, published: 1, outdated: 2 })
-    end
-  end
 end

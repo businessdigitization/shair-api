@@ -1,7 +1,7 @@
 class Trip < ApplicationRecord
   validates :status, presence: true
-  enum status: { draft: 0, published: 1, outdated: 2 }, prefix: :trip
-  enum trip_type: { air: 0, train: 1, bus: 2, car: 3, ship: 4, mixed: 5, other: 6 }, suffix: :trip
+  enum status: { draft: 0, published: 1, outdated: 2 }, _suffix: :trip
+  enum trip_type: { air: 0, train: 1, bus: 2, car: 3, ship: 4, mixed: 5, other: 6 }, _suffix: :trip
 
   belongs_to :user
   belongs_to :departure, class_name: 'Place', foreign_key: :departure_id

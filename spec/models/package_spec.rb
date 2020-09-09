@@ -12,10 +12,4 @@ RSpec.describe Package do
     it { is_expected.to have_many(:items) }
   end
 
-  describe '#status' do
-    it 'defines enum' do
-      is_expected.to define_enum_for(:status)
-        .with_values({ draft: 0, published: 1, outdated: 2 })
-    end
-  end
 end
