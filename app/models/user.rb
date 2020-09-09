@@ -9,3 +9,14 @@ class User < ApplicationRecord
 
   has_many :trips
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :bigint           not null, primary key
+#  email      :citext
+#  name       :citext
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
