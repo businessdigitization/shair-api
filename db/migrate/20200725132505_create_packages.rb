@@ -6,10 +6,11 @@ class CreatePackages < ActiveRecord::Migration[6.0]
       t.references :destination, foreign_key: { to_table: :places, column: :destination_id }, null: false, index: true
       t.decimal :weight, precision: 10, scale: 2
       t.integer :status, null: false
+      t.integer :delivery_status
       t.references :user, null: false
       t.daterange :delivery_daterange
 
       t.timestamps
-    end 
+    end
   end
 end

@@ -16,6 +16,13 @@ ActiveRecord::Schema.define(version: 2020_07_25_173400) do
   enable_extension "citext"
   enable_extension "plpgsql"
 
+  create_table "currencies", id: false, force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "package_items", force: :cascade do |t|
     t.string "name"
     t.text "description"
