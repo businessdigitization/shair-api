@@ -6,12 +6,17 @@ class Trip < ApplicationRecord
   belongs_to :user
   belongs_to :departure, class_name: 'Place', foreign_key: :departure_id
   belongs_to :destination, class_name: 'Place', foreign_key: :destination_id
+
+  has_one :trip_pricing
 end
 
 # * Pricing
 #   price_per_unit
 #   minimum_price
 #   currency
+
+# TripPreference
+# PackagePreference
 
 # *Booking
 #   trip_id
@@ -28,17 +33,19 @@ end
 #
 # Table name: trips
 #
-#  id             :bigint           not null, primary key
-#  arrival_time   :datetime
-#  date           :date
-#  departure_time :datetime
-#  status         :integer          not null
-#  trip_type      :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  departure_id   :bigint           not null
-#  destination_id :bigint           not null
-#  user_id        :bigint           not null
+#  id               :bigint           not null, primary key
+#  arrival_time     :datetime
+#  date             :date
+#  departure_time   :datetime
+#  luggage_capacity :decimal(5, 2)
+#  preference       :text
+#  status           :integer          not null
+#  trip_type        :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  departure_id     :bigint           not null
+#  destination_id   :bigint           not null
+#  user_id          :bigint           not null
 #
 # Indexes
 #

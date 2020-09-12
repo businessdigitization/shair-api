@@ -9,6 +9,7 @@ class CreateTrips < ActiveRecord::Migration[6.0]
       t.integer :status, null: false, index: true
       t.integer :trip_type
       t.decimal :luggage_capacity, precision: 5, scale: 2
+      t.text :preference
       t.references :user, null: false, index: true
       t.timestamps
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_25_173400) do
+ActiveRecord::Schema.define(version: 2020_09_12_004630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 2020_07_25_173400) do
     t.bigint "destination_id", null: false
     t.decimal "weight", precision: 10, scale: 2
     t.integer "status", null: false
+    t.integer "delivery_status"
+    t.text "preference"
     t.bigint "user_id", null: false
     t.daterange "delivery_daterange"
     t.datetime "created_at", precision: 6, null: false
@@ -54,6 +56,16 @@ ActiveRecord::Schema.define(version: 2020_07_25_173400) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "trip_pricings", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.decimal "unit_price", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "minimum_price", precision: 10, scale: 2, default: "0.0", null: false
+    t.bigint "currency_id"
+    t.boolean "negotiable"
+    t.index ["currency_id"], name: "index_trip_pricings_on_currency_id"
+    t.index ["trip_id"], name: "index_trip_pricings_on_trip_id"
+  end
+
   create_table "trips", force: :cascade do |t|
     t.bigint "departure_id", null: false
     t.bigint "destination_id", null: false
@@ -62,6 +74,8 @@ ActiveRecord::Schema.define(version: 2020_07_25_173400) do
     t.datetime "arrival_time"
     t.integer "status", null: false
     t.integer "trip_type"
+    t.decimal "luggage_capacity", precision: 5, scale: 2
+    t.text "preference"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

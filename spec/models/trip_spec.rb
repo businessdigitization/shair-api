@@ -9,5 +9,6 @@ RSpec.describe Trip do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:departure) }
     it { is_expected.to belong_to(:destination) }
+    it { is_expected.to have_one(:trip_pricing) }
   end
 end

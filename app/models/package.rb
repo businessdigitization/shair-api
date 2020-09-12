@@ -17,7 +17,9 @@ end
 #
 #  id                 :bigint           not null, primary key
 #  delivery_daterange :daterange
+#  delivery_status    :integer
 #  description        :text
+#  preference         :text
 #  status             :integer          not null
 #  weight             :decimal(10, 2)
 #  created_at         :datetime         not null

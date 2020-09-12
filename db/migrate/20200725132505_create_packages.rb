@@ -7,6 +7,7 @@ class CreatePackages < ActiveRecord::Migration[6.0]
       t.decimal :weight, precision: 10, scale: 2
       t.integer :status, null: false
       t.integer :delivery_status
+      t.text :preference
       t.references :user, null: false
       t.daterange :delivery_daterange
 
