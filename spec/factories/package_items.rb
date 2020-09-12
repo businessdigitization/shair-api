@@ -3,9 +3,9 @@
 # Table name: package_items
 #
 #  id          :bigint           not null, primary key
-#  count       :integer
+#  count       :integer          default(1), not null
 #  description :text
-#  name        :string
+#  name        :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  package_id  :bigint

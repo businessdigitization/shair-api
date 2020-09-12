@@ -7,7 +7,7 @@ RSpec.describe TripPricing do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:trip) }
+    it { is_expected.to belong_to(:trip).inverse_of(:trip_pricing) }
     it { is_expected.to belong_to(:currency) }
   end
 end

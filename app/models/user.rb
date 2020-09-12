@@ -7,7 +7,10 @@ class User < ApplicationRecord
 
   validates :email, format: { with: EMAIL_REGEXP }
 
-  has_many :trips
+  has_many :trips, dependent: :destroy
+  has_many :packages, dependent: :destroy
+
+
 end
 
 # == Schema Information

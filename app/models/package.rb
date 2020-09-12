@@ -4,11 +4,11 @@ class Package < ApplicationRecord
 
   validates :status, presence: true
 
-  belongs_to :user
+  belongs_to :user, inverse_of: :packages
   belongs_to :departure, class_name: 'Place', foreign_key: :departure_id
   belongs_to :destination, class_name: 'Place', foreign_key: :destination_id
 
-  has_many :items, class_name: 'PackageItem'
+  has_many :items, class_name: 'PackageItem', dependent: :destroy
 end
 
 # == Schema Information

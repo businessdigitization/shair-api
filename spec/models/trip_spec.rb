@@ -6,9 +6,9 @@ RSpec.describe Trip do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:user).inverse_of(:trips) }
     it { is_expected.to belong_to(:departure) }
     it { is_expected.to belong_to(:destination) }
-    it { is_expected.to have_one(:trip_pricing) }
+    it { is_expected.to have_one(:trip_pricing).dependent(:destroy) }
   end
 end

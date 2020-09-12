@@ -16,17 +16,16 @@ ActiveRecord::Schema.define(version: 2020_09_12_004630) do
   enable_extension "citext"
   enable_extension "plpgsql"
 
-  create_table "currencies", id: false, force: :cascade do |t|
-    t.string "code"
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table "currencies", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "name", null: false
+    t.index ["code"], name: "index_currencies_on_code"
   end
 
   create_table "package_items", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
-    t.integer "count"
+    t.integer "count", default: 1, null: false
     t.bigint "package_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -51,7 +50,7 @@ ActiveRecord::Schema.define(version: 2020_09_12_004630) do
   end
 
   create_table "places", force: :cascade do |t|
-    t.citext "name"
+    t.citext "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

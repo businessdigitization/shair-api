@@ -7,6 +7,6 @@ RSpec.describe PackageItem do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:package) }
+    it { is_expected.to belong_to(:package).inverse_of(:items) }
   end
 end

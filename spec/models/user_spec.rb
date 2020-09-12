@@ -25,6 +25,7 @@ RSpec.describe User do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:trips) }
+    it { is_expected.to have_many(:trips).dependent(:destroy) }
+    it { is_expected.to have_many(:packages).dependent(:destroy) }
   end
 end

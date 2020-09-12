@@ -6,10 +6,9 @@ RSpec.describe Package do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:user).inverse_of(:packages) }
     it { is_expected.to belong_to(:departure) }
     it { is_expected.to belong_to(:destination) }
-    it { is_expected.to have_many(:items) }
+    it { is_expected.to have_many(:items).dependent(:destroy) }
   end
-
 end

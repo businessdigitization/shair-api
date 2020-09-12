@@ -3,11 +3,11 @@ class Trip < ApplicationRecord
   enum status: { draft: 0, published: 1, outdated: 2 }, _suffix: :trip
   enum trip_type: { air: 0, train: 1, bus: 2, car: 3, ship: 4, mixed: 5, other: 6 }, _suffix: :trip
 
-  belongs_to :user
-  belongs_to :departure, class_name: 'Place', foreign_key: :departure_id
-  belongs_to :destination, class_name: 'Place', foreign_key: :destination_id
+  belongs_to :user, inverse_of: :trips
+  belongs_to :departure, class_name: 'Place'
+  belongs_to :destination, class_name: 'Place'
 
-  has_one :trip_pricing
+  has_one :trip_pricing, dependent: :destroy
 end
 
 # * Pricing
