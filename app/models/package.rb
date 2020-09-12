@@ -5,8 +5,8 @@ class Package < ApplicationRecord
   validates :status, presence: true
 
   belongs_to :user, inverse_of: :packages
-  belongs_to :departure, class_name: 'Place', foreign_key: :departure_id
-  belongs_to :destination, class_name: 'Place', foreign_key: :destination_id
+  belongs_to :departure, class_name: 'Place'
+  belongs_to :destination, class_name: 'Place'
 
   has_many :items, class_name: 'PackageItem', dependent: :destroy
 end

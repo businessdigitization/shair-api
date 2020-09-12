@@ -10,11 +10,6 @@ class Trip < ApplicationRecord
   has_one :trip_pricing, dependent: :destroy
 end
 
-# * Pricing
-#   price_per_unit
-#   minimum_price
-#   currency
-
 # TripPreference
 # PackagePreference
 
