@@ -7,5 +7,19 @@ class User < ApplicationRecord
 
   validates :email, format: { with: EMAIL_REGEXP }
 
-  has_many :trips
+  has_many :trips, dependent: :destroy
+  has_many :packages, dependent: :destroy
+
+
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :bigint           not null, primary key
+#  email      :citext
+#  name       :citext
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

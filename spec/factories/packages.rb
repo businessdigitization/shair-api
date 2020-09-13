@@ -1,0 +1,37 @@
+# == Schema Information
+#
+# Table name: packages
+#
+#  id                 :bigint           not null, primary key
+#  delivery_daterange :daterange
+#  delivery_status    :integer
+#  description        :text
+#  preference         :text
+#  status             :integer          not null
+#  weight             :decimal(10, 2)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  departure_id       :bigint           not null
+#  destination_id     :bigint           not null
+#  user_id            :bigint           not null
+#
+# Indexes
+#
+#  index_packages_on_departure_id    (departure_id)
+#  index_packages_on_destination_id  (destination_id)
+#  index_packages_on_user_id         (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_1eabb157c5  (departure_id => places.id)
+#  fk_rails_72648286cc  (destination_id => places.id)
+#
+FactoryBot.define do
+  factory :package do
+    description { 'My Precious' }
+    association :departure, factory: :place_kl
+    association :destination, factory: :place_dhaka
+    weight { 5 }
+    status { 'draft' }
+  end
+end
