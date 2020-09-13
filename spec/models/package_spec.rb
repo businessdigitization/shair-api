@@ -10,5 +10,6 @@ RSpec.describe Package do
     it { is_expected.to belong_to(:departure) }
     it { is_expected.to belong_to(:destination) }
     it { is_expected.to have_many(:items).dependent(:destroy) }
+    it { is_expected.to have_one(:pricing).dependent(:destroy) }
   end
 end

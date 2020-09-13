@@ -9,6 +9,7 @@ class Package < ApplicationRecord
   belongs_to :destination, class_name: 'Place'
 
   has_many :items, class_name: 'PackageItem', dependent: :destroy
+  has_one :pricing, class_name: 'PackagePricing', dependent: :destroy
 end
 
 # == Schema Information

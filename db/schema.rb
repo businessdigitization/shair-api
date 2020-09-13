@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_12_004630) do
+ActiveRecord::Schema.define(version: 2020_09_13_132302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 2020_09_12_004630) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["package_id"], name: "index_package_items_on_package_id"
+  end
+
+  create_table "package_pricings", force: :cascade do |t|
+    t.bigint "package_id"
+    t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
+    t.bigint "currency_id"
+    t.boolean "negotiable"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["currency_id"], name: "index_package_pricings_on_currency_id"
+    t.index ["package_id"], name: "index_package_pricings_on_package_id"
   end
 
   create_table "packages", force: :cascade do |t|
