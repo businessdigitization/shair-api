@@ -7,7 +7,7 @@ class Trip < ApplicationRecord
   belongs_to :departure, class_name: 'Place'
   belongs_to :destination, class_name: 'Place'
 
-  has_one :trip_pricing, dependent: :destroy
+  has_one :pricing, class_name: 'TripPricing', dependent: :destroy
 end
 
 # TripPreference

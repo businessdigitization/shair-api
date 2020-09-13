@@ -9,6 +9,6 @@ RSpec.describe Trip do
     it { is_expected.to belong_to(:user).inverse_of(:trips) }
     it { is_expected.to belong_to(:departure) }
     it { is_expected.to belong_to(:destination) }
-    it { is_expected.to have_one(:trip_pricing).dependent(:destroy) }
+    it { is_expected.to have_one(:pricing).dependent(:destroy) }
   end
 end
