@@ -10,11 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_132302) do
+ActiveRecord::Schema.define(version: 2020_09_13_135456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.bigint "package_id"
+    t.decimal "transporter_proposed_price", precision: 10, scale: 2, null: false
+    t.decimal "transiter_proposed_price", precision: 10, scale: 2, null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.bigint "currency_id"
+    t.integer "status", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["currency_id"], name: "index_bookings_on_currency_id"
+    t.index ["package_id"], name: "index_bookings_on_package_id"
+    t.index ["trip_id"], name: "index_bookings_on_trip_id"
+  end
 
   create_table "currencies", force: :cascade do |t|
     t.string "code", null: false
@@ -34,7 +49,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_132302) do
 
   create_table "package_pricings", force: :cascade do |t|
     t.bigint "package_id"
-    t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
     t.bigint "currency_id"
     t.boolean "negotiable"
     t.datetime "created_at", precision: 6, null: false
@@ -51,13 +66,13 @@ ActiveRecord::Schema.define(version: 2020_09_13_132302) do
     t.integer "status", null: false
     t.integer "delivery_status"
     t.text "preference"
-    t.bigint "user_id", null: false
+    t.bigint "transiter_id", null: false
     t.daterange "delivery_daterange"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["departure_id"], name: "index_packages_on_departure_id"
     t.index ["destination_id"], name: "index_packages_on_destination_id"
-    t.index ["user_id"], name: "index_packages_on_user_id"
+    t.index ["transiter_id"], name: "index_packages_on_transiter_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -68,8 +83,8 @@ ActiveRecord::Schema.define(version: 2020_09_13_132302) do
 
   create_table "trip_pricings", force: :cascade do |t|
     t.bigint "trip_id"
-    t.decimal "unit_price", precision: 10, scale: 2, default: "0.0", null: false
-    t.decimal "minimum_price", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "unit_price", precision: 10, scale: 2, null: false
+    t.decimal "minimum_price", precision: 10, scale: 2, null: false
     t.bigint "currency_id"
     t.boolean "negotiable"
     t.index ["currency_id"], name: "index_trip_pricings_on_currency_id"
@@ -83,17 +98,16 @@ ActiveRecord::Schema.define(version: 2020_09_13_132302) do
     t.datetime "departure_time"
     t.datetime "arrival_time"
     t.integer "status", null: false
-    t.integer "trip_type"
     t.decimal "luggage_capacity", precision: 5, scale: 2
     t.text "preference"
-    t.bigint "user_id", null: false
+    t.bigint "transporter_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["date"], name: "index_trips_on_date"
     t.index ["departure_id"], name: "index_trips_on_departure_id"
     t.index ["destination_id"], name: "index_trips_on_destination_id"
     t.index ["status"], name: "index_trips_on_status"
-    t.index ["user_id"], name: "index_trips_on_user_id"
+    t.index ["transporter_id"], name: "index_trips_on_transporter_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -105,6 +119,8 @@ ActiveRecord::Schema.define(version: 2020_09_13_132302) do
 
   add_foreign_key "packages", "places", column: "departure_id"
   add_foreign_key "packages", "places", column: "destination_id"
+  add_foreign_key "packages", "users", column: "transiter_id"
   add_foreign_key "trips", "places", column: "departure_id"
   add_foreign_key "trips", "places", column: "destination_id"
+  add_foreign_key "trips", "users", column: "transporter_id"
 end

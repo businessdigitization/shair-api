@@ -11,7 +11,7 @@ end
 #
 #  id          :bigint           not null, primary key
 #  negotiable  :boolean
-#  price       :decimal(10, 2)   default(0.0), not null
+#  price       :decimal(10, 2)   not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  currency_id :bigint

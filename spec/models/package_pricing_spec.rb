@@ -1,6 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe PackagePricing, type: :model do
+RSpec.describe PackagePricing do
+  it 'has a valid factory' do
+    factory = FactoryBot.build(:package_pricing)
+    expect(factory).to be_valid
+  end
+
   describe 'validation' do
     it { is_expected.to validate_presence_of(:price) }
   end

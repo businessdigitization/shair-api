@@ -8,7 +8,7 @@ class CreatePackages < ActiveRecord::Migration[6.0]
       t.integer :status, null: false
       t.integer :delivery_status
       t.text :preference
-      t.references :user, null: false
+      t.references :transiter, foreign_key: { to_table: :users, column: :transiter_id }, null: false, index: true
       t.daterange :delivery_daterange
 
       t.timestamps

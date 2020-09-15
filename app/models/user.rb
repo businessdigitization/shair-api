@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   validates :name, :email, presence: true
+  validates :email, uniqueness: true
 
   # Original REGEX is this https://github.com/ruby/ruby/blob/ruby_2_5/lib/uri/mailto.rb#L56
   # We have modified it to not allow email with format like "something@somewhere"
@@ -7,10 +8,10 @@ class User < ApplicationRecord
 
   validates :email, format: { with: EMAIL_REGEXP }
 
-  has_many :trips, dependent: :destroy
-  has_many :packages, dependent: :destroy
-
-
+  has_many :trips, foreign_key: :transporter_id, dependent: :destroy
+  has_many :packages, foreign_key: :transiter_id, dependent: :destroy
+  has_many :trip_bookings, through: :trips, source: :bookings
+  has_many :package_bookings, through: :packages, source: :bookings
 end
 
 # == Schema Information

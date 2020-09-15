@@ -13,24 +13,26 @@
 #  updated_at         :datetime         not null
 #  departure_id       :bigint           not null
 #  destination_id     :bigint           not null
-#  user_id            :bigint           not null
+#  transiter_id       :bigint           not null
 #
 # Indexes
 #
 #  index_packages_on_departure_id    (departure_id)
 #  index_packages_on_destination_id  (destination_id)
-#  index_packages_on_user_id         (user_id)
+#  index_packages_on_transiter_id    (transiter_id)
 #
 # Foreign Keys
 #
 #  fk_rails_1eabb157c5  (departure_id => places.id)
 #  fk_rails_72648286cc  (destination_id => places.id)
+#  fk_rails_83513e77e3  (transiter_id => users.id)
 #
 FactoryBot.define do
   factory :package do
     description { 'My Precious' }
     association :departure, factory: :place_kl
     association :destination, factory: :place_dhaka
+    association :transiter, factory: :user
     weight { 5 }
     status { 'draft' }
   end

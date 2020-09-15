@@ -11,6 +11,6 @@
 FactoryBot.define do
   factory :user do
     name { 'Faruk Hossain' }
-    email { 'faruk@mail.com' }
+    sequence(:email) { |i| ('aaa'..'zzz').to_a[i] + 'faruk@mail.com' }
   end
 end
