@@ -11,7 +11,6 @@ class User < ApplicationRecord
   validates :email, format: { with: EMAIL_REGEXP }
   validates :name, :email, presence: true
   validates :email, uniqueness: true
-
 end
 
 # == Schema Information
