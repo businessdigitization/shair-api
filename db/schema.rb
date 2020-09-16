@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
   create_table "currencies", force: :cascade do |t|
     t.string "code", null: false
     t.string "name", null: false
-    t.index ["code"], name: "index_currencies_on_code"
+    t.index ["code"], name: "index_currencies_on_code", unique: true
   end
 
   create_table "package_items", force: :cascade do |t|
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.citext "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "packages", "places", column: "departure_id"

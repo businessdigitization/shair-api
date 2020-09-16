@@ -13,5 +13,5 @@ end
 #
 # Indexes
 #
-#  index_currencies_on_code  (code)
+#  index_currencies_on_code  (code) UNIQUE
 #

@@ -12,18 +12,18 @@ class Booking < ApplicationRecord
   private
 
   def presence_of_proposed_price
-    unless (transiter_proposed_price.present? || transporter_proposed_price.present?)
-      errors.add(:price, 'Must have a proposed price')
-    end
+    return if (transiter_proposed_price.present? || transporter_proposed_price.present?)
+
+    errors.add(:price, 'Must have a proposed price')
   end
 
   def different_user_as_transiter_and_transporter
     return unless package && trip
-    if(package.transiter == trip.transporter)
-      errors.add(:base, "Transiter and Transporter can't be same person")
-    end
-  end
 
+    return if package.transiter != trip.transporter
+
+    errors.add(:base, "Transiter and Transporter can't be same person")
+  end
 end
 
 # == Schema Information
