@@ -11,7 +11,6 @@ class Package < ApplicationRecord
   has_many :bookings
 
   validates :status, presence: true
-
 end
 
 # == Schema Information

@@ -43,8 +43,8 @@ RSpec.describe User do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:trips).dependent(:destroy) }
-    it { is_expected.to have_many(:packages).dependent(:destroy) }
+    it { is_expected.to have_many(:trips).inverse_of(:transporter).dependent(:destroy) }
+    it { is_expected.to have_many(:packages).inverse_of(:transiter).dependent(:destroy) }
     it { is_expected.to have_many(:trip_bookings).through(:trips).source(:bookings) }
     it { is_expected.to have_many(:package_bookings).through(:packages).source(:bookings) }
   end

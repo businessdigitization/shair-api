@@ -3,8 +3,8 @@ class User < ApplicationRecord
   # We have modified it to not allow email with format like "something@somewhere"
   EMAIL_REGEXP = /\A[a-zA-Z0-9.!\#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-z]{2,}\z/
 
-  has_many :trips, foreign_key: :transporter_id, dependent: :destroy
-  has_many :packages, foreign_key: :transiter_id, dependent: :destroy
+  has_many :trips, foreign_key: :transporter_id, inverse_of: :transporter, dependent: :destroy
+  has_many :packages, foreign_key: :transiter_id, inverse_of: :transiter, dependent: :destroy
   has_many :trip_bookings, through: :trips, source: :bookings
   has_many :package_bookings, through: :packages, source: :bookings
 

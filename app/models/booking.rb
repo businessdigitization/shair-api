@@ -12,7 +12,7 @@ class Booking < ApplicationRecord
   private
 
   def presence_of_proposed_price
-    return if (transiter_proposed_price.present? || transporter_proposed_price.present?)
+    return if transiter_proposed_price.present? || transporter_proposed_price.present?
 
     errors.add(:price, 'Must have a proposed price')
   end

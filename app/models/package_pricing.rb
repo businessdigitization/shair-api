@@ -3,7 +3,6 @@ class PackagePricing < ApplicationRecord
   belongs_to :currency
 
   validates :price, presence: true
-
 end
 
 # == Schema Information
