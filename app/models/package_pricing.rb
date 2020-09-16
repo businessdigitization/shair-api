@@ -1,8 +1,9 @@
 class PackagePricing < ApplicationRecord
-  validates :price, presence: true
-
   belongs_to :package, inverse_of: :pricing
   belongs_to :currency
+
+  validates :price, presence: true
+
 end
 
 # == Schema Information

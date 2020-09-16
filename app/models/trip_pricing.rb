@@ -1,8 +1,8 @@
 class TripPricing < ApplicationRecord
-  validates :unit_price, :minimum_price, presence: true
-
   belongs_to :trip, inverse_of: :pricing
   belongs_to :currency
+
+  validates :unit_price, :minimum_price, presence: true
 end
 
 # == Schema Information

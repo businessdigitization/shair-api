@@ -1,5 +1,4 @@
 class Trip < ApplicationRecord
-  validates :status, presence: true
   enum status: { draft: 0, published: 1, outdated: 2 }, _suffix: :trip
 
   belongs_to :transporter, class_name: 'User', inverse_of: :trips
@@ -8,6 +7,8 @@ class Trip < ApplicationRecord
 
   has_one :pricing, class_name: 'TripPricing', dependent: :destroy
   has_many :bookings
+
+  validates :status, presence: true
 end
 
 # == Schema Information

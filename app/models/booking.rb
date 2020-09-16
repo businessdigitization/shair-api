@@ -1,13 +1,13 @@
 class Booking < ApplicationRecord
-  validates :status, presence: true
-  validate :presence_of_proposed_price
-  validate :different_user_as_transiter_and_transporter
-
   enum status: { proposed: 0, negosiation: 1, accepted: 2, rejected: 3, canceled: 4 }
 
   belongs_to :trip, inverse_of: :bookings
   belongs_to :package, inverse_of: :bookings
   belongs_to :currency
+
+  validates :status, presence: true
+  validate :presence_of_proposed_price
+  validate :different_user_as_transiter_and_transporter
 
   private
 

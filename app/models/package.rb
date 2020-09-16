@@ -2,15 +2,16 @@ class Package < ApplicationRecord
   enum status: { draft: 0, published: 1, outdated: 2 }, _prefix: :package
   enum delivery_status: { waiting_to_pick_up: 0, picked_up: 1, reached_destination: 2, ready_to_deliver: 3, delivered: 4 }
 
-  validates :status, presence: true
-
   belongs_to :transiter, class_name: 'User', inverse_of: :packages
   belongs_to :departure, class_name: 'Place'
   belongs_to :destination, class_name: 'Place'
 
+  has_one :pricing, class_name: 'PackagePricing', dependent: :destroy
   has_many :items, class_name: 'PackageItem', dependent: :destroy
   has_many :bookings
-  has_one :pricing, class_name: 'PackagePricing', dependent: :destroy
+
+  validates :status, presence: true
+
 end
 
 # == Schema Information
