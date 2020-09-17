@@ -1,21 +1,21 @@
 FactoryBot.define do
-  factory :country do
-    sequence(:name) { |i| 'Country ' + (1..999).to_a[i].to_s }
-    sequence(:code) { |i| ('AA'...'ZZ').to_a[i] }
+  factory :city do
+    sequence(:name) { |i| 'City ' + (1..999).to_a[i].to_s }
+    association :country, factory: :country
   end
 end
 
 # == Schema Information
 #
-# Table name: countries
+# Table name: cities
 #
 #  id         :bigint           not null, primary key
-#  code       :string           not null
 #  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  country_id :bigint           not null
 #
 # Indexes
 #
-#  index_countries_on_code  (code) UNIQUE
+#  index_cities_on_country_id  (country_id)
 #

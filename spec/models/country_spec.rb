@@ -8,6 +8,10 @@ RSpec.describe Country do
     expect(factory).to be_valid
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:cities) }
+  end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:code) }
     it { is_expected.to validate_uniqueness_of(:code) }

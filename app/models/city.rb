@@ -1,22 +1,19 @@
-class Country < ApplicationRecord
-  has_many :cities
-
-  validates :code, presence: true
-  validates :code, uniqueness: true
+class City < ApplicationRecord
+  belongs_to :country, inverse_of: :cities
   validates :name, presence: true
 end
 
 # == Schema Information
 #
-# Table name: countries
+# Table name: cities
 #
 #  id         :bigint           not null, primary key
-#  code       :string           not null
 #  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  country_id :bigint           not null
 #
 # Indexes
 #
-#  index_countries_on_code  (code) UNIQUE
+#  index_cities_on_country_id  (country_id)
 #
