@@ -1,6 +1,11 @@
 class Airport < ApplicationRecord
   belongs_to :city, inverse_of: :airports
 
+  has_many :incoming_packages, class_name: 'Package', foreign_key: :destination_id
+  has_many :outgoing_packages, class_name: 'Package', foreign_key: :destination_id
+  has_many :incoming_trips, class_name: 'Trip', foreign_key: :destination_id
+  has_many :outgoing_trips, class_name: 'Trip', foreign_key: :destination_id
+
   validates :code, presence: true
   validates :code, uniqueness: true
   validates :code, format: %r(\A[A-Z]{3}\z)

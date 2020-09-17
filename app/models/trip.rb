@@ -2,8 +2,8 @@ class Trip < ApplicationRecord
   enum status: { draft: 0, published: 1, outdated: 2 }, _suffix: :trip
 
   belongs_to :transporter, class_name: 'User', inverse_of: :trips
-  belongs_to :departure, class_name: 'Airport'
-  belongs_to :destination, class_name: 'Airport'
+  belongs_to :departure, class_name: 'Airport', inverse_of: :outgoing_trips
+  belongs_to :destination, class_name: 'Airport', inverse_of: :incoming_trips
 
   has_one :pricing, class_name: 'TripPricing', dependent: :destroy
   has_many :bookings

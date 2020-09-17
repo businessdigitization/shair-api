@@ -12,8 +12,8 @@ RSpec.describe Trip do
 
   describe 'associations' do
     it { is_expected.to belong_to(:transporter).inverse_of(:trips) }
-    it { is_expected.to belong_to(:departure) }
-    it { is_expected.to belong_to(:destination) }
+    it { is_expected.to belong_to(:departure).inverse_of(:outgoing_trips) }
+    it { is_expected.to belong_to(:destination).inverse_of(:incoming_trips) }
     it { is_expected.to have_one(:pricing).dependent(:destroy) }
     it { is_expected.to have_many(:bookings) }
   end

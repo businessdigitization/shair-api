@@ -10,6 +10,10 @@ RSpec.describe Airport do
 
   describe 'associations' do
     it { is_expected.to belong_to(:city).inverse_of(:airports) }
+    it { is_expected.to have_many(:incoming_packages) }
+    it { is_expected.to have_many(:outgoing_packages) }
+    it { is_expected.to have_many(:incoming_trips) }
+    it { is_expected.to have_many(:incoming_trips) }
   end
 
   describe 'validations' do
