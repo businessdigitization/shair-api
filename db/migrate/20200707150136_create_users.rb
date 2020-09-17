@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
 
     create_table :users do |t|
       t.citext :name
-      t.citext :email
+      t.citext :email, index: { unique: true }
 
       t.timestamps
     end

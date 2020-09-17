@@ -1,5 +1,6 @@
 class Currency < ApplicationRecord
   validates :name, :code, presence: true
+  validates :code, format: %r(\A[A-Z]{3}\z), uniqueness: true
 end
 
 # == Schema Information
@@ -12,5 +13,5 @@ end
 #
 # Indexes
 #
-#  index_currencies_on_code  (code)
+#  index_currencies_on_code  (code) UNIQUE
 #

@@ -1,8 +1,8 @@
 class TripPricing < ApplicationRecord
-  validates :unit_price, :minimum_price, presence: true
-
   belongs_to :trip, inverse_of: :pricing
   belongs_to :currency
+
+  validates :unit_price, :minimum_price, presence: true
 end
 
 # == Schema Information
@@ -10,9 +10,9 @@ end
 # Table name: trip_pricings
 #
 #  id            :bigint           not null, primary key
-#  minimum_price :decimal(10, 2)   default(0.0), not null
+#  minimum_price :decimal(10, 2)   not null
 #  negotiable    :boolean
-#  unit_price    :decimal(10, 2)   default(0.0), not null
+#  unit_price    :decimal(10, 2)   not null
 #  currency_id   :bigint
 #  trip_id       :bigint
 #

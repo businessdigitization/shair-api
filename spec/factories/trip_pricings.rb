@@ -3,9 +3,9 @@
 # Table name: trip_pricings
 #
 #  id            :bigint           not null, primary key
-#  minimum_price :decimal(10, 2)   default(0.0), not null
+#  minimum_price :decimal(10, 2)   not null
 #  negotiable    :boolean
-#  unit_price    :decimal(10, 2)   default(0.0), not null
+#  unit_price    :decimal(10, 2)   not null
 #  currency_id   :bigint
 #  trip_id       :bigint
 #

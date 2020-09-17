@@ -12,6 +12,10 @@ AllCops:
     - Gemfile
     - !ruby/regexp /old_and_unused\.rb$/
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
 Layout/ClassStructure:
   ExpectedOrder:
     - module_inclusion

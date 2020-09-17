@@ -8,11 +8,11 @@
 #
 # Indexes
 #
-#  index_currencies_on_code  (code)
+#  index_currencies_on_code  (code) UNIQUE
 #
 FactoryBot.define do
   factory :currency do
     name { 'Bangladeshi Taka' }
-    code { 'BDT' }
+    sequence(:code) { |i| ('AAA'...'ZZZ').to_a[i] }
   end
 end

@@ -1,28 +1,15 @@
 class Trip < ApplicationRecord
-  validates :status, presence: true
   enum status: { draft: 0, published: 1, outdated: 2 }, _suffix: :trip
-  enum trip_type: { air: 0, train: 1, bus: 2, car: 3, ship: 4, mixed: 5, other: 6 }, _suffix: :trip
 
-  belongs_to :user, inverse_of: :trips
+  belongs_to :transporter, class_name: 'User', inverse_of: :trips
   belongs_to :departure, class_name: 'Place'
   belongs_to :destination, class_name: 'Place'
 
   has_one :pricing, class_name: 'TripPricing', dependent: :destroy
+  has_many :bookings
+
+  validates :status, presence: true
 end
-
-# TripPreference
-# PackagePreference
-
-# *Booking
-#   trip_id
-#   package_id
-#   proposed_price_by_transporter
-#   proposed_price_by_transiter
-#   price
-#   currency
-#   transporter
-#   transiter
-#   status: [:proposed, :negosiation, :accepted, :rejected, :canceled]
 
 # == Schema Information
 #
@@ -35,12 +22,11 @@ end
 #  luggage_capacity :decimal(5, 2)
 #  preference       :text
 #  status           :integer          not null
-#  trip_type        :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  departure_id     :bigint           not null
 #  destination_id   :bigint           not null
-#  user_id          :bigint           not null
+#  transporter_id   :bigint           not null
 #
 # Indexes
 #
@@ -48,10 +34,11 @@ end
 #  index_trips_on_departure_id    (departure_id)
 #  index_trips_on_destination_id  (destination_id)
 #  index_trips_on_status          (status)
-#  index_trips_on_user_id         (user_id)
+#  index_trips_on_transporter_id  (transporter_id)
 #
 # Foreign Keys
 #
+#  fk_rails_1853b836c1  (transporter_id => users.id)
 #  fk_rails_447da15f04  (destination_id => places.id)
 #  fk_rails_dfa65b25bf  (departure_id => places.id)
 #

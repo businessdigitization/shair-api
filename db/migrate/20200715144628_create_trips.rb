@@ -7,10 +7,9 @@ class CreateTrips < ActiveRecord::Migration[6.0]
       t.datetime :departure_time
       t.datetime :arrival_time
       t.integer :status, null: false, index: true
-      t.integer :trip_type
       t.decimal :luggage_capacity, precision: 5, scale: 2
       t.text :preference
-      t.references :user, null: false, index: true
+      t.references :transporter, foreign_key: { to_table: :users, column: :transporter_id }, null: false, index: true
       t.timestamps
     end
   end
