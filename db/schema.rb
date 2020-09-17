@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_133626) do
+ActiveRecord::Schema.define(version: 2020_09_13_135456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -102,12 +102,6 @@ ActiveRecord::Schema.define(version: 2020_09_17_133626) do
     t.index ["transiter_id"], name: "index_packages_on_transiter_id"
   end
 
-  create_table "places", force: :cascade do |t|
-    t.citext "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "trip_pricings", force: :cascade do |t|
     t.bigint "trip_id"
     t.decimal "unit_price", precision: 10, scale: 2, null: false
@@ -145,10 +139,10 @@ ActiveRecord::Schema.define(version: 2020_09_17_133626) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "packages", "places", column: "departure_id"
-  add_foreign_key "packages", "places", column: "destination_id"
+  add_foreign_key "packages", "airports", column: "departure_id"
+  add_foreign_key "packages", "airports", column: "destination_id"
   add_foreign_key "packages", "users", column: "transiter_id"
-  add_foreign_key "trips", "places", column: "departure_id"
-  add_foreign_key "trips", "places", column: "destination_id"
+  add_foreign_key "trips", "airports", column: "departure_id"
+  add_foreign_key "trips", "airports", column: "destination_id"
   add_foreign_key "trips", "users", column: "transporter_id"
 end

@@ -1,8 +1,8 @@
 class CreateTrips < ActiveRecord::Migration[6.0]
   def change
     create_table :trips do |t|
-      t.references :departure, foreign_key: { to_table: :places, column: :departure_id }, null: false, index: true
-      t.references :destination, foreign_key: { to_table: :places, column: :destination_id }, null: false, index: true
+      t.references :departure, foreign_key: { to_table: :airports, column: :departure_id }, null: false, index: true
+      t.references :destination, foreign_key: { to_table: :airports, column: :destination_id }, null: false, index: true
       t.date :date, index: true
       t.datetime :departure_time
       t.datetime :arrival_time
