@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_135456) do
+ActiveRecord::Schema.define(version: 2020_09_17_130941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.index ["currency_id"], name: "index_bookings_on_currency_id"
     t.index ["package_id"], name: "index_bookings_on_package_id"
     t.index ["trip_id"], name: "index_bookings_on_trip_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_countries_on_code", unique: true
   end
 
   create_table "currencies", force: :cascade do |t|
