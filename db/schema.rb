@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_132554) do
+ActiveRecord::Schema.define(version: 2020_09_17_133626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "airports", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.bigint "city_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_airports_on_city_id"
+    t.index ["code"], name: "index_airports_on_code", unique: true
+    t.index ["name"], name: "index_airports_on_name", unique: true
+  end
 
   create_table "bookings", force: :cascade do |t|
     t.bigint "trip_id"

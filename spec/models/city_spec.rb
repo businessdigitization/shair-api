@@ -8,6 +8,7 @@ RSpec.describe City do
 
   describe 'associations' do
     it { is_expected.to belong_to(:country).inverse_of(:cities) }
+    it { is_expected.to have_many(:airports) }
   end
 
   describe 'validations' do
