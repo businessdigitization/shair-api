@@ -19,7 +19,9 @@ namespace :import do
   desc 'Import airports from CSV'
   task airports: :environment do
     CSV.foreach('lib/airports.csv', headers: true) do |row|
-      city = City.find_by(name: row['city'])
+      country = Country.find_by(name: row['country'])
+      city = City.find_by(name: row['city'], country: country)
+
       Airport.create(city: city, name: row['name'], code: row['code']) if city
     end
   end

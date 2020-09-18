@@ -11,6 +11,10 @@ class Airport < ApplicationRecord
   validates :code, format: %r(\A[A-Z]{3}\z)
 
   validates :name, presence: true
+
+  def to_s
+    name + ', ' + city.name + ', ' + city.country.name
+  end
 end
 
 # == Schema Information
