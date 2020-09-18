@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["city_id"], name: "index_airports_on_city_id"
     t.index ["code"], name: "index_airports_on_code", unique: true
-    t.index ["name"], name: "index_airports_on_name", unique: true
+    t.index ["name"], name: "index_airports_on_name"
   end
 
   create_table "bookings", force: :cascade do |t|
