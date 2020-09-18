@@ -3,12 +3,12 @@ class Package < ApplicationRecord
   enum delivery_status: { waiting_to_pick_up: 0, picked_up: 1, reached_destination: 2, ready_to_deliver: 3, delivered: 4 }
 
   belongs_to :transiter, class_name: 'User', inverse_of: :packages
-  belongs_to :departure, class_name: 'Place'
-  belongs_to :destination, class_name: 'Place'
+  belongs_to :departure, class_name: 'Airport', inverse_of: :outgoing_packages
+  belongs_to :destination, class_name: 'Airport', inverse_of: :incoming_packages
 
-  has_one :pricing, class_name: 'PackagePricing', dependent: :destroy
-  has_many :items, class_name: 'PackageItem', dependent: :destroy
-  has_many :bookings
+  has_one :pricing, class_name: 'PackagePricing', dependent: :destroy, inverse_of: :package
+  has_many :items, class_name: 'PackageItem', dependent: :destroy, inverse_of: :package
+  has_many :bookings, inverse_of: :package
 
   validates :status, presence: true
 end
@@ -38,7 +38,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_1eabb157c5  (departure_id => places.id)
-#  fk_rails_72648286cc  (destination_id => places.id)
+#  fk_rails_1eabb157c5  (departure_id => airports.id)
+#  fk_rails_72648286cc  (destination_id => airports.id)
 #  fk_rails_83513e77e3  (transiter_id => users.id)
 #

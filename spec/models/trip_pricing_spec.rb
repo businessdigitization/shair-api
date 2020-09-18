@@ -6,13 +6,13 @@ RSpec.describe TripPricing do
     expect(factory).to be_valid
   end
 
-  describe 'validation' do
-    it { is_expected.to validate_presence_of(:unit_price) }
-    it { is_expected.to validate_presence_of(:minimum_price) }
-  end
-
   describe 'associations' do
     it { is_expected.to belong_to(:trip).inverse_of(:pricing) }
     it { is_expected.to belong_to(:currency) }
+  end
+
+  describe 'validation' do
+    it { is_expected.to validate_presence_of(:unit_price) }
+    it { is_expected.to validate_presence_of(:minimum_price) }
   end
 end

@@ -6,6 +6,12 @@ RSpec.describe Booking do
     expect(factory).to be_valid
   end
 
+  describe 'association' do
+    it { is_expected.to belong_to(:trip).inverse_of(:bookings) }
+    it { is_expected.to belong_to(:package).inverse_of(:bookings) }
+    it { is_expected.to belong_to(:currency) }
+  end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:status) }
 
@@ -43,11 +49,5 @@ RSpec.describe Booking do
         specify { expect(booking).to be_valid }
       end
     end
-  end
-
-  describe 'association' do
-    it { is_expected.to belong_to(:trip).inverse_of(:bookings) }
-    it { is_expected.to belong_to(:package).inverse_of(:bookings) }
-    it { is_expected.to belong_to(:currency) }
   end
 end

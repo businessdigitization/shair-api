@@ -26,13 +26,13 @@
 # Foreign Keys
 #
 #  fk_rails_1853b836c1  (transporter_id => users.id)
-#  fk_rails_447da15f04  (destination_id => places.id)
-#  fk_rails_dfa65b25bf  (departure_id => places.id)
+#  fk_rails_447da15f04  (destination_id => airports.id)
+#  fk_rails_dfa65b25bf  (departure_id => airports.id)
 #
 FactoryBot.define do
   factory :trip do
-    association :departure, factory: :place_kl
-    association :destination, factory: :place_dhaka
+    association :departure, factory: :airport
+    association :destination, factory: :airport
     date { 7.days.since }
     status { :draft }
     association :transporter, factory: :user

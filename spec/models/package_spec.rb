@@ -6,16 +6,16 @@ RSpec.describe Package do
     expect(factory).to be_valid
   end
 
-  describe 'validation' do
-    it { is_expected.to validate_presence_of(:status) }
-  end
-
   describe 'associations' do
     it { is_expected.to belong_to(:transiter).inverse_of(:packages) }
-    it { is_expected.to belong_to(:departure) }
-    it { is_expected.to belong_to(:destination) }
+    it { is_expected.to belong_to(:departure).inverse_of(:outgoing_packages) }
+    it { is_expected.to belong_to(:destination).inverse_of(:incoming_packages) }
     it { is_expected.to have_many(:items).dependent(:destroy) }
-    it { is_expected.to have_many(:bookings) }
-    it { is_expected.to have_one(:pricing).dependent(:destroy) }
+    it { is_expected.to have_many(:bookings).inverse_of(:package) }
+    it { is_expected.to have_one(:pricing).dependent(:destroy).inverse_of(:package) }
+  end
+
+  describe 'validation' do
+    it { is_expected.to validate_presence_of(:status) }
   end
 end

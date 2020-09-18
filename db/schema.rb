@@ -16,6 +16,17 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
   enable_extension "citext"
   enable_extension "plpgsql"
 
+  create_table "airports", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.bigint "city_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_airports_on_city_id"
+    t.index ["code"], name: "index_airports_on_code", unique: true
+    t.index ["name"], name: "index_airports_on_name", unique: true
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.bigint "trip_id"
     t.bigint "package_id"
@@ -29,6 +40,22 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.index ["currency_id"], name: "index_bookings_on_currency_id"
     t.index ["package_id"], name: "index_bookings_on_package_id"
     t.index ["trip_id"], name: "index_bookings_on_trip_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "country_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_cities_on_country_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_countries_on_code", unique: true
   end
 
   create_table "currencies", force: :cascade do |t|
@@ -75,12 +102,6 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.index ["transiter_id"], name: "index_packages_on_transiter_id"
   end
 
-  create_table "places", force: :cascade do |t|
-    t.citext "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "trip_pricings", force: :cascade do |t|
     t.bigint "trip_id"
     t.decimal "unit_price", precision: 10, scale: 2, null: false
@@ -118,10 +139,10 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "packages", "places", column: "departure_id"
-  add_foreign_key "packages", "places", column: "destination_id"
+  add_foreign_key "packages", "airports", column: "departure_id"
+  add_foreign_key "packages", "airports", column: "destination_id"
   add_foreign_key "packages", "users", column: "transiter_id"
-  add_foreign_key "trips", "places", column: "departure_id"
-  add_foreign_key "trips", "places", column: "destination_id"
+  add_foreign_key "trips", "airports", column: "departure_id"
+  add_foreign_key "trips", "airports", column: "destination_id"
   add_foreign_key "trips", "users", column: "transporter_id"
 end

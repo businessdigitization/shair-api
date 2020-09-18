@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Currency do
-  let!(:currency) { FactoryBot.create(:currency) }
+  subject { FactoryBot.create(:currency) }
 
   it 'has a valid factory' do
     factory = FactoryBot.build(:currency)

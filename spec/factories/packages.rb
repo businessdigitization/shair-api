@@ -23,15 +23,15 @@
 #
 # Foreign Keys
 #
-#  fk_rails_1eabb157c5  (departure_id => places.id)
-#  fk_rails_72648286cc  (destination_id => places.id)
+#  fk_rails_1eabb157c5  (departure_id => airports.id)
+#  fk_rails_72648286cc  (destination_id => airports.id)
 #  fk_rails_83513e77e3  (transiter_id => users.id)
 #
 FactoryBot.define do
   factory :package do
     description { 'My Precious' }
-    association :departure, factory: :place_kl
-    association :destination, factory: :place_dhaka
+    association :departure, factory: :airport
+    association :destination, factory: :airport
     association :transiter, factory: :user
     weight { 5 }
     status { 'draft' }
