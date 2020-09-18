@@ -5,8 +5,8 @@ class Trip < ApplicationRecord
   belongs_to :departure, class_name: 'Airport', inverse_of: :outgoing_trips
   belongs_to :destination, class_name: 'Airport', inverse_of: :incoming_trips
 
-  has_one :pricing, class_name: 'TripPricing', dependent: :destroy
-  has_many :bookings
+  has_one :pricing, class_name: 'TripPricing', dependent: :destroy, inverse_of: :trip
+  has_many :bookings, inverse_of: :trip
 
   validates :status, presence: true
 end

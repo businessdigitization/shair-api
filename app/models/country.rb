@@ -1,5 +1,5 @@
 class Country < ApplicationRecord
-  has_many :cities
+  has_many :cities, inverse_of: :country
   has_many :airports, through: :cities
 
   validates :code, presence: true

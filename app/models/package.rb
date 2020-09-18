@@ -6,9 +6,9 @@ class Package < ApplicationRecord
   belongs_to :departure, class_name: 'Airport', inverse_of: :outgoing_packages
   belongs_to :destination, class_name: 'Airport', inverse_of: :incoming_packages
 
-  has_one :pricing, class_name: 'PackagePricing', dependent: :destroy
-  has_many :items, class_name: 'PackageItem', dependent: :destroy
-  has_many :bookings
+  has_one :pricing, class_name: 'PackagePricing', dependent: :destroy, inverse_of: :package
+  has_many :items, class_name: 'PackageItem', dependent: :destroy, inverse_of: :package
+  has_many :bookings, inverse_of: :package
 
   validates :status, presence: true
 end

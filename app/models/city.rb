@@ -1,6 +1,6 @@
 class City < ApplicationRecord
   belongs_to :country, inverse_of: :cities
-  has_many :airports
+  has_many :airports, inverse_of: :city
   validates :name, presence: true
 end
 

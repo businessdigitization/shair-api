@@ -9,7 +9,7 @@ RSpec.describe Country do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:cities) }
+    it { is_expected.to have_many(:cities).inverse_of(:country) }
     it { is_expected.to have_many(:airports).through(:cities) }
   end
 
