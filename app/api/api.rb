@@ -46,6 +46,7 @@ module API
     end
 
     # Resources
+    mount API::Resources::Packages
   end
 
   Base = Rack::Builder.new do

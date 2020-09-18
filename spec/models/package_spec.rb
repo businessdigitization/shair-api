@@ -7,7 +7,7 @@ RSpec.describe Package do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:transiter).inverse_of(:packages) }
+    it { is_expected.to belong_to(:dispatcher).inverse_of(:packages) }
     it { is_expected.to belong_to(:departure).inverse_of(:outgoing_packages) }
     it { is_expected.to belong_to(:destination).inverse_of(:incoming_packages) }
     it { is_expected.to have_many(:items).dependent(:destroy) }

@@ -6,9 +6,8 @@ class CreatePackages < ActiveRecord::Migration[6.0]
       t.references :destination, foreign_key: { to_table: :airports, column: :destination_id }, null: false, index: true
       t.decimal :weight, precision: 10, scale: 2
       t.integer :status, null: false
-      t.integer :delivery_status
       t.text :preference
-      t.references :transiter, foreign_key: { to_table: :users, column: :transiter_id }, null: false, index: true
+      t.references :dispatcher, foreign_key: { to_table: :users, column: :dispatcher_id }, null: false, index: true
       t.daterange :delivery_daterange
 
       t.timestamps
