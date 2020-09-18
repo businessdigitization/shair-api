@@ -11,6 +11,10 @@ class Airport < ApplicationRecord
   validates :code, format: %r(\A[A-Z]{3}\z)
 
   validates :name, presence: true
+
+  def to_s
+    name + ', ' + city.name + ', ' + city.country.name
+  end
 end
 
 # == Schema Information
@@ -28,5 +32,5 @@ end
 #
 #  index_airports_on_city_id  (city_id)
 #  index_airports_on_code     (code) UNIQUE
-#  index_airports_on_name     (name) UNIQUE
+#  index_airports_on_name     (name)
 #
