@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe API::Entities::Booking do
   let(:currency) { FactoryBot.create(:currency) }
-  let(:package) { FactoryBot.create(:package, delivery_daterange: (Date.today..7.days.after)) }
+  let(:package) { FactoryBot.create(:package, delivery_daterange: (Time.zone.today..7.days.after)) }
   let!(:package_pricing) { FactoryBot.create(:package_pricing, package: package, currency: currency) }
   let!(:package_item) { FactoryBot.create(:package_item, package: package) }
 
@@ -15,8 +15,8 @@ RSpec.describe API::Entities::Booking do
   subject { JSON.parse(booking_entity.to_json) }
 
   it 'matches the api specification' do
-    expect(subject).
-      to eq(
+    expect(subject)
+      .to eq(
         'id' => booking.id,
         'status' => booking.status,
         'price' => booking.price,

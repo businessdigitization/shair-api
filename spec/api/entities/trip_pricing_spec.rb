@@ -7,8 +7,8 @@ RSpec.describe API::Entities::TripPricing do
   subject { JSON.parse(trip_pricing_entity.to_json) }
 
   it 'matches the api specification' do
-    expect(subject).
-      to eq(
+    expect(subject)
+      .to eq(
         'id' => trip_pricing.id,
         'unit_price' => trip_pricing.unit_price,
         'minimum_price' => trip_pricing.minimum_price,

@@ -7,8 +7,8 @@ RSpec.describe API::Entities::User do
   subject { JSON.parse(user_entity.to_json) }
 
   it 'matches the api specification' do
-    expect(subject).
-      to eq(
+    expect(subject)
+      .to eq(
         'id' => user.id,
         'name' => user.name,
         'email' => user.email,

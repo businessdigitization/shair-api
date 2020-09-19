@@ -7,8 +7,8 @@ RSpec.describe API::Entities::Airport do
   subject { JSON.parse(airport_entity.to_json) }
 
   it 'matches the api specification' do
-    expect(subject).
-      to eq(
+    expect(subject)
+      .to eq(
         'id' => airport.id,
         'name' => airport.name,
         'code' => airport.code,

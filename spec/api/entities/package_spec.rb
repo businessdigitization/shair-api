@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe API::Entities::Package do
-  let(:package) { FactoryBot.create(:package, delivery_daterange: (Date.today..7.days.after)) }
+  let(:package) { FactoryBot.create(:package, delivery_daterange: (Time.zone.today..7.days.after)) }
   let!(:package_pricing) { FactoryBot.create(:package_pricing, package: package) }
   let!(:package_item) { FactoryBot.create(:package_item, package: package) }
   let(:package_entity) { API::Entities::Package.represent(package) }
@@ -9,8 +9,8 @@ RSpec.describe API::Entities::Package do
   subject { JSON.parse(package_entity.to_json) }
 
   it 'matches the api specification' do
-    expect(subject).
-      to eq(
+    expect(subject)
+      .to eq(
         'id' => package.id,
         'destination' => {
           'id' => package.destination.id,

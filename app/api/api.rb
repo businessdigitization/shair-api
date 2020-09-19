@@ -1,6 +1,5 @@
 module API
   class Dispatch < Grape::API
-
     PAGINATION_MAX_PER_PAGE = 300
     PAGINATION_DEFAULT_PER_PAGE = 50
 

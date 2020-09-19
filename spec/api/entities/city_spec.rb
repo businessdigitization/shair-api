@@ -7,8 +7,8 @@ RSpec.describe API::Entities::City do
   subject { JSON.parse(city_entity.to_json) }
 
   it 'matches the api specification' do
-    expect(subject).
-      to eq(
+    expect(subject)
+      .to eq(
         'id' => city.id,
         'name' => city.name,
         'country' => {

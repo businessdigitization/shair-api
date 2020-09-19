@@ -8,8 +8,8 @@ RSpec.describe API::Entities::Trip do
   subject { JSON.parse(trip_entity.to_json) }
 
   it 'matches the api specification' do
-    expect(subject).
-      to eq(
+    expect(subject)
+      .to eq(
         'id' => trip.id,
         'destination' => {
           'id' => trip.destination.id,

@@ -7,8 +7,8 @@ RSpec.describe API::Entities::PackagePricing do
   subject { JSON.parse(package_pricing_entity.to_json) }
 
   it 'matches the api specification' do
-    expect(subject).
-      to eq(
+    expect(subject)
+      .to eq(
         'id' => package_pricing.id,
         'price' => package_pricing.price,
         'currency' => {

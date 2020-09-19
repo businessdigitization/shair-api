@@ -7,7 +7,6 @@ module API
           packages = Kaminari.paginate_array packages
 
           present paginate(packages), with: API::Entities::Package
-
         end
       end
     end

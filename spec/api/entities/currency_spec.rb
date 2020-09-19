@@ -7,8 +7,8 @@ RSpec.describe API::Entities::Currency do
   subject { JSON.parse(currency_entity.to_json) }
 
   it 'matches the api specification' do
-    expect(subject).
-      to eq(
+    expect(subject)
+      .to eq(
         'name' => currency.name,
         'code' => currency.code,
       )
