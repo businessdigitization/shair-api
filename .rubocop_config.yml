@@ -62,3 +62,6 @@ Style/MutableConstant:
 
 Style/LineLength:
   Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
