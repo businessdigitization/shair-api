@@ -50,14 +50,14 @@ RSpec.describe API::Entities::Trip do
         'status' => trip.status,
         'luggage_capacity' => trip.luggage_capacity,
         'pricing' => {
-        'id' => trip_pricing.id,
-        'unit_price' => trip_pricing.unit_price,
-        'minimum_price' => trip_pricing.minimum_price,
-        'currency' => {
-          'name' => trip_pricing.currency.name,
-          'code' => trip_pricing.currency.code,
-        },
-        'negotiable' => trip_pricing.negotiable,
+          'id' => trip_pricing.id,
+          'unit_price' => trip_pricing.unit_price,
+          'minimum_price' => trip_pricing.minimum_price,
+          'currency' => {
+            'name' => trip_pricing.currency.name,
+            'code' => trip_pricing.currency.code,
+          },
+          'negotiable' => trip_pricing.negotiable,
         },
         'preference' => trip.preference,
       )
