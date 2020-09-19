@@ -5,6 +5,9 @@ class Booking < ApplicationRecord
   belongs_to :package, inverse_of: :bookings
   belongs_to :currency
 
+  delegate :dispatcher, to: :package
+  delegate :transporter, to: :trip
+
   validates :status, presence: true
   validate :presence_of_proposed_price
   validate :different_user_as_dispatcher_and_transporter

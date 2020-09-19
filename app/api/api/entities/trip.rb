@@ -10,11 +10,8 @@ module API
       end
 
       with_options(format_with: :iso_time) do
-        expose :departure_time
-      end
-
-      with_options(format_with: :iso_time) do
-        expose :arrival_time
+        expose :departure_at
+        expose :arrival_at
       end
 
       expose :transporter, with: API::Entities::User

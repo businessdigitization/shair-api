@@ -7,16 +7,17 @@ module API
 
       with_options(format_with: :iso_date) do
         expose :delivery_date_lower_bound
-      end
-
-      with_options(format_with: :iso_date) do
         expose :delivery_date_upper_bound
       end
 
       expose :dispatcher, with: API::Entities::User
       expose :status
       expose :description
-      expose :weight
+
+      with_options(format_with: :float) do
+        expose :weight
+      end
+
       expose :items, with: API::Entities::PackageItem
       expose :pricing, with: API::Entities::PackagePricing
       expose :preference

@@ -12,6 +12,11 @@ RSpec.describe Booking do
     it { is_expected.to belong_to(:currency) }
   end
 
+  describe 'delegation' do
+    it { is_expected.to delegate_method(:dispatcher).to(:package) }
+    it { is_expected.to delegate_method(:transporter).to(:trip) }
+  end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:status) }
 
