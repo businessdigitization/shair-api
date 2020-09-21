@@ -1,6 +1,5 @@
 module API
   class Dispatch < Grape::API
-
     PAGINATION_MAX_PER_PAGE = 300
     PAGINATION_DEFAULT_PER_PAGE = 50
 
@@ -46,6 +45,7 @@ module API
     end
 
     # Resources
+    mount API::Resources::Packages
   end
 
   Base = Rack::Builder.new do

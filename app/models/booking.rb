@@ -5,24 +5,27 @@ class Booking < ApplicationRecord
   belongs_to :package, inverse_of: :bookings
   belongs_to :currency
 
+  delegate :dispatcher, to: :package
+  delegate :transporter, to: :trip
+
   validates :status, presence: true
   validate :presence_of_proposed_price
-  validate :different_user_as_transiter_and_transporter
+  validate :different_user_as_dispatcher_and_transporter
 
   private
 
   def presence_of_proposed_price
-    return if transiter_proposed_price.present? || transporter_proposed_price.present?
+    return if dispatcher_proposed_price.present? || transporter_proposed_price.present?
 
     errors.add(:price, 'Must have a proposed price')
   end
 
-  def different_user_as_transiter_and_transporter
+  def different_user_as_dispatcher_and_transporter
     return unless package && trip
 
-    return if package.transiter != trip.transporter
+    return if package.dispatcher != trip.transporter
 
-    errors.add(:base, "Transiter and Transporter can't be same person")
+    errors.add(:base, "Dispatcher and Transporter can't be same person")
   end
 end
 
@@ -31,10 +34,10 @@ end
 # Table name: bookings
 #
 #  id                         :bigint           not null, primary key
-#  price                      :decimal(10, 2)   not null
+#  dispatcher_proposed_price  :decimal(10, 2)
+#  price                      :decimal(10, 2)
 #  status                     :integer          not null
-#  transiter_proposed_price   :decimal(10, 2)   not null
-#  transporter_proposed_price :decimal(10, 2)   not null
+#  transporter_proposed_price :decimal(10, 2)
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  currency_id                :bigint

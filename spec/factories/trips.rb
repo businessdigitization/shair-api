@@ -3,9 +3,9 @@
 # Table name: trips
 #
 #  id               :bigint           not null, primary key
-#  arrival_time     :datetime
-#  date             :date
-#  departure_time   :datetime
+#  arrival_at       :datetime
+#  departure_at     :datetime
+#  departure_on     :date
 #  luggage_capacity :decimal(5, 2)
 #  preference       :text
 #  status           :integer          not null
@@ -17,8 +17,8 @@
 #
 # Indexes
 #
-#  index_trips_on_date            (date)
 #  index_trips_on_departure_id    (departure_id)
+#  index_trips_on_departure_on    (departure_on)
 #  index_trips_on_destination_id  (destination_id)
 #  index_trips_on_status          (status)
 #  index_trips_on_transporter_id  (transporter_id)
@@ -33,7 +33,7 @@ FactoryBot.define do
   factory :trip do
     association :departure, factory: :airport
     association :destination, factory: :airport
-    date { 7.days.since }
+    departure_on { 7.days.after }
     status { :draft }
     association :transporter, factory: :user
   end
