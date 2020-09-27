@@ -9,8 +9,18 @@ class Booking < ApplicationRecord
   delegate :transporter, to: :trip
 
   validates :status, presence: true
+  validates :number, presence: true
   validate :presence_of_proposed_price
   validate :different_user_as_dispatcher_and_transporter
+
+  after_initialize :init
+
+  private
+
+  def init
+    self.status = :proposed
+    self.number = (rand(100) * Time.zone.now.to_i).to_s
+  end
 
   private
 
@@ -35,6 +45,7 @@ end
 #
 #  id                         :bigint           not null, primary key
 #  dispatcher_proposed_price  :decimal(10, 2)
+#  number                     :string           not null
 #  price                      :decimal(10, 2)
 #  status                     :integer          not null
 #  transporter_proposed_price :decimal(10, 2)
@@ -47,6 +58,7 @@ end
 # Indexes
 #
 #  index_bookings_on_currency_id  (currency_id)
+#  index_bookings_on_number       (number)
 #  index_bookings_on_package_id   (package_id)
 #  index_bookings_on_trip_id      (trip_id)
 #

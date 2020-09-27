@@ -11,6 +11,14 @@ class Package < ApplicationRecord
   has_many :bookings, inverse_of: :package
 
   validates :status, presence: true
+
+  after_initialize :init
+
+  private
+
+  def init
+    self.status = :draft
+  end
 end
 
 # == Schema Information

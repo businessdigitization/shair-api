@@ -19,6 +19,7 @@ RSpec.describe Booking do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:status) }
+    it { is_expected.to validate_presence_of(:status) }
 
     describe 'proposed price' do
       it 'is invalid without any proposed price' do
@@ -52,6 +53,16 @@ RSpec.describe Booking do
         end
 
         specify { expect(booking).to be_valid }
+      end
+    end
+  end
+
+  describe 'callbacks' do
+    describe 'after intialize' do
+      it 'sets status to :draft and assign a number' do
+        booking = Booking.new
+        expect(booking.status).to eq('proposed')
+        expect(booking.number).to_not be_nil
       end
     end
   end

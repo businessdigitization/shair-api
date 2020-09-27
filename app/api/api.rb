@@ -46,6 +46,7 @@ module API
 
     # Resources
     mount API::Resources::Packages
+    mount API::Resources::Trips
   end
 
   Base = Rack::Builder.new do

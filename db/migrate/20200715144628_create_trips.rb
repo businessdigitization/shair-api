@@ -3,9 +3,8 @@ class CreateTrips < ActiveRecord::Migration[6.0]
     create_table :trips do |t|
       t.references :departure, foreign_key: { to_table: :airports, column: :departure_id }, null: false, index: true
       t.references :destination, foreign_key: { to_table: :airports, column: :destination_id }, null: false, index: true
-      t.date :departure_on, index: true
-      t.datetime :departure_at
-      t.datetime :arrival_at
+      t.datetime :departure_at, index: true
+      t.datetime :arrival_at, index: true
       t.integer :status, null: false, index: true
       t.decimal :luggage_capacity, precision: 5, scale: 2
       t.text :preference

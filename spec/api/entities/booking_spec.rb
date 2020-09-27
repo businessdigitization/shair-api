@@ -115,9 +115,8 @@ RSpec.describe API::Entities::Booking do
               },
             },
           },
-          'departure_on' => trip.departure_on.iso8601,
-          'departure_at' => trip.departure_at,
-          'arrival_at' => trip.arrival_at,
+          'departure_at' => trip.departure_at.iso8601,
+          'arrival_at' => trip.arrival_at.iso8601,
           'transporter' => {
             'id' => trip.transporter.id,
             'name' => trip.transporter.name,

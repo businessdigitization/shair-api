@@ -9,6 +9,23 @@ class Trip < ApplicationRecord
   has_many :bookings, inverse_of: :trip
 
   validates :status, presence: true
+  validate :departure_before_arrival
+
+  accepts_nested_attributes_for :pricing
+
+  after_initialize :init
+
+  private
+
+  def departure_before_arrival
+    return if (departure_at.nil? || arrival_at.nil?) || departure_at < arrival_at
+
+    errors.add(:departure_at, 'Time travel not possible')
+  end
+
+  def init
+    self.status = :draft
+  end
 end
 
 # == Schema Information
@@ -18,7 +35,6 @@ end
 #  id               :bigint           not null, primary key
 #  arrival_at       :datetime
 #  departure_at     :datetime
-#  departure_on     :date
 #  luggage_capacity :decimal(5, 2)
 #  preference       :text
 #  status           :integer          not null
@@ -30,8 +46,9 @@ end
 #
 # Indexes
 #
+#  index_trips_on_arrival_at      (arrival_at)
+#  index_trips_on_departure_at    (departure_at)
 #  index_trips_on_departure_id    (departure_id)
-#  index_trips_on_departure_on    (departure_on)
 #  index_trips_on_destination_id  (destination_id)
 #  index_trips_on_status          (status)
 #  index_trips_on_transporter_id  (transporter_id)

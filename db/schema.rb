@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
   create_table "bookings", force: :cascade do |t|
     t.bigint "trip_id"
     t.bigint "package_id"
+    t.string "number", null: false
     t.decimal "transporter_proposed_price", precision: 10, scale: 2
     t.decimal "dispatcher_proposed_price", precision: 10, scale: 2
     t.decimal "price", precision: 10, scale: 2
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["currency_id"], name: "index_bookings_on_currency_id"
+    t.index ["number"], name: "index_bookings_on_number"
     t.index ["package_id"], name: "index_bookings_on_package_id"
     t.index ["trip_id"], name: "index_bookings_on_trip_id"
   end
@@ -114,7 +116,6 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
   create_table "trips", force: :cascade do |t|
     t.bigint "departure_id", null: false
     t.bigint "destination_id", null: false
-    t.date "departure_on"
     t.datetime "departure_at"
     t.datetime "arrival_at"
     t.integer "status", null: false
@@ -123,8 +124,9 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.bigint "transporter_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["arrival_at"], name: "index_trips_on_arrival_at"
+    t.index ["departure_at"], name: "index_trips_on_departure_at"
     t.index ["departure_id"], name: "index_trips_on_departure_id"
-    t.index ["departure_on"], name: "index_trips_on_departure_on"
     t.index ["destination_id"], name: "index_trips_on_destination_id"
     t.index ["status"], name: "index_trips_on_status"
     t.index ["transporter_id"], name: "index_trips_on_transporter_id"
