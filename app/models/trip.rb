@@ -11,6 +11,8 @@ class Trip < ApplicationRecord
   validates :status, presence: true
   validate :departure_before_arrival
 
+  validates :arrival_at, :departure_at, :luggage_capacity, :pricing, presence: true, if: :published_trip?
+
   accepts_nested_attributes_for :pricing
 
   after_initialize :init
