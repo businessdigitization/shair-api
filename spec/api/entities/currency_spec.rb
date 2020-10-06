@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe API::Entities::Currency do
+RSpec.describe Entities::Currency do
   let(:currency) { FactoryBot.create(:currency) }
-  let(:currency_entity) { API::Entities::Currency.represent(currency) }
+  let(:currency_entity) { Entities::Currency.represent(currency) }
 
   subject { JSON.parse(currency_entity.to_json) }
 

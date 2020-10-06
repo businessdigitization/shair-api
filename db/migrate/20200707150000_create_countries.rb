@@ -1,9 +1,8 @@
 class CreateCountries < ActiveRecord::Migration[6.0]
   def change
-    create_table :countries do |t|
+    create_table :countries, id: false do |t|
       t.string :name, null: false
-      t.string :code, null: false, index: { unique: true }
-
+      t.string :code, primary_key: true
       t.timestamps
     end
   end

@@ -4,8 +4,9 @@ class CreateTripPricings < ActiveRecord::Migration[6.0]
       t.references :trip, index: true
       t.decimal :unit_price, precision: 10, scale: 2, null: false
       t.decimal :minimum_price, precision: 10, scale: 2, null: false
-      t.references :currency, index: true
+      t.string :currency_code, null: false, index: true
       t.boolean :negotiable
     end
+    add_foreign_key :trip_pricings, :currencies, column: :currency_code, primary_key: :code
   end
 end

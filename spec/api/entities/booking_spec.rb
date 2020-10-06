@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe API::Entities::Booking do
+RSpec.describe Entities::Booking do
   let(:currency) { FactoryBot.create(:currency) }
   let(:package) { FactoryBot.create(:package, delivery_daterange: (Time.zone.today..7.days.after)) }
   let!(:package_pricing) { FactoryBot.create(:package_pricing, package: package, currency: currency) }
@@ -10,14 +10,14 @@ RSpec.describe API::Entities::Booking do
   let!(:trip_pricing) { FactoryBot.create(:trip_pricing, trip: trip, currency: currency) }
 
   let(:booking) { FactoryBot.create(:booking, trip: trip, package: package, currency: currency) }
-  let(:booking_entity) { API::Entities::Booking.represent(booking) }
+  let(:booking_entity) { Entities::Booking.represent(booking) }
 
   subject { JSON.parse(booking_entity.to_json) }
 
   it 'matches the api specification' do
     expect(subject)
       .to eq(
-        'id' => booking.id,
+        'number' => booking.number,
         'status' => booking.status,
         'price' => booking.price,
         'dispatcher_proposed_price' => booking.dispatcher_proposed_price,
@@ -29,28 +29,22 @@ RSpec.describe API::Entities::Booking do
         'package' => {
           'id' => package.id,
           'destination' => {
-            'id' => package.destination.id,
             'name' => package.destination.name,
             'code' => package.destination.code,
             'city' => {
-              'id' => package.destination.city.id,
               'name' => package.destination.city.name,
               'country' => {
-                'id' => package.destination.city.country.id,
                 'name' => package.destination.city.country.name,
                 'code' => package.destination.city.country.code,
               },
             },
           },
           'departure' => {
-            'id' => package.departure.id,
             'name' => package.departure.name,
             'code' => package.departure.code,
             'city' => {
-              'id' => package.departure.city.id,
               'name' => package.departure.city.name,
               'country' => {
-                'id' => package.departure.city.country.id,
                 'name' => package.departure.city.country.name,
                 'code' => package.departure.city.country.code,
               },
@@ -59,7 +53,6 @@ RSpec.describe API::Entities::Booking do
           'delivery_date_lower_bound' => package.delivery_daterange.first.iso8601,
           'delivery_date_upper_bound' => package.delivery_daterange.last.iso8601,
           'dispatcher' => {
-            'id' => package.dispatcher.id,
             'name' => package.dispatcher.name,
             'email' => package.dispatcher.email,
           },
@@ -88,38 +81,30 @@ RSpec.describe API::Entities::Booking do
         'trip' => {
           'id' => trip.id,
           'destination' => {
-            'id' => trip.destination.id,
             'name' => trip.destination.name,
             'code' => trip.destination.code,
             'city' => {
-              'id' => trip.destination.city.id,
               'name' => trip.destination.city.name,
               'country' => {
-                'id' => trip.destination.city.country.id,
                 'name' => trip.destination.city.country.name,
                 'code' => trip.destination.city.country.code,
               },
             },
           },
           'departure' => {
-            'id' => trip.departure.id,
             'name' => trip.departure.name,
             'code' => trip.departure.code,
             'city' => {
-              'id' => trip.departure.city.id,
               'name' => trip.departure.city.name,
               'country' => {
-                'id' => trip.departure.city.country.id,
                 'name' => trip.departure.city.country.name,
                 'code' => trip.departure.city.country.code,
               },
             },
           },
-          'departure_on' => trip.departure_on.iso8601,
-          'departure_at' => trip.departure_at,
-          'arrival_at' => trip.arrival_at,
+          'departure_at' => trip.departure_at.iso8601,
+          'arrival_at' => trip.arrival_at.iso8601,
           'transporter' => {
-            'id' => trip.transporter.id,
             'name' => trip.transporter.name,
             'email' => trip.transporter.email,
           },
@@ -138,12 +123,10 @@ RSpec.describe API::Entities::Booking do
           'preference' => trip.preference,
         },
         'dispatcher' => {
-          'id' => booking.dispatcher.id,
           'name' => booking.dispatcher.name,
           'email' => booking.dispatcher.email,
         },
         'transporter' => {
-          'id' => booking.transporter.id,
           'name' => booking.transporter.name,
           'email' => booking.transporter.email,
         }

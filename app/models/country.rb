@@ -1,5 +1,7 @@
 class Country < ApplicationRecord
-  has_many :cities, inverse_of: :country
+  self.primary_key = 'code'
+
+  has_many :cities, primary_key: :code, foreign_key: :country_code, inverse_of: :country
   has_many :airports, through: :cities
 
   validates :code, presence: true
@@ -12,13 +14,8 @@ end
 #
 # Table name: countries
 #
-#  id         :bigint           not null, primary key
-#  code       :string           not null
+#  code       :string           not null, primary key
 #  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#
-# Indexes
-#
-#  index_countries_on_code  (code) UNIQUE
 #

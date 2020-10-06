@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe API::Entities::Trip do
+RSpec.describe Entities::Trip do
   let(:trip) { FactoryBot.create(:trip) }
   let!(:trip_pricing) { FactoryBot.create(:trip_pricing, trip: trip) }
-  let(:trip_entity) { API::Entities::Trip.represent(trip) }
+  let(:trip_entity) { Entities::Trip.represent(trip) }
 
   subject { JSON.parse(trip_entity.to_json) }
 
@@ -12,38 +12,30 @@ RSpec.describe API::Entities::Trip do
       .to eq(
         'id' => trip.id,
         'destination' => {
-          'id' => trip.destination.id,
           'name' => trip.destination.name,
           'code' => trip.destination.code,
           'city' => {
-            'id' => trip.destination.city.id,
             'name' => trip.destination.city.name,
             'country' => {
-              'id' => trip.destination.city.country.id,
               'name' => trip.destination.city.country.name,
               'code' => trip.destination.city.country.code,
             },
           },
         },
         'departure' => {
-          'id' => trip.departure.id,
           'name' => trip.departure.name,
           'code' => trip.departure.code,
           'city' => {
-            'id' => trip.departure.city.id,
             'name' => trip.departure.city.name,
             'country' => {
-              'id' => trip.departure.city.country.id,
               'name' => trip.departure.city.country.name,
               'code' => trip.departure.city.country.code,
             },
           },
         },
-        'departure_on' => trip.departure_on.iso8601,
-        'departure_at' => trip.departure_at,
-        'arrival_at' => trip.arrival_at,
+        'departure_at' => trip.departure_at.iso8601,
+        'arrival_at' => trip.arrival_at.iso8601,
         'transporter' => {
-          'id' => trip.transporter.id,
           'name' => trip.transporter.name,
           'email' => trip.transporter.email,
         },

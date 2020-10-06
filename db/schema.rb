@@ -16,52 +16,46 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
   enable_extension "citext"
   enable_extension "plpgsql"
 
-  create_table "airports", force: :cascade do |t|
+  create_table "airports", primary_key: "code", id: :string, force: :cascade do |t|
     t.string "name", null: false
-    t.string "code", null: false
     t.bigint "city_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["city_id"], name: "index_airports_on_city_id"
-    t.index ["code"], name: "index_airports_on_code", unique: true
     t.index ["name"], name: "index_airports_on_name"
   end
 
-  create_table "bookings", force: :cascade do |t|
+  create_table "bookings", primary_key: "number", id: :string, force: :cascade do |t|
     t.bigint "trip_id"
     t.bigint "package_id"
     t.decimal "transporter_proposed_price", precision: 10, scale: 2
     t.decimal "dispatcher_proposed_price", precision: 10, scale: 2
     t.decimal "price", precision: 10, scale: 2
-    t.bigint "currency_id"
+    t.string "currency_code", null: false
     t.integer "status", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["currency_id"], name: "index_bookings_on_currency_id"
+    t.index ["currency_code"], name: "index_bookings_on_currency_code"
     t.index ["package_id"], name: "index_bookings_on_package_id"
     t.index ["trip_id"], name: "index_bookings_on_trip_id"
   end
 
   create_table "cities", force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "country_id", null: false
+    t.string "country_code", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["country_id"], name: "index_cities_on_country_id"
+    t.index ["country_code"], name: "index_cities_on_country_code"
   end
 
-  create_table "countries", force: :cascade do |t|
+  create_table "countries", primary_key: "code", id: :string, force: :cascade do |t|
     t.string "name", null: false
-    t.string "code", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["code"], name: "index_countries_on_code", unique: true
   end
 
-  create_table "currencies", force: :cascade do |t|
-    t.string "code", null: false
+  create_table "currencies", primary_key: "code", id: :string, force: :cascade do |t|
     t.string "name", null: false
-    t.index ["code"], name: "index_currencies_on_code", unique: true
   end
 
   create_table "package_items", force: :cascade do |t|
@@ -77,71 +71,73 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
   create_table "package_pricings", force: :cascade do |t|
     t.bigint "package_id"
     t.decimal "price", precision: 10, scale: 2, null: false
-    t.bigint "currency_id"
+    t.string "currency_code", null: false
     t.boolean "negotiable"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["currency_id"], name: "index_package_pricings_on_currency_id"
+    t.index ["currency_code"], name: "index_package_pricings_on_currency_code"
     t.index ["package_id"], name: "index_package_pricings_on_package_id"
   end
 
   create_table "packages", force: :cascade do |t|
     t.text "description"
-    t.bigint "departure_id", null: false
-    t.bigint "destination_id", null: false
+    t.string "departure_airport_code", null: false
+    t.string "destination_airport_code", null: false
     t.decimal "weight", precision: 10, scale: 2
     t.integer "status", null: false
     t.text "preference"
-    t.bigint "dispatcher_id", null: false
+    t.citext "dispatcher_email", null: false
     t.daterange "delivery_daterange"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["departure_id"], name: "index_packages_on_departure_id"
-    t.index ["destination_id"], name: "index_packages_on_destination_id"
-    t.index ["dispatcher_id"], name: "index_packages_on_dispatcher_id"
+    t.index ["departure_airport_code"], name: "index_packages_on_departure_airport_code"
+    t.index ["destination_airport_code"], name: "index_packages_on_destination_airport_code"
+    t.index ["dispatcher_email"], name: "index_packages_on_dispatcher_email"
   end
 
   create_table "trip_pricings", force: :cascade do |t|
     t.bigint "trip_id"
     t.decimal "unit_price", precision: 10, scale: 2, null: false
     t.decimal "minimum_price", precision: 10, scale: 2, null: false
-    t.bigint "currency_id"
+    t.string "currency_code", null: false
     t.boolean "negotiable"
-    t.index ["currency_id"], name: "index_trip_pricings_on_currency_id"
+    t.index ["currency_code"], name: "index_trip_pricings_on_currency_code"
     t.index ["trip_id"], name: "index_trip_pricings_on_trip_id"
   end
 
   create_table "trips", force: :cascade do |t|
-    t.bigint "departure_id", null: false
-    t.bigint "destination_id", null: false
-    t.date "departure_on"
+    t.string "departure_airport_code", null: false
+    t.string "destination_airport_code", null: false
     t.datetime "departure_at"
     t.datetime "arrival_at"
     t.integer "status", null: false
     t.decimal "luggage_capacity", precision: 5, scale: 2
     t.text "preference"
-    t.bigint "transporter_id", null: false
+    t.citext "transporter_email", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["departure_id"], name: "index_trips_on_departure_id"
-    t.index ["departure_on"], name: "index_trips_on_departure_on"
-    t.index ["destination_id"], name: "index_trips_on_destination_id"
+    t.index ["arrival_at"], name: "index_trips_on_arrival_at"
+    t.index ["departure_airport_code"], name: "index_trips_on_departure_airport_code"
+    t.index ["departure_at"], name: "index_trips_on_departure_at"
+    t.index ["destination_airport_code"], name: "index_trips_on_destination_airport_code"
     t.index ["status"], name: "index_trips_on_status"
-    t.index ["transporter_id"], name: "index_trips_on_transporter_id"
+    t.index ["transporter_email"], name: "index_trips_on_transporter_email"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", primary_key: "email", id: :citext, force: :cascade do |t|
     t.citext "name"
-    t.citext "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "packages", "airports", column: "departure_id"
-  add_foreign_key "packages", "airports", column: "destination_id"
-  add_foreign_key "packages", "users", column: "dispatcher_id"
-  add_foreign_key "trips", "airports", column: "departure_id"
-  add_foreign_key "trips", "airports", column: "destination_id"
-  add_foreign_key "trips", "users", column: "transporter_id"
+  add_foreign_key "bookings", "currencies", column: "currency_code", primary_key: "code"
+  add_foreign_key "cities", "countries", column: "country_code", primary_key: "code"
+  add_foreign_key "package_pricings", "currencies", column: "currency_code", primary_key: "code"
+  add_foreign_key "packages", "airports", column: "departure_airport_code", primary_key: "code"
+  add_foreign_key "packages", "airports", column: "destination_airport_code", primary_key: "code"
+  add_foreign_key "packages", "users", column: "dispatcher_email", primary_key: "email"
+  add_foreign_key "trip_pricings", "currencies", column: "currency_code", primary_key: "code"
+  add_foreign_key "trips", "airports", column: "departure_airport_code", primary_key: "code"
+  add_foreign_key "trips", "airports", column: "destination_airport_code", primary_key: "code"
+  add_foreign_key "trips", "users", column: "transporter_email", primary_key: "email"
 end

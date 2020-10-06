@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe API::Entities::PackagePricing do
+RSpec.describe Entities::PackagePricing do
   let(:package_pricing) { FactoryBot.create(:package_pricing) }
-  let(:package_pricing_entity) { API::Entities::PackagePricing.represent(package_pricing) }
+  let(:package_pricing_entity) { Entities::PackagePricing.represent(package_pricing) }
 
   subject { JSON.parse(package_pricing_entity.to_json) }
 

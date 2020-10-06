@@ -3,16 +3,20 @@
 # Table name: trip_pricings
 #
 #  id            :bigint           not null, primary key
+#  currency_code :string           not null
 #  minimum_price :decimal(10, 2)   not null
 #  negotiable    :boolean
 #  unit_price    :decimal(10, 2)   not null
-#  currency_id   :bigint
 #  trip_id       :bigint
 #
 # Indexes
 #
-#  index_trip_pricings_on_currency_id  (currency_id)
-#  index_trip_pricings_on_trip_id      (trip_id)
+#  index_trip_pricings_on_currency_code  (currency_code)
+#  index_trip_pricings_on_trip_id        (trip_id)
+#
+# Foreign Keys
+#
+#  fk_rails_809d280049  (currency_code => currencies.code)
 #
 FactoryBot.define do
   factory :trip_pricing do

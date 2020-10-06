@@ -1,4 +1,4 @@
-module API::ExceptionHandling
+module ExceptionHandling
   extend ActiveSupport::Concern
 
   included do

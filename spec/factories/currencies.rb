@@ -2,13 +2,8 @@
 #
 # Table name: currencies
 #
-#  id   :bigint           not null, primary key
-#  code :string           not null
+#  code :string           not null, primary key
 #  name :string           not null
-#
-# Indexes
-#
-#  index_currencies_on_code  (code) UNIQUE
 #
 FactoryBot.define do
   factory :currency do
