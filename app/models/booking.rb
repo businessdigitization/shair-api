@@ -20,13 +20,11 @@ class Booking < ApplicationRecord
   private
 
   def init
-    return if self.persisted?
+    return unless new_record?
 
     self.status = :proposed
     self.number = (rand(100) * Time.zone.now.to_i).to_s
   end
-
-  private
 
   def presence_of_proposed_price
     return if dispatcher_proposed_price.present? || transporter_proposed_price.present?

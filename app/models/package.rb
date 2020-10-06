@@ -17,7 +17,7 @@ class Package < ApplicationRecord
   private
 
   def init
-    return if self.persisted?
+    return unless new_record?
 
     self.status = :draft
   end

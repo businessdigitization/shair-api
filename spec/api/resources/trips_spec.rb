@@ -52,47 +52,47 @@ RSpec.describe Resources::Trips do
     context 'valid params' do
       let(:expected_result) do
         {
-          "id" => Trip.last.id,
-          "destination" => {
-            "name" => destination.name,
-            "code" => "LHR",
-            "city" => {
-              "name" => destination_city.name,
-              "country" => {
-                "name" => destination_country.name,
-                "code" => destination_country.code
+          'id' => Trip.last.id,
+          'destination' => {
+            'name' => destination.name,
+            'code' => 'LHR',
+            'city' => {
+              'name' => destination_city.name,
+              'country' => {
+                'name' => destination_country.name,
+                'code' => destination_country.code
               }
             }
           },
-          "departure" => {
-            "name" => departure.name,
-            "code" => "JFK",
-            "city" => {
-              "name" => departure_city.name,
-              "country" => {
-                "name" => departure_country.name,
-                "code" => departure_country.code
+          'departure' => {
+            'name' => departure.name,
+            'code' => 'JFK',
+            'city' => {
+              'name' => departure_city.name,
+              'country' => {
+                'name' => departure_country.name,
+                'code' => departure_country.code
               }
             }
           },
-          "departure_at" => "2022-09-25T00:00:00Z",
-          "arrival_at" => "2022-09-29T00:00:00Z",
-          "transporter" => {
-            "name" => "Faruk Hossain",
-            "email" => "transporter@example.com"
+          'departure_at' => '2022-09-25T00:00:00Z',
+          'arrival_at' => '2022-09-29T00:00:00Z',
+          'transporter' => {
+            'name' => 'Faruk Hossain',
+            'email' => 'transporter@example.com'
           },
-          "status" => "draft",
-          "luggage_capacity" => "20.0",
-          "pricing" => {
-            "id" => Trip.last.pricing.id,
-            "unit_price" => 5.0,
-            "minimum_price" => 5.0,
-            "currency" => {
-              "name" => "Bangladeshi Taka",
-              "code" => "BDT"
+          'status' => 'draft',
+          'luggage_capacity' => '20.0',
+          'pricing' => {
+            'id' => Trip.last.pricing.id,
+            'unit_price' => 5.0,
+            'minimum_price' => 5.0,
+            'currency' => {
+              'name' => 'Bangladeshi Taka',
+              'code' => 'BDT'
             },
-            "negotiable" => true
-          }, "preference" => "No food"
+            'negotiable' => true
+          }, 'preference' => 'No food'
         }
       end
 
@@ -119,7 +119,7 @@ RSpec.describe Resources::Trips do
     let(:request_url) { "/api/v1/trips/#{trip.id}" }
 
     context 'invalid params' do
-      let(:request_url) { "/api/v1/trips/1234" }
+      let(:request_url) { '/api/v1/trips/1234' }
 
       it 'responds with 404' do
         patch request_url, params: {}
@@ -189,7 +189,7 @@ RSpec.describe Resources::Trips do
 
   describe 'GET /trips/:id' do
     context 'invalid params' do
-      let(:request_url) { "/api/v1/trips/1234" }
+      let(:request_url) { '/api/v1/trips/1234' }
 
       it 'responds with 404' do
         get request_url, params: {}
