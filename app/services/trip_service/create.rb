@@ -12,7 +12,14 @@ module TripService
     end
 
     def call
-      Trip.create!(attribute_hash)
+      trip_attributes[:trip_attributes] = pricing_attributes if pricing_attributes
+      Trip.create!(trip_attributes)
+    end
+
+    private
+
+    def transporter
+      User.find_by(email: params[:transporter_email])
     end
   end
 end

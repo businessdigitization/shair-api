@@ -9,14 +9,11 @@ RSpec.describe API::Entities::Airport do
   it 'matches the api specification' do
     expect(subject)
       .to eq(
-        'id' => airport.id,
         'name' => airport.name,
         'code' => airport.code,
         'city' => {
-          'id' => airport.city.id,
           'name' => airport.city.name,
           'country' => {
-            'id' => airport.city.country.id,
             'name' => airport.city.country.name,
             'code' => airport.city.country.code
           },

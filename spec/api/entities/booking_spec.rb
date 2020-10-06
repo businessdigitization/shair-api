@@ -17,7 +17,7 @@ RSpec.describe API::Entities::Booking do
   it 'matches the api specification' do
     expect(subject)
       .to eq(
-        'id' => booking.id,
+        'number' => booking.number,
         'status' => booking.status,
         'price' => booking.price,
         'dispatcher_proposed_price' => booking.dispatcher_proposed_price,
@@ -29,28 +29,22 @@ RSpec.describe API::Entities::Booking do
         'package' => {
           'id' => package.id,
           'destination' => {
-            'id' => package.destination.id,
             'name' => package.destination.name,
             'code' => package.destination.code,
             'city' => {
-              'id' => package.destination.city.id,
               'name' => package.destination.city.name,
               'country' => {
-                'id' => package.destination.city.country.id,
                 'name' => package.destination.city.country.name,
                 'code' => package.destination.city.country.code,
               },
             },
           },
           'departure' => {
-            'id' => package.departure.id,
             'name' => package.departure.name,
             'code' => package.departure.code,
             'city' => {
-              'id' => package.departure.city.id,
               'name' => package.departure.city.name,
               'country' => {
-                'id' => package.departure.city.country.id,
                 'name' => package.departure.city.country.name,
                 'code' => package.departure.city.country.code,
               },
@@ -88,28 +82,22 @@ RSpec.describe API::Entities::Booking do
         'trip' => {
           'id' => trip.id,
           'destination' => {
-            'id' => trip.destination.id,
             'name' => trip.destination.name,
             'code' => trip.destination.code,
             'city' => {
-              'id' => trip.destination.city.id,
               'name' => trip.destination.city.name,
               'country' => {
-                'id' => trip.destination.city.country.id,
                 'name' => trip.destination.city.country.name,
                 'code' => trip.destination.city.country.code,
               },
             },
           },
           'departure' => {
-            'id' => trip.departure.id,
             'name' => trip.departure.name,
             'code' => trip.departure.code,
             'city' => {
-              'id' => trip.departure.city.id,
               'name' => trip.departure.city.name,
               'country' => {
-                'id' => trip.departure.city.country.id,
                 'name' => trip.departure.city.country.name,
                 'code' => trip.departure.city.country.code,
               },

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :airport do
-    sequence(:name) { |i| 'Country ' + (1..999).to_a[i].to_s }
+    sequence(:name) { |i| 'Airport ' + (1..999).to_a[i].to_s }
     sequence(:code) { |i| ('AAA'...'ZZZ').to_a[i] }
     association :city, factory: :city
   end

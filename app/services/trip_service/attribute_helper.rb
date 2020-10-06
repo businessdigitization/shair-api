@@ -1,6 +1,6 @@
 module TripService
   module AttributeHelper
-    def attribute_hash
+    def trip_attributes
       raw_attribute_hash = {
         departure: departure,
         destination: destination,
@@ -9,9 +9,9 @@ module TripService
         arrival_at: params[:arrival_at],
         luggage_capacity: params[:luggage_capacity],
         preference: params[:preference],
-        pricing_attributes: pricing_attributes
+        status: params[:status],
       }
-
+byebug
       return {} if raw_attribute_hash.blank?
       raw_attribute_hash.delete_if { |k, v| v.blank? }
     end
@@ -22,10 +22,6 @@ module TripService
 
     def destination
       Airport.find_by(code: params[:destination_airport_code])
-    end
-
-    def transporter
-      User.find_by(email: params[:transporter_email])
     end
 
     def pricing_attributes

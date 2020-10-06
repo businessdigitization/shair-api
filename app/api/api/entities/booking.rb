@@ -1,7 +1,7 @@
 module API
   module Entities
     class Booking < API::Entities::Base
-      expose :id
+      expose :number
       expose :status
 
       with_options(format_with: :float) do

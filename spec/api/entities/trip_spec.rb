@@ -12,28 +12,22 @@ RSpec.describe API::Entities::Trip do
       .to eq(
         'id' => trip.id,
         'destination' => {
-          'id' => trip.destination.id,
           'name' => trip.destination.name,
           'code' => trip.destination.code,
           'city' => {
-            'id' => trip.destination.city.id,
             'name' => trip.destination.city.name,
             'country' => {
-              'id' => trip.destination.city.country.id,
               'name' => trip.destination.city.country.name,
               'code' => trip.destination.city.country.code,
             },
           },
         },
         'departure' => {
-          'id' => trip.departure.id,
           'name' => trip.departure.name,
           'code' => trip.departure.code,
           'city' => {
-            'id' => trip.departure.city.id,
             'name' => trip.departure.city.name,
             'country' => {
-              'id' => trip.departure.city.country.id,
               'name' => trip.departure.city.country.name,
               'code' => trip.departure.city.country.code,
             },

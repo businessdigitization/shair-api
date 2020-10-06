@@ -20,6 +20,7 @@ module API
           optional :departure_at, type: DateTime
           optional :arrival_at, type: DateTime
           optional :luggage_capacity, type: BigDecimal
+          optional :status, type: String
 
           optional :pricing, type: Hash do
             requires :unit_price, type: BigDecimal
@@ -31,6 +32,7 @@ module API
         end
 
         post do
+          byebug
           trip = TripService::Create.call(permitted_params)
           present trip, with: API::Entities::Trip
         end
@@ -49,17 +51,17 @@ module API
 
             optional :destination_airport_code, type: String, values: -> { Airport.pluck(:code) }
 
-            optional :transporter_email, type: String, values: -> { User.pluck(:email) }
-
             optional :departure_at, type: DateTime
             optional :arrival_at, type: DateTime
             optional :luggage_capacity, type: BigDecimal
+            optional :status, type: String
 
             optional :pricing, type: Hash do
-              requires :unit_price, type: BigDecimal
-              requires :minimum_price, type: BigDecimal
-              requires :negotiable, type: Boolean
-              requires :currency_code, type: String
+              requires :id, type: Integer
+              optional :unit_price, type: BigDecimal
+              optional :minimum_price, type: BigDecimal
+              optional :negotiable, type: Boolean
+              optional :currency_code, type: String
             end
             optional :preference, type: String
           end

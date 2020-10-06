@@ -9,7 +9,6 @@ RSpec.describe API::Entities::Country do
   it 'matches the api specification' do
     expect(subject)
       .to eq(
-        'id' => country.id,
         'name' => country.name,
         'code' => country.code,
       )

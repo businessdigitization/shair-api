@@ -13,28 +13,22 @@ RSpec.describe API::Entities::Package do
       .to eq(
         'id' => package.id,
         'destination' => {
-          'id' => package.destination.id,
           'name' => package.destination.name,
           'code' => package.destination.code,
           'city' => {
-            'id' => package.destination.city.id,
             'name' => package.destination.city.name,
             'country' => {
-              'id' => package.destination.city.country.id,
               'name' => package.destination.city.country.name,
               'code' => package.destination.city.country.code,
             },
           },
         },
         'departure' => {
-          'id' => package.departure.id,
           'name' => package.departure.name,
           'code' => package.departure.code,
           'city' => {
-            'id' => package.departure.city.id,
             'name' => package.departure.city.name,
             'country' => {
-              'id' => package.departure.city.country.id,
               'name' => package.departure.city.country.name,
               'code' => package.departure.city.country.code,
             },

@@ -12,7 +12,7 @@ module TripService
     end
 
     def call
-      trip.update!(attribute_hash)
+      trip.update!(trip_attributes)
       trip
     end
 
