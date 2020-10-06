@@ -1,9 +1,6 @@
 require 'rails_helper'
 RSpec.describe Resources::Trips do
   let(:response_json) { JSON.parse(response.body) }
-  let(:departure) { FactoryBot.create(:airport, code: 'DEL') }
-  let(:destination) { FactoryBot.create(:airport, code: 'KOL')}
-  let(:currency) { FactoryBot.create(:currency, code: 'NRP')}
 
   describe 'POST /trips' do
     let(:request_url) { '/api/v1/trips' }
@@ -35,7 +32,7 @@ RSpec.describe Resources::Trips do
       }
     end
 
-    context 'incomplete parameters' do
+    context 'invalid params' do
       let(:required_params) do
         [
           :destination_airport_code,
@@ -52,7 +49,7 @@ RSpec.describe Resources::Trips do
       end
     end
 
-    context 'complete parameters' do
+    context 'valid params' do
       let(:expected_result) do
         {
           "id" => Trip.last.id,
@@ -116,12 +113,108 @@ RSpec.describe Resources::Trips do
     end
   end
 
-  describe 'PATCH /customers/:id' do
-    let(:trip) { FactoryBot.create(:trip) }
+  describe 'PATCH /trips/:id' do
+    let!(:trip) { FactoryBot.create(:trip) }
+    let!(:trip_pricing) { FactoryBot.create(:trip_pricing, trip: trip) }
+    let(:request_url) { "/api/v1/trips/#{trip.id}" }
 
-    let(:request_url) { "/api/v1/customers/#{customer.id}" }
+    context 'invalid params' do
+      let(:request_url) { "/api/v1/trips/1234" }
 
+      it 'responds with 404' do
+        patch request_url, params: {}
+        expect(response.status).to eq(404)
+      end
+    end
 
+    context 'valid params' do
+      let!(:departure) { FactoryBot.create(:airport, code: 'DEL') }
+      let!(:destination) { FactoryBot.create(:airport, code: 'KOL')}
+      let!(:currency) { FactoryBot.create(:currency, code: 'NRP')}
+
+      let(:trip_params) do
+        {
+          destination_airport_code: 'DEL',
+          departure_airport_code: 'KOL',
+          status: 'published',
+          luggage_capacity: 17,
+          preference: 'No Animal',
+          departure_at: '2023-09-25',
+          arrival_at: '2024-09-29',
+          pricing: {
+            id: trip_pricing.id,
+            unit_price: 4,
+            minimum_price: 3,
+            currency_code: 'NRP',
+            negotiable: false
+          }
+        }
+      end
+
+      it 'returns a response of application/json type' do
+        patch request_url, params: trip_params
+        expect(response.content_type).to eq('application/json')
+      end
+
+      it 'returns results with respond code 200' do
+        patch request_url, params: trip_params
+        expect(response.status).to eq(200)
+      end
+
+      it 'return results as an hash' do
+        patch request_url, params: trip_params
+        expect(response_json).to be_instance_of(Hash)
+      end
+
+      it 'updates trip and pricing attributes' do
+        patch request_url, params: trip_params
+
+        trip.reload
+
+        expect(trip.departure_airport_code).to eq('KOL')
+        expect(trip.destination_airport_code).to eq('DEL')
+        expect(trip.status).to eq('published')
+        expect(trip.luggage_capacity).to eq(17)
+        expect(trip.preference).to eq('No Animal')
+        expect(trip.departure_at).to eq('2023-09-25')
+        expect(trip.arrival_at).to eq('2024-09-29')
+
+        expect(trip.pricing.unit_price).to eq(4)
+        expect(trip.pricing.minimum_price).to eq(3)
+        expect(trip.pricing.currency_code).to eq('NRP')
+        expect(trip.pricing.negotiable).to eq(false)
+      end
+    end
   end
 
+  describe 'GET /trips/:id' do
+    context 'invalid params' do
+      let(:request_url) { "/api/v1/trips/1234" }
+
+      it 'responds with 404' do
+        get request_url, params: {}
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context 'valid params' do
+      let(:trip) { FactoryBot.create(:trip) }
+      let(:request_url) { "/api/v1/trips/#{trip.id}" }
+
+      it 'returns a response of application/json type' do
+        get request_url
+        expect(response.content_type).to eq('application/json')
+      end
+
+      it 'returns results with respond code 200' do
+        get request_url
+        expect(response.status).to eq(200)
+      end
+
+      it 'return results as an hash' do
+        get request_url
+        expect(response_json).to be_instance_of(Hash)
+      end
+    end
+  end
 end

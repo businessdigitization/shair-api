@@ -26,6 +26,8 @@ class Trip < ApplicationRecord
   end
 
   def init
+    return if self.persisted?
+
     self.status = :draft
   end
 end

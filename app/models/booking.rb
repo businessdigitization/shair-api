@@ -20,6 +20,8 @@ class Booking < ApplicationRecord
   private
 
   def init
+    return if self.persisted?
+
     self.status = :proposed
     self.number = (rand(100) * Time.zone.now.to_i).to_s
   end

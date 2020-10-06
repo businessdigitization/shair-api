@@ -1,12 +1,12 @@
 module Resources
   class Trips < Grape::API
     resources :trips do
-      get do
-        trips = Trip.all
-        trips = Kaminari.paginate_array(trips)
+      # get do
+      #   trips = Trip.all
+      #   trips = Kaminari.paginate_array(trips)
 
-        present paginate(trips), with: Entities::Trip
-      end
+      #   present paginate(trips), with: Entities::Trip
+      # end
 
       desc 'Create trips'
       params do
@@ -54,7 +54,7 @@ module Resources
           optional :status, type: String
 
           optional :pricing, as: :pricing_attributes, type: Hash do
-            requires :id, type: Integer
+            optional :id, type: Integer
             optional :unit_price, type: BigDecimal
             optional :minimum_price, type: BigDecimal
             optional :negotiable, type: Boolean
@@ -65,7 +65,7 @@ module Resources
 
         patch do
           trip = Trip.find(params[:id])
-          trip.update(permitted_params)
+          trip.update!(permitted_params)
           present trip, with: Entities::Trip
         end
       end
