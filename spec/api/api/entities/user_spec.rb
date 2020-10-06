@@ -9,7 +9,6 @@ RSpec.describe API::Entities::User do
   it 'matches the api specification' do
     expect(subject)
       .to eq(
-        'id' => user.id,
         'name' => user.name,
         'email' => user.email,
       )

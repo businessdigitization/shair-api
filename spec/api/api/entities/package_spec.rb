@@ -37,7 +37,6 @@ RSpec.describe API::Entities::Package do
         'delivery_date_lower_bound' => package.delivery_daterange.first.iso8601,
         'delivery_date_upper_bound' => package.delivery_daterange.last.iso8601,
         'dispatcher' => {
-          'id' => package.dispatcher.id,
           'name' => package.dispatcher.name,
           'email' => package.dispatcher.email,
         },

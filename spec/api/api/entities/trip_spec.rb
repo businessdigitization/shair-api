@@ -36,7 +36,6 @@ RSpec.describe API::Entities::Trip do
         'departure_at' => trip.departure_at.iso8601,
         'arrival_at' => trip.arrival_at.iso8601,
         'transporter' => {
-          'id' => trip.transporter.id,
           'name' => trip.transporter.name,
           'email' => trip.transporter.email,
         },

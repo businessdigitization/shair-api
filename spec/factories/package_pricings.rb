@@ -10,16 +10,20 @@ end
 #
 # Table name: package_pricings
 #
-#  id          :bigint           not null, primary key
-#  negotiable  :boolean
-#  price       :decimal(10, 2)   not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  currency_id :bigint
-#  package_id  :bigint
+#  id            :bigint           not null, primary key
+#  currency_code :string           not null
+#  negotiable    :boolean
+#  price         :decimal(10, 2)   not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  package_id    :bigint
 #
 # Indexes
 #
-#  index_package_pricings_on_currency_id  (currency_id)
-#  index_package_pricings_on_package_id   (package_id)
+#  index_package_pricings_on_currency_code  (currency_code)
+#  index_package_pricings_on_package_id     (package_id)
+#
+# Foreign Keys
+#
+#  fk_rails_2de66a46aa  (currency_code => currencies.code)
 #

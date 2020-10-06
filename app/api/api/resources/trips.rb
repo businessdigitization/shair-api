@@ -22,7 +22,7 @@ module API
           optional :luggage_capacity, type: BigDecimal
           optional :status, type: String
 
-          optional :pricing, type: Hash do
+          optional :pricing, as: :pricing_attributes, type: Hash do
             requires :unit_price, type: BigDecimal
             requires :minimum_price, type: BigDecimal
             requires :negotiable, type: Boolean
@@ -32,8 +32,7 @@ module API
         end
 
         post do
-          byebug
-          trip = TripService::Create.call(permitted_params)
+          trip = Trip.create(permitted_params)
           present trip, with: API::Entities::Trip
         end
 
@@ -46,7 +45,6 @@ module API
 
           desc 'Update a trip'
           params do
-            requires :id, type: Integer
             optional :departure_airport_code, type: String, values: -> { Airport.pluck(:code) }
 
             optional :destination_airport_code, type: String, values: -> { Airport.pluck(:code) }
@@ -56,7 +54,7 @@ module API
             optional :luggage_capacity, type: BigDecimal
             optional :status, type: String
 
-            optional :pricing, type: Hash do
+            optional :pricing, as: :pricing_attributes, type: Hash do
               requires :id, type: Integer
               optional :unit_price, type: BigDecimal
               optional :minimum_price, type: BigDecimal
@@ -67,7 +65,8 @@ module API
           end
 
           patch do
-            trip = TripService::Update.call(permitted_params)
+            trip = Trip.find(params[:id])
+            trip.update(permitted_params)
             present trip, with: API::Entities::Trip
           end
         end

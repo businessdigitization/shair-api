@@ -3,7 +3,7 @@ RSpec.describe API::Resources::Trips do
   let(:response_json) { JSON.parse(response.body) }
   let(:departure) { FactoryBot.create(:airport, code: 'DEL') }
   let(:destination) { FactoryBot.create(:airport, code: 'KOL')}
-  let(:currency) { FactoryBot.create(:currency, :code: 'NRP')}
+  let(:currency) { FactoryBot.create(:currency, code: 'NRP')}
 
   describe 'POST /trips' do
     let(:request_url) { '/api/v1/trips' }
@@ -55,7 +55,7 @@ RSpec.describe API::Resources::Trips do
     context 'complete parameters' do
       let(:expected_result) do
         {
-          "id" => 1,
+          "id" => Trip.last.id,
           "destination" => {
             "name" => destination.name,
             "code" => "LHR",
@@ -81,14 +81,13 @@ RSpec.describe API::Resources::Trips do
           "departure_at" => "2022-09-25T00:00:00Z",
           "arrival_at" => "2022-09-29T00:00:00Z",
           "transporter" => {
-            "id" => 1,
             "name" => "Faruk Hossain",
             "email" => "transporter@example.com"
           },
           "status" => "draft",
           "luggage_capacity" => "20.0",
           "pricing" => {
-            "id" => 1,
+            "id" => Trip.last.pricing.id,
             "unit_price" => 5.0,
             "minimum_price" => 5.0,
             "currency" => {

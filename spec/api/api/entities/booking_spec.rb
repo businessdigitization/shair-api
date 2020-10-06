@@ -53,7 +53,6 @@ RSpec.describe API::Entities::Booking do
           'delivery_date_lower_bound' => package.delivery_daterange.first.iso8601,
           'delivery_date_upper_bound' => package.delivery_daterange.last.iso8601,
           'dispatcher' => {
-            'id' => package.dispatcher.id,
             'name' => package.dispatcher.name,
             'email' => package.dispatcher.email,
           },
@@ -106,7 +105,6 @@ RSpec.describe API::Entities::Booking do
           'departure_at' => trip.departure_at.iso8601,
           'arrival_at' => trip.arrival_at.iso8601,
           'transporter' => {
-            'id' => trip.transporter.id,
             'name' => trip.transporter.name,
             'email' => trip.transporter.email,
           },
@@ -125,12 +123,10 @@ RSpec.describe API::Entities::Booking do
           'preference' => trip.preference,
         },
         'dispatcher' => {
-          'id' => booking.dispatcher.id,
           'name' => booking.dispatcher.name,
           'email' => booking.dispatcher.email,
         },
         'transporter' => {
-          'id' => booking.transporter.id,
           'name' => booking.transporter.name,
           'email' => booking.transporter.email,
         }

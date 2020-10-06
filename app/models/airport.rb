@@ -1,10 +1,12 @@
 class Airport < ApplicationRecord
+  self.primary_key = 'code'
+
   belongs_to :city, inverse_of: :airports
 
   has_many :incoming_packages, class_name: 'Package', foreign_key: :destination_id, inverse_of: :destination
   has_many :outgoing_packages, class_name: 'Package', foreign_key: :destination_id, inverse_of: :departure
-  has_many :incoming_trips, class_name: 'Trip', foreign_key: :destination_id, inverse_of: :destination
-  has_many :outgoing_trips, class_name: 'Trip', foreign_key: :destination_id, inverse_of: :departure
+  has_many :incoming_trips, class_name: 'Trip', primary_key: :code, foreign_key: :destination_airport_code, inverse_of: :destination
+  has_many :outgoing_trips, class_name: 'Trip', primary_key: :code, foreign_key: :destination_airport_code, inverse_of: :departure
 
   validates :code, presence: true
   validates :code, uniqueness: true
@@ -21,8 +23,7 @@ end
 #
 # Table name: airports
 #
-#  id         :bigint           not null, primary key
-#  code       :string           not null
+#  code       :string           not null, primary key
 #  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -31,6 +32,5 @@ end
 # Indexes
 #
 #  index_airports_on_city_id  (city_id)
-#  index_airports_on_code     (code) UNIQUE
 #  index_airports_on_name     (name)
 #

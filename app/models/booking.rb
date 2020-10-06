@@ -1,9 +1,11 @@
 class Booking < ApplicationRecord
+  self.primary_key = 'number'
+
   enum status: { proposed: 0, negosiation: 1, accepted: 2, rejected: 3, canceled: 4 }
 
   belongs_to :trip, inverse_of: :bookings
   belongs_to :package, inverse_of: :bookings
-  belongs_to :currency
+  belongs_to :currency, foreign_key: :currency_code
 
   delegate :dispatcher, to: :package
   delegate :transporter, to: :trip
@@ -43,22 +45,24 @@ end
 #
 # Table name: bookings
 #
-#  id                         :bigint           not null, primary key
+#  currency_code              :string           not null
 #  dispatcher_proposed_price  :decimal(10, 2)
-#  number                     :string           not null
+#  number                     :string           not null, primary key
 #  price                      :decimal(10, 2)
 #  status                     :integer          not null
 #  transporter_proposed_price :decimal(10, 2)
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
-#  currency_id                :bigint
 #  package_id                 :bigint
 #  trip_id                    :bigint
 #
 # Indexes
 #
-#  index_bookings_on_currency_id  (currency_id)
-#  index_bookings_on_number       (number)
-#  index_bookings_on_package_id   (package_id)
-#  index_bookings_on_trip_id      (trip_id)
+#  index_bookings_on_currency_code  (currency_code)
+#  index_bookings_on_package_id     (package_id)
+#  index_bookings_on_trip_id        (trip_id)
+#
+# Foreign Keys
+#
+#  fk_rails_dfe6b9db19  (currency_code => currencies.code)
 #
