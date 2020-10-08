@@ -1,7 +1,7 @@
 module Resources
   class Trips < Grape::API
     resources :trips do
-      desc 'Search Trip'
+      desc 'Search trip'
       params do
         requires :origin_airport_code, type: String
         requires :destination_airport_code, type: String
@@ -46,6 +46,12 @@ module Resources
         get do
           trip = Trip.find(params[:id])
           present trip, with: Entities::Trip
+        end
+
+        desc 'Delete a trip'
+        delete do
+          trip = Trip.find(params[:id]).destroy
+          body false
         end
 
         desc 'Update a trip'
