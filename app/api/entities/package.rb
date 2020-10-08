@@ -2,7 +2,7 @@ module Entities
   class Package < API::Entities::Base
     expose :id
     expose :destination, with: API::Entities::Airport
-    expose :departure, with: API::Entities::Airport
+    expose :origin, with: API::Entities::Airport
 
     with_options(format_with: :iso_date) do
       expose :delivery_date_lower_bound

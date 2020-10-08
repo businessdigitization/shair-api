@@ -3,7 +3,7 @@ module Resources
     resources :packages do
       get do
         packages = Package.all
-        packages = Kaminari.paginate_array packages
+        packages = Kaminari.paginate_array(packages)
 
         present paginate(packages), with: API::Entities::Package
       end

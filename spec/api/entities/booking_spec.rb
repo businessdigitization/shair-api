@@ -39,14 +39,14 @@ RSpec.describe Entities::Booking do
               },
             },
           },
-          'departure' => {
-            'name' => package.departure.name,
-            'code' => package.departure.code,
+          'origin' => {
+            'name' => package.origin.name,
+            'code' => package.origin.code,
             'city' => {
-              'name' => package.departure.city.name,
+              'name' => package.origin.city.name,
               'country' => {
-                'name' => package.departure.city.country.name,
-                'code' => package.departure.city.country.code,
+                'name' => package.origin.city.country.name,
+                'code' => package.origin.city.country.code,
               },
             },
           },
@@ -91,14 +91,14 @@ RSpec.describe Entities::Booking do
               },
             },
           },
-          'departure' => {
-            'name' => trip.departure.name,
-            'code' => trip.departure.code,
+          'origin' => {
+            'name' => trip.origin.name,
+            'code' => trip.origin.code,
             'city' => {
-              'name' => trip.departure.city.name,
+              'name' => trip.origin.city.name,
               'country' => {
-                'name' => trip.departure.city.country.name,
-                'code' => trip.departure.city.country.code,
+                'name' => trip.origin.city.country.name,
+                'code' => trip.origin.city.country.code,
               },
             },
           },

@@ -4,9 +4,9 @@ class Airport < ApplicationRecord
   belongs_to :city, inverse_of: :airports
 
   has_many :incoming_packages, class_name: 'Package', foreign_key: :destination_id, inverse_of: :destination
-  has_many :outgoing_packages, class_name: 'Package', foreign_key: :destination_id, inverse_of: :departure
+  has_many :outgoing_packages, class_name: 'Package', foreign_key: :destination_id, inverse_of: :origin
   has_many :incoming_trips, class_name: 'Trip', primary_key: :code, foreign_key: :destination_airport_code, inverse_of: :destination
-  has_many :outgoing_trips, class_name: 'Trip', primary_key: :code, foreign_key: :destination_airport_code, inverse_of: :departure
+  has_many :outgoing_trips, class_name: 'Trip', primary_key: :code, foreign_key: :destination_airport_code, inverse_of: :origin
 
   validates :code, presence: true
   validates :code, uniqueness: true

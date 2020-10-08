@@ -5,18 +5,18 @@ RSpec.describe Resources::Trips do
   describe 'POST /trips' do
     let(:request_url) { '/api/v1/trips' }
     let!(:destination) { FactoryBot.create(:airport, code: 'LHR') }
-    let!(:departure) { FactoryBot.create(:airport, code: 'JFK') }
+    let!(:origin) { FactoryBot.create(:airport, code: 'JFK') }
     let(:destination_city) { destination.city }
     let(:destination_country) { destination.city.country }
-    let(:departure_city) { departure.city }
-    let(:departure_country) { departure.city.country }
+    let(:origin_city) { origin.city }
+    let(:origin_country) { origin.city.country }
     let!(:transporter) { FactoryBot.create(:user, email: 'transporter@example.com') }
     let!(:currency) { FactoryBot.create(:currency, code: 'BDT') }
 
     let(:trip_params) do
       {
         destination_airport_code: 'LHR',
-        departure_airport_code: 'JFK',
+        origin_airport_code: 'JFK',
         transporter_email: 'transporter@example.com',
         status: 'draft',
         luggage_capacity: 20,
@@ -36,7 +36,7 @@ RSpec.describe Resources::Trips do
       let(:required_params) do
         [
           :destination_airport_code,
-          :departure_airport_code,
+          :origin_airport_code,
           :transporter_email,
         ]
       end
@@ -64,14 +64,14 @@ RSpec.describe Resources::Trips do
               }
             }
           },
-          'departure' => {
-            'name' => departure.name,
+          'origin' => {
+            'name' => origin.name,
             'code' => 'JFK',
             'city' => {
-              'name' => departure_city.name,
+              'name' => origin_city.name,
               'country' => {
-                'name' => departure_country.name,
-                'code' => departure_country.code
+                'name' => origin_country.name,
+                'code' => origin_country.code
               }
             }
           },
@@ -128,14 +128,14 @@ RSpec.describe Resources::Trips do
     end
 
     context 'valid params' do
-      let!(:departure) { FactoryBot.create(:airport, code: 'DEL') }
+      let!(:origin) { FactoryBot.create(:airport, code: 'DEL') }
       let!(:destination) { FactoryBot.create(:airport, code: 'KOL')}
       let!(:currency) { FactoryBot.create(:currency, code: 'NRP')}
 
       let(:trip_params) do
         {
           destination_airport_code: 'DEL',
-          departure_airport_code: 'KOL',
+          origin_airport_code: 'KOL',
           status: 'published',
           luggage_capacity: 17,
           preference: 'No Animal',
@@ -171,7 +171,7 @@ RSpec.describe Resources::Trips do
 
         trip.reload
 
-        expect(trip.departure_airport_code).to eq('KOL')
+        expect(trip.origin_airport_code).to eq('KOL')
         expect(trip.destination_airport_code).to eq('DEL')
         expect(trip.status).to eq('published')
         expect(trip.luggage_capacity).to eq(17)
@@ -214,6 +214,45 @@ RSpec.describe Resources::Trips do
       it 'return results as an hash' do
         get request_url
         expect(response_json).to be_instance_of(Hash)
+      end
+    end
+  end
+
+  describe 'GET /trips/search' do
+    let(:request_url) { '/api/v1/trips/search/' }
+
+    let(:airport_a) { FactoryBot.create(:airport, code: 'DAC') }
+    let(:airport_b) { FactoryBot.create(:airport, code: 'DAD',) }
+    let!(:trip) { FactoryBot.create(:trip, origin: airport_a, destination: airport_b) }
+
+    context 'invalid params' do
+      it 'responds with 422 status without required params' do
+        get request_url
+        expect(response.status).to eq(422)
+      end
+    end
+
+    context 'valid params' do
+      let(:query_params) do
+        {
+          origin_airport_code: 'DAC',
+          destination_airport_code: 'DAD'
+        }
+      end
+
+      it 'returns a response of application/json type' do
+        get request_url, params: query_params
+        expect(response.content_type).to eq('application/json')
+      end
+
+      it 'returns results with respond code 200' do
+        get request_url, params: query_params
+        expect(response.status).to eq(200)
+      end
+
+      it 'return results as an array' do
+        get request_url, params: query_params
+        expect(response_json).to be_instance_of(Array)
       end
     end
   end
