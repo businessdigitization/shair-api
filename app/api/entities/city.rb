@@ -1,6 +1,6 @@
 module Entities
-  class City < API::Entities::Base
+  class City < Entities::Base
     expose :name
-    expose :country, with: API::Entities::Country
+    expose :country, with: Entities::Country
   end
 end

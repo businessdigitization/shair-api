@@ -1,5 +1,5 @@
 module Entities
-  class Currency < API::Entities::Base
+  class Currency < Entities::Base
     expose :name
     expose :code
   end

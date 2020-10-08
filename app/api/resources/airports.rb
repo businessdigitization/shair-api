@@ -10,7 +10,7 @@ module Resources
         airports = SearchAirport.call(permitted_params[:query])
         airports = Kaminari.paginate_array(airports)
 
-        present paginate(airports), with: API::Entities::Airport
+        present paginate(airports), with: Entities::Airport
       end
     end
   end

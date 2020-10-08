@@ -5,7 +5,7 @@ module Resources
         packages = Package.all
         packages = Kaminari.paginate_array(packages)
 
-        present paginate(packages), with: API::Entities::Package
+        present paginate(packages), with: Entities::Package
       end
     end
   end

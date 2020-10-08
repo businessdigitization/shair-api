@@ -11,7 +11,7 @@ module Resources
         trips = SearchTrip.call(permitted_params)
         trips = Kaminari.paginate_array(trips)
 
-        present paginate(trips), with: API::Entities::Trip
+        present paginate(trips), with: Entities::Trip
       end
 
       desc 'Create trips'

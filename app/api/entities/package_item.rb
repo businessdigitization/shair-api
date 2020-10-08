@@ -1,5 +1,5 @@
 module Entities
-  class PackageItem < API::Entities::Base
+  class PackageItem < Entities::Base
     expose :id
     expose :name
     expose :description

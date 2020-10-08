@@ -1,5 +1,5 @@
 module Entities
-  class Booking < API::Entities::Base
+  class Booking < Entities::Base
     expose :number
     expose :status
 
@@ -9,10 +9,10 @@ module Entities
       expose :transporter_proposed_price
     end
 
-    expose :currency, with: API::Entities::Currency
-    expose :package, with: API::Entities::Package
-    expose :trip, with: API::Entities::Trip
-    expose :dispatcher, with: API::Entities::User
-    expose :transporter, with: API::Entities::User
+    expose :currency, with: Entities::Currency
+    expose :package, with: Entities::Package
+    expose :trip, with: Entities::Trip
+    expose :dispatcher, with: Entities::User
+    expose :transporter, with: Entities::User
   end
 end

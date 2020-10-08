@@ -1,5 +1,5 @@
 module Entities
-  class Country < API::Entities::Base
+  class Country < Entities::Base
     expose :name
     expose :code
   end

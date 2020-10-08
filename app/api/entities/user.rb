@@ -1,5 +1,5 @@
 module Entities
-  class User < API::Entities::Base
+  class User < Entities::Base
     expose :name
     expose :email
   end
