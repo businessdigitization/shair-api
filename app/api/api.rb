@@ -56,4 +56,5 @@ class API < Grape::API
   # Resources
   mount Resources::Packages
   mount Resources::Trips
+  mount Resources::Airports
 end
