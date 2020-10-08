@@ -15,7 +15,7 @@ class Airport < ApplicationRecord
   validates :name, presence: true
 
   def to_s
-    name + ', ' + city.name + ', ' + city.country.name
+    city.name + ', ' + city.country.name + ', ' + code
   end
 end
 
