@@ -14,7 +14,7 @@ RSpec.describe SearchAirport do
     context 'query does not matche country name, city name, airport name or airport code' do
       let(:query) { 'nonsense' }
 
-      specify { expect(subject).to match_array([])}
+      specify { expect(subject).to match_array([]) }
     end
 
     context 'query represents country name' do

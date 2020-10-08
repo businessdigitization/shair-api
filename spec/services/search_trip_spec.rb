@@ -7,7 +7,6 @@ RSpec.describe SearchTrip do
   let!(:b_to_a) { FactoryBot.create(:trip, origin: airport_b, destination: airport_a) }
   let!(:another_trip) { FactoryBot.create(:trip, origin: airport_a, destination: airport_b) }
 
-
   subject { described_class.call(params) }
 
   describe '.call' do

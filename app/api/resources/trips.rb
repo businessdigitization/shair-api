@@ -50,7 +50,7 @@ module Resources
 
         desc 'Delete a trip'
         delete do
-          trip = Trip.find(params[:id]).destroy
+          Trip.find(params[:id]).destroy
           body false
         end
 

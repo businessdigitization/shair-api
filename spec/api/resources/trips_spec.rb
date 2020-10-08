@@ -129,8 +129,8 @@ RSpec.describe Resources::Trips do
 
     context 'valid params' do
       let!(:origin) { FactoryBot.create(:airport, code: 'DEL') }
-      let!(:destination) { FactoryBot.create(:airport, code: 'KOL')}
-      let!(:currency) { FactoryBot.create(:currency, code: 'NRP')}
+      let!(:destination) { FactoryBot.create(:airport, code: 'KOL') }
+      let!(:currency) { FactoryBot.create(:currency, code: 'NRP') }
 
       let(:trip_params) do
         {

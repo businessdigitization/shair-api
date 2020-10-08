@@ -34,6 +34,6 @@ RSpec.describe Airport do
   end
 
   describe '.to_s' do
-   specify { expect(subject.to_s).to eq('Lulu, Lala Land, LUL') }
+    specify { expect(subject.to_s).to eq('Lulu, Lala Land, LUL') }
   end
 end
