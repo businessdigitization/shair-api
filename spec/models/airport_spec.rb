@@ -14,9 +14,9 @@ RSpec.describe Airport do
   describe 'associations' do
     it { is_expected.to belong_to(:city).inverse_of(:airports) }
     it { is_expected.to have_many(:incoming_packages).inverse_of(:destination) }
-    it { is_expected.to have_many(:outgoing_packages).inverse_of(:departure) }
+    it { is_expected.to have_many(:outgoing_packages).inverse_of(:origin) }
     it { is_expected.to have_many(:incoming_trips).inverse_of(:destination) }
-    it { is_expected.to have_many(:outgoing_trips).inverse_of(:departure) }
+    it { is_expected.to have_many(:outgoing_trips).inverse_of(:origin) }
   end
 
   describe 'validations' do
@@ -34,6 +34,6 @@ RSpec.describe Airport do
   end
 
   describe '.to_s' do
-   specify { expect(subject.to_s).to eq('Lulu, Lala Land, LUL') }
+    specify { expect(subject.to_s).to eq('Lulu, Lala Land, LUL') }
   end
 end

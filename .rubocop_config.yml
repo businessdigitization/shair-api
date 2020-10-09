@@ -71,3 +71,6 @@ Style/TrailingCommaInHashLiteral:
 
 Style/TrailingCommaInArguments:
   Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false

@@ -1,16 +1,22 @@
 module Resources
   class Trips < Grape::API
     resources :trips do
-      # get do
-      #   trips = Trip.all
-      #   trips = Kaminari.paginate_array(trips)
+      desc 'Search trip'
+      params do
+        requires :origin_airport_code, type: String
+        requires :destination_airport_code, type: String
+      end
 
-      #   present paginate(trips), with: Entities::Trip
-      # end
+      get 'search' do
+        trips = SearchTrip.call(permitted_params)
+        trips = Kaminari.paginate_array(trips)
+
+        present paginate(trips), with: Entities::Trip
+      end
 
       desc 'Create trips'
       params do
-        requires :departure_airport_code, type: String, values: -> { Airport.pluck(:code) }
+        requires :origin_airport_code, type: String, values: -> { Airport.pluck(:code) }
 
         requires :destination_airport_code, type: String, values: -> { Airport.pluck(:code) }
 
@@ -42,9 +48,15 @@ module Resources
           present trip, with: Entities::Trip
         end
 
+        desc 'Delete a trip'
+        delete do
+          Trip.find(params[:id]).destroy
+          body false
+        end
+
         desc 'Update a trip'
         params do
-          optional :departure_airport_code, type: String, values: -> { Airport.pluck(:code) }
+          optional :origin_airport_code, type: String, values: -> { Airport.pluck(:code) }
 
           optional :destination_airport_code, type: String, values: -> { Airport.pluck(:code) }
 

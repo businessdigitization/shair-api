@@ -9,7 +9,7 @@ RSpec.describe Trip do
   describe 'validation' do
     it { is_expected.to validate_presence_of(:status) }
 
-    describe 'arrival and departure time validation' do
+    describe 'arrival and origin time validation' do
       let(:trip) do
         FactoryBot.create(
           :trip,
@@ -30,7 +30,7 @@ RSpec.describe Trip do
 
   describe 'associations' do
     it { is_expected.to belong_to(:transporter).inverse_of(:trips) }
-    it { is_expected.to belong_to(:departure).inverse_of(:outgoing_trips) }
+    it { is_expected.to belong_to(:origin).inverse_of(:outgoing_trips) }
     it { is_expected.to belong_to(:destination).inverse_of(:incoming_trips) }
     it { is_expected.to have_one(:pricing).dependent(:destroy).inverse_of(:trip) }
     it { is_expected.to have_many(:bookings).inverse_of(:trip) }

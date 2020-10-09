@@ -23,14 +23,14 @@ RSpec.describe Entities::Package do
             },
           },
         },
-        'departure' => {
-          'name' => package.departure.name,
-          'code' => package.departure.code,
+        'origin' => {
+          'name' => package.origin.name,
+          'code' => package.origin.code,
           'city' => {
-            'name' => package.departure.city.name,
+            'name' => package.origin.city.name,
             'country' => {
-              'name' => package.departure.city.country.name,
-              'code' => package.departure.city.country.code,
+              'name' => package.origin.city.country.name,
+              'code' => package.origin.city.country.code,
             },
           },
         },

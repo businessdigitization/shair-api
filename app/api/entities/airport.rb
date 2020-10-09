@@ -1,7 +1,7 @@
 module Entities
-  class Airport < API::Entities::Base
+  class Airport < Entities::Base
     expose :name
     expose :code
-    expose :city, with: API::Entities::City
+    expose :city, with: Entities::City
   end
 end

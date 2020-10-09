@@ -1,12 +1,12 @@
 module Entities
-  class PackagePricing < API::Entities::Base
+  class PackagePricing < Entities::Base
     expose :id
 
     with_options(format_with: :float) do
       expose :price
     end
 
-    expose :currency, with: API::Entities::Currency
+    expose :currency, with: Entities::Currency
     expose :negotiable
   end
 end

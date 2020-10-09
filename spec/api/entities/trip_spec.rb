@@ -22,14 +22,14 @@ RSpec.describe Entities::Trip do
             },
           },
         },
-        'departure' => {
-          'name' => trip.departure.name,
-          'code' => trip.departure.code,
+        'origin' => {
+          'name' => trip.origin.name,
+          'code' => trip.origin.code,
           'city' => {
-            'name' => trip.departure.city.name,
+            'name' => trip.origin.city.name,
             'country' => {
-              'name' => trip.departure.city.country.name,
-              'code' => trip.departure.city.country.code,
+              'name' => trip.origin.city.country.name,
+              'code' => trip.origin.city.country.code,
             },
           },
         },

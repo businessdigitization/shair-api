@@ -1,15 +1,15 @@
 module Entities
-  class Package < API::Entities::Base
+  class Package < Entities::Base
     expose :id
-    expose :destination, with: API::Entities::Airport
-    expose :departure, with: API::Entities::Airport
+    expose :destination, with: Entities::Airport
+    expose :origin, with: Entities::Airport
 
     with_options(format_with: :iso_date) do
       expose :delivery_date_lower_bound
       expose :delivery_date_upper_bound
     end
 
-    expose :dispatcher, with: API::Entities::User
+    expose :dispatcher, with: Entities::User
     expose :status
     expose :description
 
@@ -17,8 +17,8 @@ module Entities
       expose :weight
     end
 
-    expose :items, with: API::Entities::PackageItem
-    expose :pricing, with: API::Entities::PackagePricing
+    expose :items, with: Entities::PackageItem
+    expose :pricing, with: Entities::PackagePricing
     expose :preference
 
     def delivery_date_lower_bound

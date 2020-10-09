@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
 
   create_table "packages", force: :cascade do |t|
     t.text "description"
-    t.string "departure_airport_code", null: false
+    t.string "origin_airport_code", null: false
     t.string "destination_airport_code", null: false
     t.decimal "weight", precision: 10, scale: 2
     t.integer "status", null: false
@@ -90,9 +90,9 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.daterange "delivery_daterange"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["departure_airport_code"], name: "index_packages_on_departure_airport_code"
     t.index ["destination_airport_code"], name: "index_packages_on_destination_airport_code"
     t.index ["dispatcher_email"], name: "index_packages_on_dispatcher_email"
+    t.index ["origin_airport_code"], name: "index_packages_on_origin_airport_code"
   end
 
   create_table "trip_pricings", force: :cascade do |t|
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
   end
 
   create_table "trips", force: :cascade do |t|
-    t.string "departure_airport_code", null: false
+    t.string "origin_airport_code", null: false
     t.string "destination_airport_code", null: false
     t.datetime "departure_at"
     t.datetime "arrival_at"
@@ -117,9 +117,9 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["arrival_at"], name: "index_trips_on_arrival_at"
-    t.index ["departure_airport_code"], name: "index_trips_on_departure_airport_code"
     t.index ["departure_at"], name: "index_trips_on_departure_at"
     t.index ["destination_airport_code"], name: "index_trips_on_destination_airport_code"
+    t.index ["origin_airport_code"], name: "index_trips_on_origin_airport_code"
     t.index ["status"], name: "index_trips_on_status"
     t.index ["transporter_email"], name: "index_trips_on_transporter_email"
   end
@@ -133,11 +133,11 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
   add_foreign_key "bookings", "currencies", column: "currency_code", primary_key: "code"
   add_foreign_key "cities", "countries", column: "country_code", primary_key: "code"
   add_foreign_key "package_pricings", "currencies", column: "currency_code", primary_key: "code"
-  add_foreign_key "packages", "airports", column: "departure_airport_code", primary_key: "code"
   add_foreign_key "packages", "airports", column: "destination_airport_code", primary_key: "code"
+  add_foreign_key "packages", "airports", column: "origin_airport_code", primary_key: "code"
   add_foreign_key "packages", "users", column: "dispatcher_email", primary_key: "email"
   add_foreign_key "trip_pricings", "currencies", column: "currency_code", primary_key: "code"
-  add_foreign_key "trips", "airports", column: "departure_airport_code", primary_key: "code"
   add_foreign_key "trips", "airports", column: "destination_airport_code", primary_key: "code"
+  add_foreign_key "trips", "airports", column: "origin_airport_code", primary_key: "code"
   add_foreign_key "trips", "users", column: "transporter_email", primary_key: "email"
 end
