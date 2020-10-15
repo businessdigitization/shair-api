@@ -13,10 +13,19 @@ RSpec.describe Package do
     it { is_expected.to have_many(:items).dependent(:destroy) }
     it { is_expected.to have_many(:bookings).inverse_of(:package) }
     it { is_expected.to have_one(:pricing).dependent(:destroy).inverse_of(:package) }
+    it { is_expected.to accept_nested_attributes_for(:pricing) }
+    it { is_expected.to accept_nested_attributes_for(:items) }
   end
 
   describe 'validation' do
     it { is_expected.to validate_presence_of(:status) }
+
+    context 'status is :published' do
+      subject { FactoryBot.build(:package, status: :published, items: [], weight: nil) }
+
+      it { is_expected.to validate_presence_of(:items) }
+      it { is_expected.to validate_presence_of(:weight) }
+    end
   end
 
   describe 'callbacks' do

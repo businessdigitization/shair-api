@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Entities::Package do
-  let(:package) { FactoryBot.create(:package, delivery_daterange: (Time.zone.today..7.days.after)) }
+  let(:package) { FactoryBot.create(:package) }
   let!(:package_pricing) { FactoryBot.create(:package_pricing, package: package) }
   let!(:package_item) { FactoryBot.create(:package_item, package: package) }
   let(:package_entity) { Entities::Package.represent(package) }
@@ -34,8 +34,6 @@ RSpec.describe Entities::Package do
             },
           },
         },
-        'delivery_date_lower_bound' => package.delivery_daterange.first.iso8601,
-        'delivery_date_upper_bound' => package.delivery_daterange.last.iso8601,
         'dispatcher' => {
           'name' => package.dispatcher.name,
           'email' => package.dispatcher.email,

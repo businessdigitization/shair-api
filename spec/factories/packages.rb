@@ -3,7 +3,6 @@
 # Table name: packages
 #
 #  id                       :bigint           not null, primary key
-#  delivery_daterange       :daterange
 #  description              :text
 #  destination_airport_code :string           not null
 #  dispatcher_email         :citext           not null

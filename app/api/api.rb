@@ -30,7 +30,7 @@ class API < Grape::API
     # Strong Parameters
     #
     def permitted_params
-      declared(params, include_missing: false)
+      declared(params, include_missing: false).merge!(id: params[:id])
     end
 
     def resource_params

@@ -11,6 +11,10 @@ class Package < ApplicationRecord
   has_many :bookings, inverse_of: :package
 
   validates :status, presence: true
+  validates :items, :weight, presence: true, if: :package_published?
+
+  accepts_nested_attributes_for :pricing
+  accepts_nested_attributes_for :items, allow_destroy: true
 
   after_initialize :init
 
@@ -28,7 +32,6 @@ end
 # Table name: packages
 #
 #  id                       :bigint           not null, primary key
-#  delivery_daterange       :daterange
 #  description              :text
 #  destination_airport_code :string           not null
 #  dispatcher_email         :citext           not null
