@@ -97,12 +97,6 @@ module Resources
           package = PackageService::Update.call(permitted_params)
           present package, with: Entities::Package
         end
-
-        post 'items' do
-          package = Package.find(params[:id])
-          package.update!(permitted_params)
-          present package, with: Entities::Package
-        end
       end
     end
   end
