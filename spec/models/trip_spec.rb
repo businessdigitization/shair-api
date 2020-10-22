@@ -9,6 +9,22 @@ RSpec.describe Trip do
   describe 'validation' do
     it { is_expected.to validate_presence_of(:status) }
 
+    context 'status is :published' do
+      subject do
+        FactoryBot.build(:trip,
+                         status: :published,
+                         pricing: nil,
+                         arrival_at: nil,
+                         departure_at: nil,
+                         luggage_capacity: nil)
+      end
+
+      it { is_expected.to validate_presence_of(:pricing) }
+      it { is_expected.to validate_presence_of(:arrival_at) }
+      it { is_expected.to validate_presence_of(:departure_at) }
+      it { is_expected.to validate_presence_of(:luggage_capacity) }
+    end
+
     describe 'arrival and origin time validation' do
       let(:trip) do
         FactoryBot.create(

@@ -87,7 +87,6 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.integer "status", null: false
     t.text "preference"
     t.citext "dispatcher_email", null: false
-    t.daterange "delivery_daterange"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["destination_airport_code"], name: "index_packages_on_destination_airport_code"

@@ -8,7 +8,6 @@ class CreatePackages < ActiveRecord::Migration[6.0]
       t.integer :status, null: false
       t.text :preference
       t.citext :dispatcher_email, null: false, index: true
-      t.daterange :delivery_daterange
       t.timestamps
     end
     add_foreign_key :packages, :airports, column: :origin_airport_code, primary_key: :code
