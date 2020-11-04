@@ -100,6 +100,7 @@ RSpec.describe Resources::Parcels do
               'description' => item_type.description,
             }
           }],
+          'items_categories' => item_type.name,
           'pricing' => {
             'id' => ParcelPricing.last.id,
             'price' => 5.0,

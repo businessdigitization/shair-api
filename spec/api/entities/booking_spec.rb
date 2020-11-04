@@ -71,6 +71,7 @@ RSpec.describe Entities::Booking do
               }
             }
           ],
+          'items_categories' => item_type.name,
           'pricing' => {
             'id' => parcel_pricing.id,
             'price' => parcel_pricing.price,
