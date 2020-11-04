@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: packages
+# Table name: parcels
 #
 #  id                       :bigint           not null, primary key
 #  description              :text
@@ -15,9 +15,9 @@
 #
 # Indexes
 #
-#  index_packages_on_destination_airport_code  (destination_airport_code)
-#  index_packages_on_dispatcher_email          (dispatcher_email)
-#  index_packages_on_origin_airport_code       (origin_airport_code)
+#  index_parcels_on_destination_airport_code  (destination_airport_code)
+#  index_parcels_on_dispatcher_email          (dispatcher_email)
+#  index_parcels_on_origin_airport_code       (origin_airport_code)
 #
 # Foreign Keys
 #
@@ -26,7 +26,7 @@
 #  fk_rails_f4ca4bc327  (origin_airport_code => airports.code)
 #
 FactoryBot.define do
-  factory :package do
+  factory :parcel do
     description { 'My Precious' }
     association :origin, factory: :airport
     association :destination, factory: :airport

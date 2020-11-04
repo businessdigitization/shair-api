@@ -3,7 +3,7 @@ class CreateBookings < ActiveRecord::Migration[6.0]
     create_table :bookings, id: false do |t|
       t.string :number, primary_key: true
       t.references :trip, index: true
-      t.references :package, index: true
+      t.references :parcel, index: true
       t.decimal :transporter_proposed_price, precision: 10, scale: 2
       t.decimal :dispatcher_proposed_price, precision: 10, scale: 2
       t.decimal :price, precision: 10, scale: 2

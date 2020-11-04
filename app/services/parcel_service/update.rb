@@ -1,4 +1,4 @@
-module PackageService
+module ParcelService
   class Update
     attr_reader :params
 
@@ -11,8 +11,8 @@ module PackageService
     end
 
     def call
-      package.update!(items_attributes)
-      package
+      parcel.update!(items_attributes)
+      parcel
     end
 
     private
@@ -24,8 +24,8 @@ module PackageService
       params.except(:new_items)
     end
 
-    def package
-      Package.find(params[:id])
+    def parcel
+      Parcel.find(params[:id])
     end
   end
 end

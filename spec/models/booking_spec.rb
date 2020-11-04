@@ -8,12 +8,12 @@ RSpec.describe Booking do
 
   describe 'association' do
     it { is_expected.to belong_to(:trip).inverse_of(:bookings) }
-    it { is_expected.to belong_to(:package).inverse_of(:bookings) }
+    it { is_expected.to belong_to(:parcel).inverse_of(:bookings) }
     it { is_expected.to belong_to(:currency) }
   end
 
   describe 'delegation' do
-    it { is_expected.to delegate_method(:dispatcher).to(:package) }
+    it { is_expected.to delegate_method(:dispatcher).to(:parcel) }
     it { is_expected.to delegate_method(:transporter).to(:trip) }
   end
 
@@ -38,9 +38,9 @@ RSpec.describe Booking do
       let!(:user_2) { FactoryBot.create(:user) }
 
       let!(:trip) { FactoryBot.create(:trip, transporter: user_1) }
-      let!(:package) { FactoryBot.create(:package, dispatcher: user_1) }
+      let!(:parcel) { FactoryBot.create(:parcel, dispatcher: user_1) }
 
-      let!(:booking) { FactoryBot.build(:booking, trip: trip, package: package) }
+      let!(:booking) { FactoryBot.build(:booking, trip: trip, parcel: parcel) }
 
       context 'dispatcher and transporter is same user' do
         specify { expect(booking).to be_invalid }
@@ -48,8 +48,8 @@ RSpec.describe Booking do
 
       context 'dispatcher and transporter is same user' do
         before do
-          package.update(dispatcher: user_2)
-          package.reload
+          parcel.update(dispatcher: user_2)
+          parcel.reload
         end
 
         specify { expect(booking).to be_valid }

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: package_items
+# Table name: parcel_items
 #
 #  id          :bigint           not null, primary key
 #  count       :integer          default(1), not null
@@ -8,16 +8,16 @@
 #  name        :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  package_id  :bigint
+#  parcel_id   :bigint
 #
 # Indexes
 #
-#  index_package_items_on_package_id  (package_id)
+#  index_parcel_items_on_parcel_id  (parcel_id)
 #
 FactoryBot.define do
-  factory :package_item do
+  factory :parcel_item do
     name { 'golla' }
     count { 1 }
-    association :package, factory: :package
+    association :parcel, factory: :parcel
   end
 end

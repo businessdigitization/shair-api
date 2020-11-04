@@ -4,7 +4,7 @@ FactoryBot.define do
     price { 30 }
     dispatcher_proposed_price { 25 }
     transporter_proposed_price { 30 }
-    association :package, factory: :package
+    association :parcel, factory: :parcel
     association :trip, factory: :trip
     association :currency, factory: :currency
   end
@@ -22,13 +22,13 @@ end
 #  transporter_proposed_price :decimal(10, 2)
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
-#  package_id                 :bigint
+#  parcel_id                  :bigint
 #  trip_id                    :bigint
 #
 # Indexes
 #
 #  index_bookings_on_currency_code  (currency_code)
-#  index_bookings_on_package_id     (package_id)
+#  index_bookings_on_parcel_id      (parcel_id)
 #  index_bookings_on_trip_id        (trip_id)
 #
 # Foreign Keys

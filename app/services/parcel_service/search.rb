@@ -1,4 +1,4 @@
-module PackageService
+module ParcelService
   class Search
     attr_reader :origin_airport_code, :destination_airport_code
 
@@ -12,7 +12,7 @@ module PackageService
     end
 
     def call
-      Package.where(origin_airport_code: origin_airport_code,
+      Parcel.where(origin_airport_code: origin_airport_code,
                     destination_airport_code: destination_airport_code)
     end
   end

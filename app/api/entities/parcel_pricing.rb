@@ -1,5 +1,5 @@
 module Entities
-  class PackagePricing < Entities::Base
+  class ParcelPricing < Entities::Base
     expose :id
 
     with_options(format_with: :float) do

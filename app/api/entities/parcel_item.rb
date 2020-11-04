@@ -1,5 +1,5 @@
 module Entities
-  class PackageItem < Entities::Base
+  class ParcelItem < Entities::Base
     expose :id
     expose :name
     expose :description

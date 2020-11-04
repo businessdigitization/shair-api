@@ -1,20 +1,20 @@
 module Resources
-  class Packages < Grape::API
-    resources :packages do
-      desc 'Search Package'
+  class Parcels < Grape::API
+    resources :parcels do
+      desc 'Search Parcel'
       params do
         requires :origin_airport_code, type: String
         requires :destination_airport_code, type: String
       end
 
       get 'search' do
-        packages = PackageService::Search.call(permitted_params)
-        packages = Kaminari.paginate_array(packages)
+        parcels = ParcelService::Search.call(permitted_params)
+        parcels = Kaminari.paginate_array(parcels)
 
-        present paginate(packages), with: Entities::Package
+        present paginate(parcels), with: Entities::Parcel
       end
 
-      desc 'Create a Package'
+      desc 'Create a Parcel'
       params do
         requires :origin_airport_code, type: String, values: -> { Airport.pluck(:code) }
 
@@ -41,24 +41,24 @@ module Resources
       end
 
       post do
-        package = Package.create!(permitted_params)
-        present package, with: Entities::Package
+        parcel = Parcel.create!(permitted_params)
+        present parcel, with: Entities::Parcel
       end
 
       route_param :id do
-        desc 'Get a package'
+        desc 'Get a parcel'
         get do
-          package = Package.find(params[:id])
-          present package, with: Entities::Package
+          parcel = Parcel.find(params[:id])
+          present parcel, with: Entities::Parcel
         end
 
-        desc 'Delete a package'
+        desc 'Delete a parcel'
         delete do
-          Package.find(params[:id]).destroy
+          Parcel.find(params[:id]).destroy
           body false
         end
 
-        desc 'Update a package'
+        desc 'Update a parcel'
         params do
           optional :origin_airport_code, type: String, values: -> { Airport.pluck(:code) }
 
@@ -94,8 +94,8 @@ module Resources
         end
 
         patch do
-          package = PackageService::Update.call(permitted_params)
-          present package, with: Entities::Package
+          parcel = ParcelService::Update.call(permitted_params)
+          present parcel, with: Entities::Parcel
         end
       end
     end

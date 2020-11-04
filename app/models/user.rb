@@ -6,9 +6,9 @@ class User < ApplicationRecord
   EMAIL_REGEXP = /\A[a-zA-Z0-9.!\#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-z]{2,}\z/
 
   has_many :trips, primary_key: :email, foreign_key: :transporter_email, inverse_of: :transporter, dependent: :destroy
-  has_many :packages, primary_key: :email, foreign_key: :dispatcher_email, inverse_of: :dispatcher, dependent: :destroy
+  has_many :parcels, primary_key: :email, foreign_key: :dispatcher_email, inverse_of: :dispatcher, dependent: :destroy
   has_many :trip_bookings, through: :trips, source: :bookings
-  has_many :package_bookings, through: :packages, source: :bookings
+  has_many :parcel_bookings, through: :parcels, source: :bookings
 
   validates :email, format: { with: EMAIL_REGEXP }
   validates :name, :email, presence: true

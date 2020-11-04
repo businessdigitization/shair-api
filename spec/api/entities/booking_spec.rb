@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Entities::Booking do
   let(:currency) { FactoryBot.create(:currency) }
-  let(:package) { FactoryBot.create(:package) }
-  let!(:package_pricing) { FactoryBot.create(:package_pricing, package: package, currency: currency) }
-  let!(:package_item) { FactoryBot.create(:package_item, package: package) }
+  let(:parcel) { FactoryBot.create(:parcel) }
+  let!(:parcel_pricing) { FactoryBot.create(:parcel_pricing, parcel: parcel, currency: currency) }
+  let!(:parcel_item) { FactoryBot.create(:parcel_item, parcel: parcel) }
 
   let(:trip) { FactoryBot.create(:trip) }
   let!(:trip_pricing) { FactoryBot.create(:trip_pricing, trip: trip, currency: currency) }
 
-  let(:booking) { FactoryBot.create(:booking, trip: trip, package: package, currency: currency) }
+  let(:booking) { FactoryBot.create(:booking, trip: trip, parcel: parcel, currency: currency) }
   let(:booking_entity) { Entities::Booking.represent(booking) }
 
   subject { JSON.parse(booking_entity.to_json) }
@@ -26,55 +26,55 @@ RSpec.describe Entities::Booking do
           'name' => currency.name,
           'code' => currency.code,
         },
-        'package' => {
-          'id' => package.id,
+        'parcel' => {
+          'id' => parcel.id,
           'destination' => {
-            'name' => package.destination.name,
-            'code' => package.destination.code,
+            'name' => parcel.destination.name,
+            'code' => parcel.destination.code,
             'city' => {
-              'name' => package.destination.city.name,
+              'name' => parcel.destination.city.name,
               'country' => {
-                'name' => package.destination.city.country.name,
-                'code' => package.destination.city.country.code,
+                'name' => parcel.destination.city.country.name,
+                'code' => parcel.destination.city.country.code,
               },
             },
           },
           'origin' => {
-            'name' => package.origin.name,
-            'code' => package.origin.code,
+            'name' => parcel.origin.name,
+            'code' => parcel.origin.code,
             'city' => {
-              'name' => package.origin.city.name,
+              'name' => parcel.origin.city.name,
               'country' => {
-                'name' => package.origin.city.country.name,
-                'code' => package.origin.city.country.code,
+                'name' => parcel.origin.city.country.name,
+                'code' => parcel.origin.city.country.code,
               },
             },
           },
           'dispatcher' => {
-            'name' => package.dispatcher.name,
-            'email' => package.dispatcher.email,
+            'name' => parcel.dispatcher.name,
+            'email' => parcel.dispatcher.email,
           },
-          'status' => package.status,
-          'description' => package.description,
-          'weight' => package.weight,
+          'status' => parcel.status,
+          'description' => parcel.description,
+          'weight' => parcel.weight,
           'items' => [
             {
-              'id' => package_item.id,
-              'name' => package_item.name,
-              'description' => package_item.description,
-              'count' => package_item.count,
+              'id' => parcel_item.id,
+              'name' => parcel_item.name,
+              'description' => parcel_item.description,
+              'count' => parcel_item.count,
             }
           ],
           'pricing' => {
-            'id' => package_pricing.id,
-            'price' => package_pricing.price,
+            'id' => parcel_pricing.id,
+            'price' => parcel_pricing.price,
             'currency' => {
-              'name' => package_pricing.currency.name,
-              'code' => package_pricing.currency.code,
+              'name' => parcel_pricing.currency.name,
+              'code' => parcel_pricing.currency.code,
             },
-            'negotiable' => package_pricing.negotiable,
+            'negotiable' => parcel_pricing.negotiable,
           },
-          'preference' => package.preference,
+          'preference' => parcel.preference,
         },
         'trip' => {
           'id' => trip.id,

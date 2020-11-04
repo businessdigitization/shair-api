@@ -1,5 +1,5 @@
 module Entities
-  class Package < Entities::Base
+  class Parcel < Entities::Base
     expose :id
     expose :destination, with: Entities::Airport
     expose :origin, with: Entities::Airport
@@ -12,8 +12,8 @@ module Entities
       expose :weight
     end
 
-    expose :items, with: Entities::PackageItem
-    expose :pricing, with: Entities::PackagePricing
+    expose :items, with: Entities::ParcelItem
+    expose :pricing, with: Entities::ParcelPricing
     expose :preference
   end
 end

@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
 
   create_table "bookings", primary_key: "number", id: :string, force: :cascade do |t|
     t.bigint "trip_id"
-    t.bigint "package_id"
+    t.bigint "parcel_id"
     t.decimal "transporter_proposed_price", precision: 10, scale: 2
     t.decimal "dispatcher_proposed_price", precision: 10, scale: 2
     t.decimal "price", precision: 10, scale: 2
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["currency_code"], name: "index_bookings_on_currency_code"
-    t.index ["package_id"], name: "index_bookings_on_package_id"
+    t.index ["parcel_id"], name: "index_bookings_on_parcel_id"
     t.index ["trip_id"], name: "index_bookings_on_trip_id"
   end
 
@@ -58,28 +58,28 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.string "name", null: false
   end
 
-  create_table "package_items", force: :cascade do |t|
+  create_table "parcel_items", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.integer "count", default: 1, null: false
-    t.bigint "package_id"
+    t.bigint "parcel_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["package_id"], name: "index_package_items_on_package_id"
+    t.index ["parcel_id"], name: "index_parcel_items_on_parcel_id"
   end
 
-  create_table "package_pricings", force: :cascade do |t|
-    t.bigint "package_id"
+  create_table "parcel_pricings", force: :cascade do |t|
+    t.bigint "parcel_id"
     t.decimal "price", precision: 10, scale: 2, null: false
     t.string "currency_code", null: false
     t.boolean "negotiable"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["currency_code"], name: "index_package_pricings_on_currency_code"
-    t.index ["package_id"], name: "index_package_pricings_on_package_id"
+    t.index ["currency_code"], name: "index_parcel_pricings_on_currency_code"
+    t.index ["parcel_id"], name: "index_parcel_pricings_on_parcel_id"
   end
 
-  create_table "packages", force: :cascade do |t|
+  create_table "parcels", force: :cascade do |t|
     t.text "description"
     t.string "origin_airport_code", null: false
     t.string "destination_airport_code", null: false
@@ -89,9 +89,9 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.citext "dispatcher_email", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["destination_airport_code"], name: "index_packages_on_destination_airport_code"
-    t.index ["dispatcher_email"], name: "index_packages_on_dispatcher_email"
-    t.index ["origin_airport_code"], name: "index_packages_on_origin_airport_code"
+    t.index ["destination_airport_code"], name: "index_parcels_on_destination_airport_code"
+    t.index ["dispatcher_email"], name: "index_parcels_on_dispatcher_email"
+    t.index ["origin_airport_code"], name: "index_parcels_on_origin_airport_code"
   end
 
   create_table "trip_pricings", force: :cascade do |t|
@@ -131,10 +131,10 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
 
   add_foreign_key "bookings", "currencies", column: "currency_code", primary_key: "code"
   add_foreign_key "cities", "countries", column: "country_code", primary_key: "code"
-  add_foreign_key "package_pricings", "currencies", column: "currency_code", primary_key: "code"
-  add_foreign_key "packages", "airports", column: "destination_airport_code", primary_key: "code"
-  add_foreign_key "packages", "airports", column: "origin_airport_code", primary_key: "code"
-  add_foreign_key "packages", "users", column: "dispatcher_email", primary_key: "email"
+  add_foreign_key "parcel_pricings", "currencies", column: "currency_code", primary_key: "code"
+  add_foreign_key "parcels", "airports", column: "destination_airport_code", primary_key: "code"
+  add_foreign_key "parcels", "airports", column: "origin_airport_code", primary_key: "code"
+  add_foreign_key "parcels", "users", column: "dispatcher_email", primary_key: "email"
   add_foreign_key "trip_pricings", "currencies", column: "currency_code", primary_key: "code"
   add_foreign_key "trips", "airports", column: "destination_airport_code", primary_key: "code"
   add_foreign_key "trips", "airports", column: "origin_airport_code", primary_key: "code"

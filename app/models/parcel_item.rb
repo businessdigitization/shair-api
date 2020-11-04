@@ -1,12 +1,12 @@
-class PackageItem < ApplicationRecord
-  belongs_to :package, inverse_of: :items
+class ParcelItem < ApplicationRecord
+  belongs_to :parcel, inverse_of: :items
 
   validates :name, :count, presence: true
 end
 
 # == Schema Information
 #
-# Table name: package_items
+# Table name: parcel_items
 #
 #  id          :bigint           not null, primary key
 #  count       :integer          default(1), not null
@@ -14,9 +14,9 @@ end
 #  name        :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  package_id  :bigint
+#  parcel_id   :bigint
 #
 # Indexes
 #
-#  index_package_items_on_package_id  (package_id)
+#  index_parcel_items_on_parcel_id  (parcel_id)
 #

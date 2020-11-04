@@ -10,7 +10,7 @@ module Entities
     end
 
     expose :currency, with: Entities::Currency
-    expose :package, with: Entities::Package
+    expose :parcel, with: Entities::Parcel
     expose :trip, with: Entities::Trip
     expose :dispatcher, with: Entities::User
     expose :transporter, with: Entities::User

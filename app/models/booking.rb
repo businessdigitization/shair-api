@@ -4,10 +4,10 @@ class Booking < ApplicationRecord
   enum status: { proposed: 0, negosiation: 1, accepted: 2, rejected: 3, canceled: 4 }
 
   belongs_to :trip, inverse_of: :bookings
-  belongs_to :package, inverse_of: :bookings
+  belongs_to :parcel, inverse_of: :bookings
   belongs_to :currency, foreign_key: :currency_code
 
-  delegate :dispatcher, to: :package
+  delegate :dispatcher, to: :parcel
   delegate :transporter, to: :trip
 
   validates :status, presence: true
@@ -33,9 +33,9 @@ class Booking < ApplicationRecord
   end
 
   def different_user_as_dispatcher_and_transporter
-    return unless package && trip
+    return unless parcel && trip
 
-    return if package.dispatcher != trip.transporter
+    return if parcel.dispatcher != trip.transporter
 
     errors.add(:base, "Dispatcher and Transporter can't be same person")
   end
@@ -53,13 +53,13 @@ end
 #  transporter_proposed_price :decimal(10, 2)
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
-#  package_id                 :bigint
+#  parcel_id                  :bigint
 #  trip_id                    :bigint
 #
 # Indexes
 #
 #  index_bookings_on_currency_code  (currency_code)
-#  index_bookings_on_package_id     (package_id)
+#  index_bookings_on_parcel_id      (parcel_id)
 #  index_bookings_on_trip_id        (trip_id)
 #
 # Foreign Keys

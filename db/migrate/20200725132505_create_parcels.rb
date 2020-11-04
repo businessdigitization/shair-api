@@ -1,6 +1,6 @@
-class CreatePackages < ActiveRecord::Migration[6.0]
+class CreateParcels < ActiveRecord::Migration[6.0]
   def change
-    create_table :packages do |t|
+    create_table :parcels do |t|
       t.text :description
       t.string :origin_airport_code, null: false, index: true
       t.string :destination_airport_code, null: false, index: true
@@ -10,8 +10,8 @@ class CreatePackages < ActiveRecord::Migration[6.0]
       t.citext :dispatcher_email, null: false, index: true
       t.timestamps
     end
-    add_foreign_key :packages, :airports, column: :origin_airport_code, primary_key: :code
-    add_foreign_key :packages, :airports, column: :destination_airport_code, primary_key: :code
-    add_foreign_key :packages, :users, column: :dispatcher_email, primary_key: :email
+    add_foreign_key :parcels, :airports, column: :origin_airport_code, primary_key: :code
+    add_foreign_key :parcels, :airports, column: :destination_airport_code, primary_key: :code
+    add_foreign_key :parcels, :users, column: :dispatcher_email, primary_key: :email
   end
 end

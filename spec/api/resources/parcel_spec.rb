@@ -1,9 +1,9 @@
 require 'rails_helper'
-RSpec.describe Resources::Packages do
+RSpec.describe Resources::Parcels do
   let(:response_json) { JSON.parse(response.body) }
 
-  describe 'POST /packages' do
-    let(:request_url) { '/api/v1/packages' }
+  describe 'POST /parcels' do
+    let(:request_url) { '/api/v1/parcels' }
     let!(:destination) { FactoryBot.create(:airport, code: 'LHR') }
     let!(:origin) { FactoryBot.create(:airport, code: 'JFK') }
     let(:destination_city) { destination.city }
@@ -13,7 +13,7 @@ RSpec.describe Resources::Packages do
     let!(:dispatcher) { FactoryBot.create(:user, email: 'dispatcher@example.com') }
     let!(:currency) { FactoryBot.create(:currency, code: 'BDT') }
 
-    let(:package_params) do
+    let(:parcel_params) do
       {
         origin_airport_code: 'JFK',
         destination_airport_code: 'LHR',
@@ -45,7 +45,7 @@ RSpec.describe Resources::Packages do
     context 'valid params' do
       let(:expected_result) do
         {
-          'id' => Package.last.id,
+          'id' => Parcel.last.id,
           'destination' => {
             'name' => destination.name,
             'code' => 'LHR',
@@ -76,19 +76,19 @@ RSpec.describe Resources::Packages do
           'description' => 'Jhola',
           'weight' => 4.3,
           'items' => [{
-            'id' => PackageItem.find_by(name: 'Ball').id,
+            'id' => ParcelItem.find_by(name: 'Ball').id,
             'name' => 'Ball',
             'description' => 'Cricket Ball',
             'count' => 1,
           },
           {
-            'id' => PackageItem.find_by(name: 'Mobile').id,
+            'id' => ParcelItem.find_by(name: 'Mobile').id,
             'name' => 'Mobile',
             'description' => 'Samsung',
             'count' => 10,
           }],
           'pricing' => {
-            'id' => PackagePricing.last.id,
+            'id' => ParcelPricing.last.id,
             'price' => 5.0,
             'currency' => {
               'name' => 'Bangladeshi Taka',
@@ -101,30 +101,30 @@ RSpec.describe Resources::Packages do
       end
 
       it 'returns a response of application/json type' do
-        post request_url, params: package_params
+        post request_url, params: parcel_params
         expect(response.content_type).to eq('application/json')
       end
 
       it 'returns results with respond code 201' do
-        post request_url, params: package_params
+        post request_url, params: parcel_params
         expect(response.status).to eq(201)
       end
 
       it 'returns expected result' do
-        post request_url, params: package_params
+        post request_url, params: parcel_params
         expect(response_json).to eq(expected_result)
       end
     end
   end
 
-  describe 'PATCH /packages/:id' do
-    let!(:package) { FactoryBot.create(:package) }
-    let!(:package_pricing) { FactoryBot.create(:package_pricing, package: package) }
-    let!(:package_item) { FactoryBot.create(:package_item, name: 'Paper Book', package: package) }
-    let(:request_url) { "/api/v1/packages/#{package.id}" }
+  describe 'PATCH /parcels/:id' do
+    let!(:parcel) { FactoryBot.create(:parcel) }
+    let!(:parcel_pricing) { FactoryBot.create(:parcel_pricing, parcel: parcel) }
+    let!(:parcel_item) { FactoryBot.create(:parcel_item, name: 'Paper Book', parcel: parcel) }
+    let(:request_url) { "/api/v1/parcels/#{parcel.id}" }
 
     context 'invalid params' do
-      let(:request_url) { '/api/v1/packages/1234' }
+      let(:request_url) { '/api/v1/parcels/1234' }
 
       it 'responds with 404' do
         patch request_url, params: {}
@@ -137,18 +137,18 @@ RSpec.describe Resources::Packages do
       let!(:destination) { FactoryBot.create(:airport, code: 'KOL') }
       let!(:currency) { FactoryBot.create(:currency, code: 'NRP') }
 
-      let(:package_params) do
+      let(:parcel_params) do
         {
           destination_airport_code: 'DEL',
           origin_airport_code: 'KOL',
           preference: 'No Animal',
           status: 'published',
           pricing: {
-            id: package_pricing.id,
+            id: parcel_pricing.id,
             price: 4,
           },
           items: [{
-            id: package_item.id,
+            id: parcel_item.id,
             name: 'Box',
           }]
         }
@@ -169,7 +169,7 @@ RSpec.describe Resources::Packages do
         {
           items: [
             {
-              id: package_item.id,
+              id: parcel_item.id,
               _destroy: true,
             }
           ]
@@ -177,52 +177,52 @@ RSpec.describe Resources::Packages do
       end
 
       it 'returns a response of application/json type' do
-        patch request_url, params: package_params
+        patch request_url, params: parcel_params
         expect(response.content_type).to eq('application/json')
       end
 
       it 'returns results with respond code 200' do
-        patch request_url, params: package_params
+        patch request_url, params: parcel_params
         expect(response.status).to eq(200)
       end
 
       it 'return results as an hash' do
-        patch request_url, params: package_params
+        patch request_url, params: parcel_params
         expect(response_json).to be_instance_of(Hash)
       end
 
-      it 'updates package, package items and pricing attributes' do
-        patch request_url, params: package_params
+      it 'updates parcel, parcel items and pricing attributes' do
+        patch request_url, params: parcel_params
 
-        package.reload
+        parcel.reload
 
-        expect(package.origin_airport_code).to eq('KOL')
-        expect(package.destination_airport_code).to eq('DEL')
-        expect(package.preference).to eq('No Animal')
-        expect(package.status).to eq('published')
+        expect(parcel.origin_airport_code).to eq('KOL')
+        expect(parcel.destination_airport_code).to eq('DEL')
+        expect(parcel.preference).to eq('No Animal')
+        expect(parcel.status).to eq('published')
 
-        expect(package_pricing.reload.price).to eq(4)
+        expect(parcel_pricing.reload.price).to eq(4)
 
-        expect(package_item.reload.name).to eq('Box')
+        expect(parcel_item.reload.name).to eq('Box')
       end
 
       it 'creates item' do
         expect { patch request_url, params: create_items_params }.
-          to change {PackageItem.count}.by(1)
+          to change {ParcelItem.count}.by(1)
 
-        expect(package.reload.items.last.name).to eq('Toy')
+        expect(parcel.reload.items.last.name).to eq('Toy')
       end
 
       it 'deletes items' do
         expect { patch request_url, params: delete_items_params }.
-          to change {PackageItem.count}.by(-1)
+          to change {ParcelItem.count}.by(-1)
       end
     end
   end
 
-  describe 'GET /packages/:id' do
+  describe 'GET /parcels/:id' do
     context 'invalid params' do
-      let(:request_url) { '/api/v1/packages/1234' }
+      let(:request_url) { '/api/v1/parcels/1234' }
 
       it 'responds with 404' do
         get request_url, params: {}
@@ -231,8 +231,8 @@ RSpec.describe Resources::Packages do
     end
 
     context 'valid params' do
-      let(:package) { FactoryBot.create(:package) }
-      let(:request_url) { "/api/v1/packages/#{package.id}" }
+      let(:parcel) { FactoryBot.create(:parcel) }
+      let(:request_url) { "/api/v1/parcels/#{parcel.id}" }
 
       it 'returns a response of application/json type' do
         get request_url
@@ -251,9 +251,9 @@ RSpec.describe Resources::Packages do
     end
   end
 
-  describe 'DELETE /packages/:id' do
+  describe 'DELETE /parcels/:id' do
     context 'invalid params' do
-      let(:request_url) { '/api/v1/packages/1234' }
+      let(:request_url) { '/api/v1/parcels/1234' }
 
       it 'responds with 404' do
         delete request_url, params: {}
@@ -262,8 +262,8 @@ RSpec.describe Resources::Packages do
     end
 
     context 'valid params' do
-      let(:package) { FactoryBot.create(:package) }
-      let(:request_url) { "/api/v1/packages/#{package.id}" }
+      let(:parcel) { FactoryBot.create(:parcel) }
+      let(:request_url) { "/api/v1/parcels/#{parcel.id}" }
 
       it 'does not return a body' do
         delete request_url
@@ -282,12 +282,12 @@ RSpec.describe Resources::Packages do
     end
   end
 
-  describe 'GET /packages/search' do
-    let(:request_url) { '/api/v1/packages/search/' }
+  describe 'GET /parcels/search' do
+    let(:request_url) { '/api/v1/parcels/search/' }
 
     let(:airport_a) { FactoryBot.create(:airport, code: 'DAC') }
     let(:airport_b) { FactoryBot.create(:airport, code: 'DAD',) }
-    let!(:package) { FactoryBot.create(:package, origin: airport_a, destination: airport_b) }
+    let!(:parcel) { FactoryBot.create(:parcel, origin: airport_a, destination: airport_b) }
 
     context 'invalid params' do
       it 'responds with 422 status without required params' do
