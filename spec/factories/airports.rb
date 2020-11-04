@@ -21,3 +21,7 @@ end
 #  index_airports_on_city_id  (city_id)
 #  index_airports_on_name     (name)
 #
+# Foreign Keys
+#
+#  fk_rails_c7b6438655  (city_id => cities.id)
+#

@@ -16,6 +16,7 @@
 #
 # Foreign Keys
 #
+#  fk_rails_7f0e63a6c4  (trip_id => trips.id)
 #  fk_rails_809d280049  (currency_code => currencies.code)
 #
 FactoryBot.define do

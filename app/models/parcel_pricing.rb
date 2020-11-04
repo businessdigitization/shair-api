@@ -24,5 +24,6 @@ end
 #
 # Foreign Keys
 #
+#  fk_rails_19ac3f04f4  (parcel_id => parcels.id)
 #  fk_rails_e46bd2e8b8  (currency_code => currencies.code)
 #

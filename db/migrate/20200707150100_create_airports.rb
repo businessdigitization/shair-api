@@ -3,7 +3,7 @@ class CreateAirports < ActiveRecord::Migration[6.0]
     create_table :airports, id: false do |t|
       t.string :name, null: false, index: true
       t.string :code, primary_key: true
-      t.references :city, index: true
+      t.references :city, foreign_key: true
       t.timestamps
     end
   end

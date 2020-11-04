@@ -5,6 +5,7 @@ RSpec.describe Entities::Booking do
   let(:parcel) { FactoryBot.create(:parcel) }
   let!(:parcel_pricing) { FactoryBot.create(:parcel_pricing, parcel: parcel, currency: currency) }
   let!(:parcel_item) { FactoryBot.create(:parcel_item, parcel: parcel) }
+  let(:item_type) { parcel_item.item_type }
 
   let(:trip) { FactoryBot.create(:trip) }
   let!(:trip_pricing) { FactoryBot.create(:trip_pricing, trip: trip, currency: currency) }
@@ -63,6 +64,11 @@ RSpec.describe Entities::Booking do
               'name' => parcel_item.name,
               'description' => parcel_item.description,
               'count' => parcel_item.count,
+              'item_type' => {
+                'id' => item_type.id,
+                'name' => item_type.name,
+                'description' => item_type.description,
+              }
             }
           ],
           'pricing' => {

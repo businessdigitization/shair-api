@@ -36,6 +36,7 @@ module Resources
         optional :items, as: :items_attributes, type: Array do
           requires :count, type: Integer
           requires :name, type: String
+          requires :item_type_id, type: Integer
           optional :description, type: String
         end
       end
@@ -83,12 +84,14 @@ module Resources
             optional :count, type: Integer
             optional :name, type: String
             optional :description, type: String
+            optional :item_type_id, type: Integer
             optional :_destroy, type: Boolean
           end
 
           optional :new_items, type: Array do
             requires :count, type: Integer
             requires :name, type: String
+            requires :item_type_id, type: Integer
             optional :description, type: String
           end
         end

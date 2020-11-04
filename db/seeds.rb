@@ -10,5 +10,6 @@ nomanland_airport = Airport.create(name: 'Nomanland Airport', city: nomanland_ci
 trip = Trip.create(transporter: transporter, departure_at: Time.zone.today, origin: ochinpur_airport, destination: nomanland_airport, status: :draft)
 trip_pricing = TripPricing.create(trip: trip, unit_price: 10, minimum_price: 7, currency: currency)
 parcel = Parcel.create(dispatcher: dispatcher, origin: ochinpur_airport, destination: nomanland_airport, status: :draft)
-parcel_item = ParcelItem.create(name: 'Golla', count: 1, parcel: parcel)
+item_type = ParcelItemType.create(name: 'Electronic')
+parcel_item = ParcelItem.create(name: 'Golla', count: 1, parcel: parcel, item_type: item_type)
 booking = Booking.create(parcel: parcel, trip: trip, currency: currency, transporter_proposed_price: 150, status: 'proposed')

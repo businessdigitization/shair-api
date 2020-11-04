@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Entities::ParcelItem do
   let(:parcel_item) { FactoryBot.create(:parcel_item) }
+  let(:item_type) { parcel_item.item_type }
   let(:parcel_item_entity) { Entities::ParcelItem.represent(parcel_item) }
 
   subject { JSON.parse(parcel_item_entity.to_json) }
@@ -13,6 +14,11 @@ RSpec.describe Entities::ParcelItem do
         'name' => parcel_item.name,
         'description' => parcel_item.description,
         'count' => parcel_item.count,
+        'item_type' => {
+          'id' => item_type.id,
+          'name' => item_type.name,
+          'description' => item_type.description,
+        }
       )
   end
 end

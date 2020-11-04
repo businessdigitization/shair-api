@@ -58,13 +58,22 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.string "name", null: false
   end
 
+  create_table "parcel_item_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "parcel_items", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.integer "count", default: 1, null: false
     t.bigint "parcel_id"
+    t.integer "item_type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_type_id"], name: "index_parcel_items_on_item_type_id"
     t.index ["parcel_id"], name: "index_parcel_items_on_parcel_id"
   end
 
@@ -129,13 +138,20 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "airports", "cities"
   add_foreign_key "bookings", "currencies", column: "currency_code", primary_key: "code"
+  add_foreign_key "bookings", "parcels"
+  add_foreign_key "bookings", "trips"
   add_foreign_key "cities", "countries", column: "country_code", primary_key: "code"
+  add_foreign_key "parcel_items", "parcel_item_types", column: "item_type_id"
+  add_foreign_key "parcel_items", "parcels"
   add_foreign_key "parcel_pricings", "currencies", column: "currency_code", primary_key: "code"
+  add_foreign_key "parcel_pricings", "parcels"
   add_foreign_key "parcels", "airports", column: "destination_airport_code", primary_key: "code"
   add_foreign_key "parcels", "airports", column: "origin_airport_code", primary_key: "code"
   add_foreign_key "parcels", "users", column: "dispatcher_email", primary_key: "email"
   add_foreign_key "trip_pricings", "currencies", column: "currency_code", primary_key: "code"
+  add_foreign_key "trip_pricings", "trips"
   add_foreign_key "trips", "airports", column: "destination_airport_code", primary_key: "code"
   add_foreign_key "trips", "airports", column: "origin_airport_code", primary_key: "code"
   add_foreign_key "trips", "users", column: "transporter_email", primary_key: "email"

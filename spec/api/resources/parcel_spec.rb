@@ -1,6 +1,7 @@
 require 'rails_helper'
 RSpec.describe Resources::Parcels do
   let(:response_json) { JSON.parse(response.body) }
+  let!(:item_type) { FactoryBot.create(:parcel_item_type) }
 
   describe 'POST /parcels' do
     let(:request_url) { '/api/v1/parcels' }
@@ -31,12 +32,14 @@ RSpec.describe Resources::Parcels do
           {
             count: 1,
             name: 'Ball',
-            description: 'Cricket Ball'
+            description: 'Cricket Ball',
+            item_type_id: item_type.id,
           },
           {
             count: 10,
             name: 'Mobile',
-            description: 'Samsung'
+            description: 'Samsung',
+            item_type_id: item_type.id,
           }
         ]
       }
@@ -80,12 +83,22 @@ RSpec.describe Resources::Parcels do
             'name' => 'Ball',
             'description' => 'Cricket Ball',
             'count' => 1,
+            'item_type' => {
+              'id' => item_type.id,
+              'name' => item_type.name,
+              'description' => item_type.description,
+            }
           },
           {
             'id' => ParcelItem.find_by(name: 'Mobile').id,
             'name' => 'Mobile',
             'description' => 'Samsung',
             'count' => 10,
+            'item_type' => {
+              'id' => item_type.id,
+              'name' => item_type.name,
+              'description' => item_type.description,
+            }
           }],
           'pricing' => {
             'id' => ParcelPricing.last.id,
@@ -159,7 +172,8 @@ RSpec.describe Resources::Parcels do
           new_items: [
             {
               name: 'Toy',
-              count: 3
+              count: 3,
+              item_type_id: item_type.id,
             }
           ]
         }
