@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe ParcelItemType do
+RSpec.describe ParcelItemCategory do
   it 'has a valid factory' do
-    factory = FactoryBot.build(:parcel_item)
+    factory = FactoryBot.build(:parcel_item_category)
     expect(factory).to be_valid
   end
 

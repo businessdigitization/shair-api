@@ -13,7 +13,6 @@ module Entities
     end
 
     expose :items, with: Entities::ParcelItem
-    expose :items_categories
     expose :pricing, with: Entities::ParcelPricing
     expose :preference
   end

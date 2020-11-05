@@ -1,12 +1,12 @@
 FactoryBot.define do
-  factory :parcel_item_type do
+  factory :parcel_item_category do
     name { 'Home Appliance'}
   end
 end
 
 # == Schema Information
 #
-# Table name: parcel_item_types
+# Table name: parcel_item_categories
 #
 #  id          :bigint           not null, primary key
 #  description :string

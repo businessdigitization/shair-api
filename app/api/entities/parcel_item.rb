@@ -4,6 +4,6 @@ module Entities
     expose :name
     expose :description
     expose :count
-    expose :item_type, with: Entities::ParcelItemType
+    expose :category, with: Entities::ParcelItemCategory
   end
 end

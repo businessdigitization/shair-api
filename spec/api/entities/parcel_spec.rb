@@ -4,7 +4,7 @@ RSpec.describe Entities::Parcel do
   let(:parcel) { FactoryBot.create(:parcel) }
   let!(:parcel_pricing) { FactoryBot.create(:parcel_pricing, parcel: parcel) }
   let!(:parcel_item) { FactoryBot.create(:parcel_item, parcel: parcel) }
-  let(:item_type) { parcel_item.item_type }
+  let(:item_category) { parcel_item.category }
   let(:parcel_entity) { Entities::Parcel.represent(parcel) }
 
   subject { JSON.parse(parcel_entity.to_json) }
@@ -48,14 +48,13 @@ RSpec.describe Entities::Parcel do
             'name' => parcel_item.name,
             'description' => parcel_item.description,
             'count' => parcel_item.count,
-            'item_type' => {
-              'id' => item_type.id,
-              'name' => item_type.name,
-              'description' => item_type.description,
+            'category' => {
+              'id' => item_category.id,
+              'name' => item_category.name,
+              'description' => item_category.description,
             }
           }
         ],
-        'items_categories' => item_type.name,
         'pricing' => {
           'id' => parcel_pricing.id,
           'price' => parcel_pricing.price,

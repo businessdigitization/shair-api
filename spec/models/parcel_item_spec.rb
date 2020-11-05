@@ -8,7 +8,7 @@ RSpec.describe ParcelItem do
 
   describe 'associations' do
     it { is_expected.to belong_to(:parcel).inverse_of(:items) }
-    it { is_expected.to belong_to(:item_type) }
+    it { is_expected.to belong_to(:category) }
   end
 
   describe 'validation' do

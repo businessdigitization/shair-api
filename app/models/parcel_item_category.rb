@@ -1,10 +1,10 @@
-class ParcelItemType < ApplicationRecord
+class ParcelItemCategory < ApplicationRecord
   validates :name, presence: true
 end
 
 # == Schema Information
 #
-# Table name: parcel_item_types
+# Table name: parcel_item_categories
 #
 #  id          :bigint           not null, primary key
 #  description :string

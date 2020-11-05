@@ -57,5 +57,5 @@ class API < Grape::API
   mount Resources::Parcels
   mount Resources::Trips
   mount Resources::Airports
-  mount Resources::ParcelItemTypes
+  mount Resources::ParcelItemCategories
 end

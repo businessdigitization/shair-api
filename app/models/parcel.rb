@@ -8,7 +8,7 @@ class Parcel < ApplicationRecord
 
   has_one :pricing, class_name: 'ParcelPricing', dependent: :destroy, inverse_of: :parcel
   has_many :items, class_name: 'ParcelItem', dependent: :destroy, inverse_of: :parcel
-  has_many :item_types, through: :items
+  has_many :item_categories, through: :items, source: :category
   has_many :bookings, inverse_of: :parcel
 
   validates :status, presence: true
@@ -18,10 +18,6 @@ class Parcel < ApplicationRecord
   accepts_nested_attributes_for :items, allow_destroy: true
 
   after_initialize :init
-
-  def items_categories
-    item_types.pluck(:name).uniq.to_sentence
-  end
 
   private
 
