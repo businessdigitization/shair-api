@@ -1,12 +1,12 @@
 class AuthenticateUser
-  attr_accessor :headers
+  attr_accessor :auth_header
 
-  def self.call(headers = {})
-    new(headers).call
+  def self.call(auth_header = {})
+    new(auth_header).call
   end
 
-  def initialize(headers)
-    @headers = headers
+  def initialize(auth_header)
+    @auth_header = auth_header
   end
 
   def call
@@ -24,8 +24,8 @@ class AuthenticateUser
   end
 
   def http_auth_header
-    if headers['Authorization'].present?
-      headers['Authorization'].split(' ').last
+    if auth_header.present?
+      auth_header.split(' ').last
     end
   end
 end

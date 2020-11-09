@@ -13,6 +13,8 @@ RSpec.describe Resources::Trips do
     let!(:transporter) { FactoryBot.create(:user, email: 'transporter@example.com') }
     let!(:currency) { FactoryBot.create(:currency, code: 'BDT') }
 
+    let(:auth_token) { generate_access_token(transporter) }
+
     let(:trip_params) do
       {
         destination_airport_code: 'LHR',
@@ -43,7 +45,7 @@ RSpec.describe Resources::Trips do
 
       it 'responds with 422 status without required params' do
         required_params.each do |required_param|
-          post request_url, params: trip_params.except(required_param)
+          post request_url, params: trip_params.except(required_param), headers: auth_token
           expect(response.status).to eq(422)
         end
       end
@@ -97,17 +99,18 @@ RSpec.describe Resources::Trips do
       end
 
       it 'returns a response of application/json type' do
-        post request_url, params: trip_params
+        post request_url, params: trip_params, headers: auth_token
+
         expect(response.content_type).to eq('application/json')
       end
 
       it 'returns results with respond code 201' do
-        post request_url, params: trip_params
+        post request_url, params: trip_params, headers: auth_token
         expect(response.status).to eq(201)
       end
 
       it 'returns expected result' do
-        post request_url, params: trip_params
+        post request_url, params: trip_params, headers: auth_token
         expect(response_json).to eq(expected_result)
       end
     end
@@ -117,12 +120,13 @@ RSpec.describe Resources::Trips do
     let!(:trip) { FactoryBot.create(:trip) }
     let!(:trip_pricing) { FactoryBot.create(:trip_pricing, trip: trip) }
     let(:request_url) { "/api/v1/trips/#{trip.id}" }
+    let(:auth_token) { generate_access_token(trip.transporter) }
 
     context 'invalid params' do
       let(:request_url) { '/api/v1/trips/1234' }
 
       it 'responds with 404' do
-        patch request_url, params: {}
+        patch request_url, params: {}, headers: auth_token
         expect(response.status).to eq(404)
       end
     end
@@ -152,22 +156,22 @@ RSpec.describe Resources::Trips do
       end
 
       it 'returns a response of application/json type' do
-        patch request_url, params: trip_params
+        patch request_url, params: trip_params, headers: auth_token
         expect(response.content_type).to eq('application/json')
       end
 
       it 'returns results with respond code 200' do
-        patch request_url, params: trip_params
+        patch request_url, params: trip_params, headers: auth_token
         expect(response.status).to eq(200)
       end
 
       it 'return results as an hash' do
-        patch request_url, params: trip_params
+        patch request_url, params: trip_params, headers: auth_token
         expect(response_json).to be_instance_of(Hash)
       end
 
       it 'updates trip and pricing attributes' do
-        patch request_url, params: trip_params
+        patch request_url, params: trip_params, headers: auth_token
 
         trip.reload
 
@@ -221,9 +225,10 @@ RSpec.describe Resources::Trips do
   describe 'DELETE /trips/:id' do
     context 'invalid params' do
       let(:request_url) { '/api/v1/trips/1234' }
+      let(:auth_token) { generate_access_token }
 
       it 'responds with 404' do
-        delete request_url, params: {}
+        delete request_url, params: {}, headers: auth_token
         expect(response.status).to eq(404)
       end
     end
@@ -231,19 +236,20 @@ RSpec.describe Resources::Trips do
     context 'valid params' do
       let(:trip) { FactoryBot.create(:trip) }
       let(:request_url) { "/api/v1/trips/#{trip.id}" }
+      let(:auth_token) { generate_access_token(trip.transporter) }
 
       it 'does not return a body' do
-        delete request_url
+        delete request_url, headers: auth_token
         expect(response.content_type).to be_nil
       end
 
       it 'returns results with respond code 204' do
-        delete request_url
+        delete request_url, headers: auth_token
         expect(response.status).to eq(204)
       end
 
       it 'return results as an hash' do
-        get request_url
+        get request_url , headers: auth_token
         expect(response_json).to be_instance_of(Hash)
       end
     end

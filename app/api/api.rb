@@ -38,7 +38,7 @@ class API < Grape::API
     end
 
     def current_user
-      @current_user ||= AuthenticateUser.call(@headers)
+      @current_user ||= AuthenticateUser.call(@headers['Authorization'])
     end
 
     def authenticate!
