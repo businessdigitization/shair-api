@@ -133,7 +133,8 @@ ActiveRecord::Schema.define(version: 2020_09_13_135456) do
   end
 
   create_table "users", primary_key: "email", id: :citext, force: :cascade do |t|
-    t.citext "name"
+    t.citext "name", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

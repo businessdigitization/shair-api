@@ -13,14 +13,17 @@ class User < ApplicationRecord
   validates :email, format: { with: EMAIL_REGEXP }
   validates :name, :email, presence: true
   validates :email, uniqueness: true
+
+  has_secure_password
 end
 
 # == Schema Information
 #
 # Table name: users
 #
-#  email      :citext           not null, primary key
-#  name       :citext
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  email           :citext           not null, primary key
+#  name            :citext           not null
+#  password_digest :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #

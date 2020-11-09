@@ -1,5 +1,5 @@
-dispatcher = User.create(name: 'Faruk', email: 'faruk@gmail.com')
-transporter = User.create(name: 'Tuly', email: 'tuly@gmail.com')
+dispatcher = User.create(name: 'Faruk', email: 'faruk@gmail.com', password: 'Som3324@##$pass')
+transporter = User.create(name: 'Tuly', email: 'tuly@gmail.com', , password: 'Som3324@##$pass')
 currency = Currency.create(name: 'Bangladeshi Taka', code: 'BDT')
 ochinpur = Country.create(name: 'Ochinpur', code: 'XU')
 nomanland = Country.create(name: 'Nomanland', code: 'XO')
