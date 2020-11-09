@@ -37,6 +37,8 @@ module Resources
       end
 
       post do
+        authenticate!
+
         trip = Trip.create(permitted_params)
         present trip, with: Entities::Trip
       end
@@ -50,6 +52,8 @@ module Resources
 
         desc 'Delete a trip'
         delete do
+          authenticate!
+
           Trip.find(params[:id]).destroy
           body false
         end
@@ -76,6 +80,8 @@ module Resources
         end
 
         patch do
+          authenticate!
+
           trip = Trip.find(params[:id])
           trip.update!(permitted_params)
           present trip, with: Entities::Trip

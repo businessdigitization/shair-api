@@ -1,6 +1,7 @@
 module Resources
   class Airports < Grape::API
     resources :airports do
+
       desc 'Search Airport'
       params do
         requires :query, type: String

@@ -42,6 +42,8 @@ module Resources
       end
 
       post do
+        authenticate!
+
         parcel = Parcel.create!(permitted_params)
         present parcel, with: Entities::Parcel
       end
@@ -55,6 +57,8 @@ module Resources
 
         desc 'Delete a parcel'
         delete do
+          authenticate!
+
           Parcel.find(params[:id]).destroy
           body false
         end
@@ -97,7 +101,9 @@ module Resources
         end
 
         patch do
-          parcel = ParcelService::Update.call(permitted_params)
+          authenticate!
+
+          parcel = ParcelService::Update.call(permitted_params.merge!(id: params[:id]))
           present parcel, with: Entities::Parcel
         end
       end

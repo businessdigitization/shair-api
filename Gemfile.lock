@@ -120,6 +120,7 @@ GEM
       rack
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    jwt (2.2.2)
     kaminari-core (1.2.1)
     kaminari-grape (1.0.1)
       grape
@@ -242,6 +243,7 @@ DEPENDENCIES
   grape-entity
   grape-kaminari
   grape_logging
+  jwt
   kaminari-grape
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)

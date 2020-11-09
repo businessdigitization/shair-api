@@ -30,11 +30,19 @@ class API < Grape::API
     # Strong Parameters
     #
     def permitted_params
-      declared(params, include_missing: false).merge!(id: params[:id])
+      declared(params, include_missing: false)
     end
 
     def resource_params
       permitted_params.except(:page, :per_page, :offset)
+    end
+
+    def current_user
+      @current_user ||= AuthenticateUser.call(@headers)
+    end
+
+    def authenticate!
+      error!('401 Unauthorized', 401) unless current_user
     end
   end
 
@@ -54,6 +62,7 @@ class API < Grape::API
   end
 
   # Resources
+  mount Resources::Users
   mount Resources::Parcels
   mount Resources::Trips
   mount Resources::Airports
