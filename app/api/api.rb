@@ -38,7 +38,8 @@ class API < Grape::API
     end
 
     def current_user
-      @current_user ||= AuthenticateUser.call(@headers['Authorization'])
+      token = @headers['Authorization'].try(:split, ' ').try(:last)
+      @current_user ||= AuthenticationService::AuthenticateByToken.call(token)
     end
 
     def authenticate!

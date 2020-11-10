@@ -13,7 +13,7 @@ RSpec.describe Resources::Parcels do
     let(:origin_country) { origin.city.country }
     let!(:dispatcher) { FactoryBot.create(:user, email: 'dispatcher@example.com') }
     let!(:currency) { FactoryBot.create(:currency, code: 'BDT') }
-    let(:auth_token) { generate_access_token(dispatcher) }
+    let(:auth_header) { generate_auth_header(dispatcher) }
 
     let(:parcel_params) do
       {
@@ -115,17 +115,17 @@ RSpec.describe Resources::Parcels do
       end
 
       it 'returns a response of application/json type' do
-        post request_url, params: parcel_params, headers: auth_token
+        post request_url, params: parcel_params, headers: auth_header
         expect(response.content_type).to eq('application/json')
       end
 
       it 'returns results with respond code 201' do
-        post request_url, params: parcel_params, headers: auth_token
+        post request_url, params: parcel_params, headers: auth_header
         expect(response.status).to eq(201)
       end
 
       it 'returns expected result' do
-        post request_url, params: parcel_params, headers: auth_token
+        post request_url, params: parcel_params, headers: auth_header
         expect(response_json).to eq(expected_result)
       end
     end
@@ -136,13 +136,13 @@ RSpec.describe Resources::Parcels do
     let!(:parcel_pricing) { FactoryBot.create(:parcel_pricing, parcel: parcel) }
     let!(:parcel_item) { FactoryBot.create(:parcel_item, name: 'Paper Book', parcel: parcel) }
     let(:request_url) { "/api/v1/parcels/#{parcel.id}" }
-    let(:auth_token) { generate_access_token(parcel.dispatcher) }
+    let(:auth_header) { generate_auth_header(parcel.dispatcher) }
 
     context 'invalid params' do
       let(:request_url) { '/api/v1/parcels/1234' }
 
       it 'responds with 404' do
-        patch request_url, params: {}, headers: auth_token
+        patch request_url, params: {}, headers: auth_header
         expect(response.status).to eq(404)
       end
     end
@@ -193,22 +193,22 @@ RSpec.describe Resources::Parcels do
       end
 
       it 'returns a response of application/json type' do
-        patch request_url, params: parcel_params, headers: auth_token
+        patch request_url, params: parcel_params, headers: auth_header
         expect(response.content_type).to eq('application/json')
       end
 
       it 'returns results with respond code 200' do
-        patch request_url, params: parcel_params, headers: auth_token
+        patch request_url, params: parcel_params, headers: auth_header
         expect(response.status).to eq(200)
       end
 
       it 'return results as an hash' do
-        patch request_url, params: parcel_params, headers: auth_token
+        patch request_url, params: parcel_params, headers: auth_header
         expect(response_json).to be_instance_of(Hash)
       end
 
       it 'updates parcel, parcel items and pricing attributes' do
-        patch request_url, params: parcel_params, headers: auth_token
+        patch request_url, params: parcel_params, headers: auth_header
 
         parcel.reload
 
@@ -223,14 +223,14 @@ RSpec.describe Resources::Parcels do
       end
 
       it 'creates item' do
-        expect { patch request_url, params: create_items_params, headers: auth_token }.
+        expect { patch request_url, params: create_items_params, headers: auth_header }.
           to change {ParcelItem.count}.by(1)
 
         expect(parcel.reload.items.last.name).to eq('Toy')
       end
 
       it 'deletes items' do
-        expect { patch request_url, params: delete_items_params, headers: auth_token }.
+        expect { patch request_url, params: delete_items_params, headers: auth_header }.
           to change {ParcelItem.count}.by(-1)
       end
     end
@@ -270,10 +270,10 @@ RSpec.describe Resources::Parcels do
   describe 'DELETE /parcels/:id' do
     context 'invalid params' do
       let(:request_url) { '/api/v1/parcels/1234' }
-      let(:auth_token) { generate_access_token }
+      let(:auth_header) { generate_auth_header }
 
       it 'responds with 404' do
-        delete request_url, params: {}, headers: auth_token
+        delete request_url, params: {}, headers: auth_header
         expect(response.status).to eq(404)
       end
     end
@@ -281,20 +281,20 @@ RSpec.describe Resources::Parcels do
     context 'valid params' do
       let(:parcel) { FactoryBot.create(:parcel) }
       let(:request_url) { "/api/v1/parcels/#{parcel.id}" }
-      let(:auth_token) { generate_access_token(parcel.dispatcher) }
+      let(:auth_header) { generate_auth_header(parcel.dispatcher) }
 
       it 'does not return a body' do
-        delete request_url, headers: auth_token
+        delete request_url, headers: auth_header
         expect(response.content_type).to be_nil
       end
 
       it 'returns results with respond code 204' do
-        delete request_url, headers: auth_token
+        delete request_url, headers: auth_header
         expect(response.status).to eq(204)
       end
 
       it 'return results as an hash' do
-        get request_url, headers: auth_token
+        get request_url, headers: auth_header
         expect(response_json).to be_instance_of(Hash)
       end
     end

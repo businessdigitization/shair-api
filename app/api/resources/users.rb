@@ -11,7 +11,7 @@ module Resources
       post 'register' do
 
         user = User.create!(permitted_params)
-        GenerateAuthToken.call(user.email, user.password)
+        AuthenticationService::AuthenticateByUserCredentials.call(user.email, user.password)
       end
 
       desc 'Log in'
@@ -21,7 +21,7 @@ module Resources
       end
 
       post 'log_in' do
-        GenerateAuthToken.call(permitted_params[:email], permitted_params[:password])
+        AuthenticationService::AuthenticateByUserCredentials.call(permitted_params[:email], permitted_params[:password])
       end
     end
   end

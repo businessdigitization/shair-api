@@ -1,7 +1,7 @@
 module Helpers
-  def generate_access_token(user = nil)
+  def generate_auth_header(user = nil)
     user ||= FactoryBot.create(:user)
-    auth_token = 'Bearer ' + GenerateAuthToken.call(user.email, user.password)
+    auth_token = 'Bearer ' + AuthenticationService::AuthenticateByUserCredentials.call(user.email, user.password)
     { "Authorization" => auth_token }
   end
 end
