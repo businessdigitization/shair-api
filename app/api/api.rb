@@ -16,7 +16,8 @@ class API < Grape::API
 
   include Grape::Kaminari
   include ExceptionHandling
-
+  # helpers Pundit
+  # after { verify_authorized }
   version 'v1', using: :path
 
   #

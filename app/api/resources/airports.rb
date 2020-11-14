@@ -8,6 +8,8 @@ module Resources
       end
 
       get 'search' do
+        # authenticate!
+        # authorize Airport, :search?, policy_class: AirportsPolicy
         airports = SearchAirport.call(permitted_params[:query])
         airports = Kaminari.paginate_array(airports)
 
